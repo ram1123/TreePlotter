@@ -19,17 +19,25 @@ Lxplus setting for root 6.04:
     source /afs/cern.ch/sw/lcg/app/releases/ROOT/6.04.02/x86_64-slc6-gcc48-opt/root/bin/thisroot.sh
 
 **How To Run:**
+
 Inputs taken by Macro CompareAdvanced.C:
 
 compareQuantities(bool NormUnity, bool NormLumi, bool ShowEvents, string treeName, string var1, string var2, string xtitle, int nbins, float min, float max, string cut, int n , ... )
 
+
 var1: Name of branch( variable) to plot
+
 var2: not in use now
+
 xtitle: x-axis title. If it is blank then it will set x-axis title as the var1.
+
 cut: define your cut
+
 n: number of root files
 
+
 Note: after enter n, enter n number of root file name but enter like this : first write root file name then its legend, then enter 2nd file name and then its legend, ...., nth root file name and then its legend.
+
 
 
 Method:1: 
