@@ -3,10 +3,10 @@
  * this program plots one branch from different root files on the same histogram 
  * 
  * var1 is the variable that we want to plot
+ * var2 :: presently Not in use
  * 
  * n is the number of input rootfiles 
  * 
- * var2 :: presently Not in use
  * format to enter
  * 
  * 	$root -l
@@ -15,7 +15,7 @@
  * 
  * abc.root is the name of root file  --->>> abc is the legend of abc.root;   similarly others.
  * 
- * void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEvents, string var1, string var2, string xtitle, int nbins, float min, float max, string cut, int n , ... ){
+ * void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEvents, string treeName, string var1, string var2, string xtitle, int nbins, float min, float max, string cut, int n , ... ){
  * 
 */
 #include <string>
@@ -37,7 +37,7 @@
 #include "TStyle.h"
 //#include "CrossSection.h"
 
-void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEvents, string var1, string var2, string xtitle, int nbins, float min, float max, TString cut, int n , ... ){
+void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEvents, const char* treeName, string var1, string var2, string xtitle, int nbins, float min, float max, TString cut, int n , ... ){
 	
     //============= START:: This sets the legend position ============================
 	float a1=0.29;
@@ -89,7 +89,7 @@ void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEvents, string va
 		fname[i]=va_arg(list, char*);
 		tf[i] = new TFile(fname[i]);
 		//tt[i] = (TTree*) tf[i]->Get("demo/tree");
-		tt[i] = (TTree*) tf[i]->Get("otree");
+		tt[i] = (TTree*) tf[i]->Get(treeName);
 		//tt[i] = (TTree*) tf[i]->Get("TreeMaker2/PreSelection");
 		th[i] = new TH1F(Form("th%i",i),"",nbins,min,max);
 		//if (i==1) 
