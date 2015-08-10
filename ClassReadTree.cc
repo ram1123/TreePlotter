@@ -23,309 +23,397 @@ public :
 
    // Declaration of leaf types
 
-   UInt_t          RunNum;
+   Int_t           run;
 
-   UInt_t          LumiBlockNum;
+   Int_t           event;
 
-   UInt_t          EvtNum;
+   Int_t           lumi;
 
-   Int_t           NVtx;
+   Int_t           njets;
 
-   Int_t           isoElectronTracks;
+   Int_t           nPV;
 
-   Int_t           isoMuonTracks;
+   Int_t           issignal;
 
-   Int_t           isoPionTracks;
+   Float_t         wSampleWeight;
 
-   Int_t           Leptons;
+   Float_t         totalEventWeight;
 
-   Int_t           TagLeptonHighPT;
+   Float_t         eff_and_pu_Weight;
 
-   Int_t           NumPhotons;
+   Float_t         pfMET;
 
-   Int_t           METFilters;
+   Float_t         pfMET_Phi;
 
-   Int_t           CSCTightHaloFilter;
+   Float_t         nu_pz_type0;
 
-   Int_t           HBHENoiseFilter;
+   Float_t         nu_pz_type2;
 
-   Int_t           EcalDeadCellTriggerPrimitiveFilter;
+   Float_t         nu_pz_run2;
 
-   Int_t           NJets;
+   Float_t         nu_pz_run2_oth;
 
-   Int_t           BTags;
+   Int_t           nu_pz_run2_type;
 
-   Int_t           ZNum;
+   Int_t           nu_pz_isre;
 
-   Int_t           NJetsclean;
+   Float_t         l_pt;
 
-   Int_t           BTagsclean;
+   Float_t         l_eta;
 
-   Float_t         Weight;
+   Float_t         l_phi;
 
-   Float_t         HT;
+   Float_t         l_e;
 
-   Float_t         MHT;
+   Float_t         ungroomed_jet_pt;
 
-   Float_t         MHT_Phi;
+   Float_t         ungroomed_jet_eta;
 
-   Float_t         DeltaPhi1;
+   Float_t         ungroomed_jet_phi;
 
-   Float_t         DeltaPhi2;
+   Float_t         ungroomed_jet_e;
 
-   Float_t         DeltaPhi3;
+   Float_t         jet_mass_pr;
 
-   Float_t         minDeltaPhiN;
+   Float_t         jet_mass_so;
 
-   Float_t         DeltaPhiN1;
+   Float_t         jet_mass_tr;
 
-   Float_t         DeltaPhiN2;
+   Float_t         jet_mass_fi;
 
-   Float_t         DeltaPhiN3;
+   Float_t         jet_tau2tau1;
 
-   Float_t         METPt;
+   Float_t         ttb_ungroomed_jet_pt;
 
-   Float_t         METPhi;
+   Float_t         ttb_ungroomed_jet_eta;
 
-   Float_t         HTclean;
+   Float_t         ttb_ungroomed_jet_phi;
 
-   Float_t         DeltaPhi1clean;
+   Float_t         ttb_ungroomed_jet_e;
 
-   Float_t         DeltaPhi2clean;
+   Float_t         ttb_jet_mass_pr;
 
-   Float_t         DeltaPhi3clean;
+   Float_t         ttb_jet_mass_so;
 
-   Float_t         MHTclean;
+   Float_t         ttb_jet_mass_tr;
 
-   Float_t         minDeltaPhiNclean;
+   Float_t         ttb_jet_mass_fi;
 
-   Float_t         METPtclean;
+   Float_t         ttb_jet_tau2tau1;
 
-   Float_t         rho;
+   Float_t         ttb_deltaeta_lak8jet;
 
-   UChar_t         JetID;
+   Float_t         W_pt_gen;
 
-   vector<int>     *genParticles_PDGid;
+   Float_t         W_pz_gen;
 
-   vector<int>     *PassTrigger;
+   Float_t         W_rap_gen;
 
-   vector<int>     *MuonCharge;
+   Float_t         genGravMass;
 
-   vector<int>     *ElectronCharge;
+   Float_t         nu_pz_gen;
 
-   vector<int>     *ak4Jets_chargedHadMult;
+   Float_t         nu_pt_gen;
 
-   vector<int>     *ak4Jets_neutralHadMult;
+   Float_t         nu_phi_gen;
 
-   vector<int>     *ak4Jets_photonMult;
+   Float_t         nu_eta_gen;
 
-   vector<int>     *ak4Jets_flavor;
+   Float_t         hadW_pt_gen;
 
-   vector<double>  *photon_isEB;
+   Float_t         hadW_eta_gen;
 
-   vector<double>  *photon_genMatched;
+   Float_t         hadW_phi_gen;
 
-   vector<double>  *photon_hadTowOverEM;
+   Float_t         hadW_e_gen;
 
-   vector<double>  *photon_hasPixelSeed;
+   Float_t         hadW_m_gen;
 
-   vector<double>  *photon_passElectronVeto;
+   Float_t         lepW_pt_gen;
 
-   vector<double>  *photon_pfChargedIso;
+   Float_t         lepW_eta_gen;
 
-   vector<double>  *photon_pfChargedIsoRhoCorr;
+   Float_t         lepW_phi_gen;
 
-   vector<double>  *photon_pfGammaIso;
+   Float_t         lepW_e_gen;
 
-   vector<double>  *photon_pfGammaIsoRhoCorr;
+   Float_t         lepW_m_gen;
 
-   vector<double>  *photon_pfNeutralIso;
+   Float_t         AK8_pt_gen;
 
-   vector<double>  *photon_pfNeutralIsoRhoCorr;
+   Float_t         AK8_eta_gen;
 
-   vector<double>  *photon_sigmaIetaIeta;
+   Float_t         AK8_phi_gen;
 
-   vector<double>  *ak4Jets_CSVdisc;
+   Float_t         AK8_e_gen;
 
-   vector<double>  *ak4Jets_MVAdisc;
+   Float_t         AK8_pruned_mass_gen;
 
-   vector<double>  *ak4Jets_chargeHadEfrac;
+   Float_t         AK8_softdrop_mass_gen;
 
-   vector<double>  *ak4Jets_neutralHadEfrac;
+   Float_t         deltaR_lak8jet;
 
-   vector<double>  *ak4Jets_photonEfrac;
+   Float_t         deltaphi_METak8jet;
 
-   vector<string>  *TriggerNames;
+   Float_t         deltaphi_Vak8jet;
 
-   vector<TLorentzVector> *genParticles;
+   Float_t         v_pt;
 
-   vector<TLorentzVector> *bestPhoton;
+   Float_t         v_eta;
 
-   vector<TLorentzVector> *photonCands;
+   Float_t         v_phi;
 
-   vector<TLorentzVector> *Zp4;
+   Float_t         v_mt;
 
-   vector<TLorentzVector> *Muons;
+   Float_t         mass_lvj_type0;
 
-   vector<TLorentzVector> *Electrons;
+   Float_t         mass_lvj_type2;
 
-   vector<TLorentzVector> *ak4Jets;
+   Float_t         mass_lvj_run2;
 
-   vector<TLorentzVector> *ak4JetsRaw;
+   Int_t           nBTagJet_loose;
+
+   Int_t           nBTagJet_medium;
+
+   Int_t           nBTagJet_tight;
+
+   Float_t         mass_leptonic_closerjet;
+
+   Float_t         mass_ungroomedjet_closerjet;
+
+   Float_t         AK8_closerjet_pt;
+
+   Float_t         AK8_closerjet_eta;
+
+   Float_t         AK8_closerjet_phi;
+
+   Float_t         AK8_closerjet_e;
+
+   Float_t         vbf_maxpt_j1_pt;
+
+   Float_t         vbf_maxpt_j1_eta;
+
+   Float_t         vbf_maxpt_j1_phi;
+
+   Float_t         vbf_maxpt_j1_e;
+
+   Float_t         vbf_maxpt_j1_bDiscriminatorCSV;
+
+   Float_t         vbf_maxpt_j2_pt;
+
+   Float_t         vbf_maxpt_j2_eta;
+
+   Float_t         vbf_maxpt_j2_phi;
+
+   Float_t         vbf_maxpt_j2_e;
+
+   Float_t         vbf_maxpt_j2_bDiscriminatorCSV;
+
+   Float_t         vbf_maxpt_jj_pt;
+
+   Float_t         vbf_maxpt_jj_eta;
+
+   Float_t         vbf_maxpt_jj_phi;
+
+   Float_t         vbf_maxpt_jj_m;
 
 
 
    // List of branches
 
-   TBranch        *b_RunNum;   //!
+   TBranch        *b_run;   //!
 
-   TBranch        *b_LumiBlockNum;   //!
+   TBranch        *b_event;   //!
 
-   TBranch        *b_EvtNum;   //!
+   TBranch        *b_lumi;   //!
 
-   TBranch        *b_NVtx;   //!
+   TBranch        *b_njets;   //!
 
-   TBranch        *b_isoElectronTracks;   //!
+   TBranch        *b_nPV;   //!
 
-   TBranch        *b_isoMuonTracks;   //!
+   TBranch        *b_issignal;   //!
 
-   TBranch        *b_isoPionTracks;   //!
+   TBranch        *b_wSampleWeight;   //!
 
-   TBranch        *b_Leptons;   //!
+   TBranch        *b_totalEventWeight;   //!
 
-   TBranch        *b_TagLeptonHighPT;   //!
+   TBranch        *b_eff_and_pu_Weight;   //!
 
-   TBranch        *b_NumPhotons;   //!
+   TBranch        *b_pfMET;   //!
 
-   TBranch        *b_METFilters;   //!
+   TBranch        *b_pfMET_Phi;   //!
 
-   TBranch        *b_CSCTightHaloFilter;   //!
+   TBranch        *b_nu_pz_type0;   //!
 
-   TBranch        *b_HBHENoiseFilter;   //!
+   TBranch        *b_nu_pz_type2;   //!
 
-   TBranch        *b_EcalDeadCellTriggerPrimitiveFilter;   //!
+   TBranch        *b_nu_pz_run2;   //!
 
-   TBranch        *b_NJets;   //!
+   TBranch        *b_nu_pz_run2_oth;   //!
 
-   TBranch        *b_BTags;   //!
+   TBranch        *b_nu_pz_run2_type;   //!
 
-   TBranch        *b_ZNum;   //!
+   TBranch        *b_nu_pz_isre;   //!
 
-   TBranch        *b_NJetsclean;   //!
+   TBranch        *b_l_pt;   //!
 
-   TBranch        *b_BTagsclean;   //!
+   TBranch        *b_l_eta;   //!
 
-   TBranch        *b_Weight;   //!
+   TBranch        *b_l_phi;   //!
 
-   TBranch        *b_HT;   //!
+   TBranch        *b_l_e;   //!
 
-   TBranch        *b_MHT;   //!
+   TBranch        *b_ungroomed_jet_pt;   //!
 
-   TBranch        *b_MHT_Phi;   //!
+   TBranch        *b_ungroomed_jet_eta;   //!
 
-   TBranch        *b_DeltaPhi1;   //!
+   TBranch        *b_ungroomed_jet_phi;   //!
 
-   TBranch        *b_DeltaPhi2;   //!
+   TBranch        *b_ungroomed_jet_e;   //!
 
-   TBranch        *b_DeltaPhi3;   //!
+   TBranch        *b_jet_mass_pr;   //!
 
-   TBranch        *b_minDeltaPhiN;   //!
+   TBranch        *b_jet_mass_so;   //!
 
-   TBranch        *b_DeltaPhiN1;   //!
+   TBranch        *b_jet_mass_tr;   //!
 
-   TBranch        *b_DeltaPhiN2;   //!
+   TBranch        *b_jet_mass_fi;   //!
 
-   TBranch        *b_DeltaPhiN3;   //!
+   TBranch        *b_jet_tau2tau1;   //!
 
-   TBranch        *b_METPt;   //!
+   TBranch        *b_ttb_ungroomed_jet_pt;   //!
 
-   TBranch        *b_METPhi;   //!
+   TBranch        *b_ttb_ungroomed_jet_eta;   //!
 
-   TBranch        *b_HTclean;   //!
+   TBranch        *b_ttb_ungroomed_jet_phi;   //!
 
-   TBranch        *b_DeltaPhi1clean;   //!
+   TBranch        *b_ttb_ungroomed_jet_e;   //!
 
-   TBranch        *b_DeltaPhi2clean;   //!
+   TBranch        *b_ttb_jet_mass_pr;   //!
 
-   TBranch        *b_DeltaPhi3clean;   //!
+   TBranch        *b_ttb_jet_mass_so;   //!
 
-   TBranch        *b_MHTclean;   //!
+   TBranch        *b_ttb_jet_mass_tr;   //!
 
-   TBranch        *b_minDeltaPhiNclean;   //!
+   TBranch        *b_ttb_jet_mass_fi;   //!
 
-   TBranch        *b_METPtclean;   //!
+   TBranch        *b_ttb_jet_tau2tau1;   //!
 
-   TBranch        *b_rho;   //!
+   TBranch        *b_ttb_deltaeta_lak8jet;   //!
 
-   TBranch        *b_JetID;   //!
+   TBranch        *b_W_pt_gen;   //!
 
-   TBranch        *b_genParticles_PDGid;   //!
+   TBranch        *b_W_pz_gen;   //!
 
-   TBranch        *b_PassTrigger;   //!
+   TBranch        *b_W_rap_gen;   //!
 
-   TBranch        *b_MuonCharge;   //!
+   TBranch        *b_genGravMass;   //!
 
-   TBranch        *b_ElectronCharge;   //!
+   TBranch        *b_nu_pz_gen;   //!
 
-   TBranch        *b_ak4Jets_chargedHadMult;   //!
+   TBranch        *b_nu_pt_gen;   //!
 
-   TBranch        *b_ak4Jets_neutralHadMult;   //!
+   TBranch        *b_nu_phi_gen;   //!
 
-   TBranch        *b_ak4Jets_photonMult;   //!
+   TBranch        *b_nu_eta_gen;   //!
 
-   TBranch        *b_ak4Jets_flavor;   //!
+   TBranch        *b_hadW_pt_gen;   //!
 
-   TBranch        *b_photon_isEB;   //!
+   TBranch        *b_hadW_eta_gen;   //!
 
-   TBranch        *b_photon_genMatched;   //!
+   TBranch        *b_hadW_phi_gen;   //!
 
-   TBranch        *b_photon_hadTowOverEM;   //!
+   TBranch        *b_hadW_e_gen;   //!
 
-   TBranch        *b_photon_hasPixelSeed;   //!
+   TBranch        *b_hadW_m_gen;   //!
 
-   TBranch        *b_photon_passElectronVeto;   //!
+   TBranch        *b_lepW_pt_gen;   //!
 
-   TBranch        *b_photon_pfChargedIso;   //!
+   TBranch        *b_lepW_eta_gen;   //!
 
-   TBranch        *b_photon_pfChargedIsoRhoCorr;   //!
+   TBranch        *b_lepW_phi_gen;   //!
 
-   TBranch        *b_photon_pfGammaIso;   //!
+   TBranch        *b_lepW_e_gen;   //!
 
-   TBranch        *b_photon_pfGammaIsoRhoCorr;   //!
+   TBranch        *b_lepW_m_gen;   //!
 
-   TBranch        *b_photon_pfNeutralIso;   //!
+   TBranch        *b_AK8_pt_gen;   //!
 
-   TBranch        *b_photon_pfNeutralIsoRhoCorr;   //!
+   TBranch        *b_AK8_eta_gen;   //!
 
-   TBranch        *b_photon_sigmaIetaIeta;   //!
+   TBranch        *b_AK8_phi_gen;   //!
 
-   TBranch        *b_ak4Jets_CSVdisc;   //!
+   TBranch        *b_AK8_e_gen;   //!
 
-   TBranch        *b_ak4Jets_MVAdisc;   //!
+   TBranch        *b_AK8_pruned_mass_gen;   //!
 
-   TBranch        *b_ak4Jets_chargeHadEfrac;   //!
+   TBranch        *b_AK8_softdrop_mass_gen;   //!
 
-   TBranch        *b_ak4Jets_neutralHadEfrac;   //!
+   TBranch        *b_deltaR_lak8jet;   //!
 
-   TBranch        *b_ak4Jets_photonEfrac;   //!
+   TBranch        *b_deltaphi_METak8jet;   //!
 
-   TBranch        *b_TriggerNames;   //!
+   TBranch        *b_deltaphi_Vak8jet;   //!
 
-   TBranch        *b_genParticles;   //!
+   TBranch        *b_v_pt;   //!
 
-   TBranch        *b_bestPhoton;   //!
+   TBranch        *b_v_eta;   //!
 
-   TBranch        *b_photonCands;   //!
+   TBranch        *b_v_phi;   //!
 
-   TBranch        *b_Zp4;   //!
+   TBranch        *b_v_mt;   //!
 
-   TBranch        *b_Muons;   //!
+   TBranch        *b_mass_lvj_type0;   //!
 
-   TBranch        *b_Electrons;   //!
+   TBranch        *b_mass_lvj_type2;   //!
 
-   TBranch        *b_ak4Jets;   //!
+   TBranch        *b_mass_lvj_run2;   //!
 
-   TBranch        *b_ak4JetsRaw;   //!
+   TBranch        *b_nBTagJet_loose;   //!
+
+   TBranch        *b_nBTagJet_medium;   //!
+
+   TBranch        *b_nBTagJet_tight;   //!
+
+   TBranch        *b_mass_leptonic_closerjet;   //!
+
+   TBranch        *b_mass_ungroomedjet_closerjet;   //!
+
+   TBranch        *b_AK8_closerjet_pt;   //!
+
+   TBranch        *b_AK8_closerjet_eta;   //!
+
+   TBranch        *b_AK8_closerjet_phi;   //!
+
+   TBranch        *b_AK8_closerjet_e;   //!
+
+   TBranch        *b_vbf_maxpt_j1_pt;   //!
+
+   TBranch        *b_vbf_maxpt_j1_eta;   //!
+
+   TBranch        *b_vbf_maxpt_j1_phi;   //!
+
+   TBranch        *b_vbf_maxpt_j1_e;   //!
+
+   TBranch        *b_vbf_maxpt_j1_bDiscriminatorCSV;   //!
+
+   TBranch        *b_vbf_maxpt_j2_pt;   //!
+
+   TBranch        *b_vbf_maxpt_j2_eta;   //!
+
+   TBranch        *b_vbf_maxpt_j2_phi;   //!
+
+   TBranch        *b_vbf_maxpt_j2_e;   //!
+
+   TBranch        *b_vbf_maxpt_j2_bDiscriminatorCSV;   //!
+
+   TBranch        *b_vbf_maxpt_jj_pt;   //!
+
+   TBranch        *b_vbf_maxpt_jj_eta;   //!
+
+   TBranch        *b_vbf_maxpt_jj_phi;   //!
+
+   TBranch        *b_vbf_maxpt_jj_m;   //!
 
 
 
@@ -379,76 +467,6 @@ void ClassReadTree::Init(TTree *tree)
 
 
 
-   // Set object pointer
-
-   genParticles_PDGid = 0;
-
-   PassTrigger = 0;
-
-   MuonCharge = 0;
-
-   ElectronCharge = 0;
-
-   ak4Jets_chargedHadMult = 0;
-
-   ak4Jets_neutralHadMult = 0;
-
-   ak4Jets_photonMult = 0;
-
-   ak4Jets_flavor = 0;
-
-   photon_isEB = 0;
-
-   photon_genMatched = 0;
-
-   photon_hadTowOverEM = 0;
-
-   photon_hasPixelSeed = 0;
-
-   photon_passElectronVeto = 0;
-
-   photon_pfChargedIso = 0;
-
-   photon_pfChargedIsoRhoCorr = 0;
-
-   photon_pfGammaIso = 0;
-
-   photon_pfGammaIsoRhoCorr = 0;
-
-   photon_pfNeutralIso = 0;
-
-   photon_pfNeutralIsoRhoCorr = 0;
-
-   photon_sigmaIetaIeta = 0;
-
-   ak4Jets_CSVdisc = 0;
-
-   ak4Jets_MVAdisc = 0;
-
-   ak4Jets_chargeHadEfrac = 0;
-
-   ak4Jets_neutralHadEfrac = 0;
-
-   ak4Jets_photonEfrac = 0;
-
-   TriggerNames = 0;
-
-   genParticles = 0;
-
-   bestPhoton = 0;
-
-   photonCands = 0;
-
-   Zp4 = 0;
-
-   Muons = 0;
-
-   Electrons = 0;
-
-   ak4Jets = 0;
-
-   ak4JetsRaw = 0;
-
    // Set branch addresses and branch pointers
 
    if (!tree) return;
@@ -461,155 +479,199 @@ void ClassReadTree::Init(TTree *tree)
 
 
 
-   fChain->SetBranchAddress("RunNum", &RunNum, &b_RunNum);
+   fChain->SetBranchAddress("run", &run, &b_run);
 
-   fChain->SetBranchAddress("LumiBlockNum", &LumiBlockNum, &b_LumiBlockNum);
+   fChain->SetBranchAddress("event", &event, &b_event);
 
-   fChain->SetBranchAddress("EvtNum", &EvtNum, &b_EvtNum);
+   fChain->SetBranchAddress("lumi", &lumi, &b_lumi);
 
-   fChain->SetBranchAddress("NVtx", &NVtx, &b_NVtx);
+   fChain->SetBranchAddress("njets", &njets, &b_njets);
 
-   fChain->SetBranchAddress("isoElectronTracks", &isoElectronTracks, &b_isoElectronTracks);
+   fChain->SetBranchAddress("nPV", &nPV, &b_nPV);
 
-   fChain->SetBranchAddress("isoMuonTracks", &isoMuonTracks, &b_isoMuonTracks);
+   fChain->SetBranchAddress("issignal", &issignal, &b_issignal);
 
-   fChain->SetBranchAddress("isoPionTracks", &isoPionTracks, &b_isoPionTracks);
+   fChain->SetBranchAddress("wSampleWeight", &wSampleWeight, &b_wSampleWeight);
 
-   fChain->SetBranchAddress("Leptons", &Leptons, &b_Leptons);
+   fChain->SetBranchAddress("totalEventWeight", &totalEventWeight, &b_totalEventWeight);
 
-   fChain->SetBranchAddress("TagLeptonHighPT", &TagLeptonHighPT, &b_TagLeptonHighPT);
+   fChain->SetBranchAddress("eff_and_pu_Weight", &eff_and_pu_Weight, &b_eff_and_pu_Weight);
 
-   fChain->SetBranchAddress("NumPhotons", &NumPhotons, &b_NumPhotons);
+   fChain->SetBranchAddress("pfMET", &pfMET, &b_pfMET);
 
-   fChain->SetBranchAddress("METFilters", &METFilters, &b_METFilters);
+   fChain->SetBranchAddress("pfMET_Phi", &pfMET_Phi, &b_pfMET_Phi);
 
-   fChain->SetBranchAddress("CSCTightHaloFilter", &CSCTightHaloFilter, &b_CSCTightHaloFilter);
+   fChain->SetBranchAddress("nu_pz_type0", &nu_pz_type0, &b_nu_pz_type0);
 
-   fChain->SetBranchAddress("HBHENoiseFilter", &HBHENoiseFilter, &b_HBHENoiseFilter);
+   fChain->SetBranchAddress("nu_pz_type2", &nu_pz_type2, &b_nu_pz_type2);
 
-   fChain->SetBranchAddress("EcalDeadCellTriggerPrimitiveFilter", &EcalDeadCellTriggerPrimitiveFilter, &b_EcalDeadCellTriggerPrimitiveFilter);
+   fChain->SetBranchAddress("nu_pz_run2", &nu_pz_run2, &b_nu_pz_run2);
 
-   fChain->SetBranchAddress("NJets", &NJets, &b_NJets);
+   fChain->SetBranchAddress("nu_pz_run2_oth", &nu_pz_run2_oth, &b_nu_pz_run2_oth);
 
-   fChain->SetBranchAddress("BTags", &BTags, &b_BTags);
+   fChain->SetBranchAddress("nu_pz_run2_type", &nu_pz_run2_type, &b_nu_pz_run2_type);
 
-   fChain->SetBranchAddress("ZNum", &ZNum, &b_ZNum);
+   fChain->SetBranchAddress("nu_pz_isre", &nu_pz_isre, &b_nu_pz_isre);
 
-   fChain->SetBranchAddress("NJetsclean", &NJetsclean, &b_NJetsclean);
+   fChain->SetBranchAddress("l_pt", &l_pt, &b_l_pt);
 
-   fChain->SetBranchAddress("BTagsclean", &BTagsclean, &b_BTagsclean);
+   fChain->SetBranchAddress("l_eta", &l_eta, &b_l_eta);
 
-   fChain->SetBranchAddress("Weight", &Weight, &b_Weight);
+   fChain->SetBranchAddress("l_phi", &l_phi, &b_l_phi);
 
-   fChain->SetBranchAddress("HT", &HT, &b_HT);
+   fChain->SetBranchAddress("l_e", &l_e, &b_l_e);
 
-   fChain->SetBranchAddress("MHT", &MHT, &b_MHT);
+   fChain->SetBranchAddress("ungroomed_jet_pt", &ungroomed_jet_pt, &b_ungroomed_jet_pt);
 
-   fChain->SetBranchAddress("MHT_Phi", &MHT_Phi, &b_MHT_Phi);
+   fChain->SetBranchAddress("ungroomed_jet_eta", &ungroomed_jet_eta, &b_ungroomed_jet_eta);
 
-   fChain->SetBranchAddress("DeltaPhi1", &DeltaPhi1, &b_DeltaPhi1);
+   fChain->SetBranchAddress("ungroomed_jet_phi", &ungroomed_jet_phi, &b_ungroomed_jet_phi);
 
-   fChain->SetBranchAddress("DeltaPhi2", &DeltaPhi2, &b_DeltaPhi2);
+   fChain->SetBranchAddress("ungroomed_jet_e", &ungroomed_jet_e, &b_ungroomed_jet_e);
 
-   fChain->SetBranchAddress("DeltaPhi3", &DeltaPhi3, &b_DeltaPhi3);
+   fChain->SetBranchAddress("jet_mass_pr", &jet_mass_pr, &b_jet_mass_pr);
 
-   fChain->SetBranchAddress("minDeltaPhiN", &minDeltaPhiN, &b_minDeltaPhiN);
+   fChain->SetBranchAddress("jet_mass_so", &jet_mass_so, &b_jet_mass_so);
 
-   fChain->SetBranchAddress("DeltaPhiN1", &DeltaPhiN1, &b_DeltaPhiN1);
+   fChain->SetBranchAddress("jet_mass_tr", &jet_mass_tr, &b_jet_mass_tr);
 
-   fChain->SetBranchAddress("DeltaPhiN2", &DeltaPhiN2, &b_DeltaPhiN2);
+   fChain->SetBranchAddress("jet_mass_fi", &jet_mass_fi, &b_jet_mass_fi);
 
-   fChain->SetBranchAddress("DeltaPhiN3", &DeltaPhiN3, &b_DeltaPhiN3);
+   fChain->SetBranchAddress("jet_tau2tau1", &jet_tau2tau1, &b_jet_tau2tau1);
 
-   fChain->SetBranchAddress("METPt", &METPt, &b_METPt);
+   fChain->SetBranchAddress("ttb_ungroomed_jet_pt", &ttb_ungroomed_jet_pt, &b_ttb_ungroomed_jet_pt);
 
-   fChain->SetBranchAddress("METPhi", &METPhi, &b_METPhi);
+   fChain->SetBranchAddress("ttb_ungroomed_jet_eta", &ttb_ungroomed_jet_eta, &b_ttb_ungroomed_jet_eta);
 
-   fChain->SetBranchAddress("HTclean", &HTclean, &b_HTclean);
+   fChain->SetBranchAddress("ttb_ungroomed_jet_phi", &ttb_ungroomed_jet_phi, &b_ttb_ungroomed_jet_phi);
 
-   fChain->SetBranchAddress("DeltaPhi1clean", &DeltaPhi1clean, &b_DeltaPhi1clean);
+   fChain->SetBranchAddress("ttb_ungroomed_jet_e", &ttb_ungroomed_jet_e, &b_ttb_ungroomed_jet_e);
 
-   fChain->SetBranchAddress("DeltaPhi2clean", &DeltaPhi2clean, &b_DeltaPhi2clean);
+   fChain->SetBranchAddress("ttb_jet_mass_pr", &ttb_jet_mass_pr, &b_ttb_jet_mass_pr);
 
-   fChain->SetBranchAddress("DeltaPhi3clean", &DeltaPhi3clean, &b_DeltaPhi3clean);
+   fChain->SetBranchAddress("ttb_jet_mass_so", &ttb_jet_mass_so, &b_ttb_jet_mass_so);
 
-   fChain->SetBranchAddress("MHTclean", &MHTclean, &b_MHTclean);
+   fChain->SetBranchAddress("ttb_jet_mass_tr", &ttb_jet_mass_tr, &b_ttb_jet_mass_tr);
 
-   fChain->SetBranchAddress("minDeltaPhiNclean", &minDeltaPhiNclean, &b_minDeltaPhiNclean);
+   fChain->SetBranchAddress("ttb_jet_mass_fi", &ttb_jet_mass_fi, &b_ttb_jet_mass_fi);
 
-   fChain->SetBranchAddress("METPtclean", &METPtclean, &b_METPtclean);
+   fChain->SetBranchAddress("ttb_jet_tau2tau1", &ttb_jet_tau2tau1, &b_ttb_jet_tau2tau1);
 
-   fChain->SetBranchAddress("rho", &rho, &b_rho);
+   fChain->SetBranchAddress("ttb_deltaeta_lak8jet", &ttb_deltaeta_lak8jet, &b_ttb_deltaeta_lak8jet);
 
-   fChain->SetBranchAddress("JetID", &JetID, &b_JetID);
+   fChain->SetBranchAddress("W_pt_gen", &W_pt_gen, &b_W_pt_gen);
 
-   fChain->SetBranchAddress("genParticles_PDGid", &genParticles_PDGid, &b_genParticles_PDGid);
+   fChain->SetBranchAddress("W_pz_gen", &W_pz_gen, &b_W_pz_gen);
 
-   fChain->SetBranchAddress("PassTrigger", &PassTrigger, &b_PassTrigger);
+   fChain->SetBranchAddress("W_rap_gen", &W_rap_gen, &b_W_rap_gen);
 
-   fChain->SetBranchAddress("MuonCharge", &MuonCharge, &b_MuonCharge);
+   fChain->SetBranchAddress("genGravMass", &genGravMass, &b_genGravMass);
 
-   fChain->SetBranchAddress("ElectronCharge", &ElectronCharge, &b_ElectronCharge);
+   fChain->SetBranchAddress("nu_pz_gen", &nu_pz_gen, &b_nu_pz_gen);
 
-   fChain->SetBranchAddress("ak4Jets_chargedHadMult", &ak4Jets_chargedHadMult, &b_ak4Jets_chargedHadMult);
+   fChain->SetBranchAddress("nu_pt_gen", &nu_pt_gen, &b_nu_pt_gen);
 
-   fChain->SetBranchAddress("ak4Jets_neutralHadMult", &ak4Jets_neutralHadMult, &b_ak4Jets_neutralHadMult);
+   fChain->SetBranchAddress("nu_phi_gen", &nu_phi_gen, &b_nu_phi_gen);
 
-   fChain->SetBranchAddress("ak4Jets_photonMult", &ak4Jets_photonMult, &b_ak4Jets_photonMult);
+   fChain->SetBranchAddress("nu_eta_gen", &nu_eta_gen, &b_nu_eta_gen);
 
-   fChain->SetBranchAddress("ak4Jets_flavor", &ak4Jets_flavor, &b_ak4Jets_flavor);
+   fChain->SetBranchAddress("hadW_pt_gen", &hadW_pt_gen, &b_hadW_pt_gen);
 
-   fChain->SetBranchAddress("photon_isEB", &photon_isEB, &b_photon_isEB);
+   fChain->SetBranchAddress("hadW_eta_gen", &hadW_eta_gen, &b_hadW_eta_gen);
 
-   fChain->SetBranchAddress("photon_genMatched", &photon_genMatched, &b_photon_genMatched);
+   fChain->SetBranchAddress("hadW_phi_gen", &hadW_phi_gen, &b_hadW_phi_gen);
 
-   fChain->SetBranchAddress("photon_hadTowOverEM", &photon_hadTowOverEM, &b_photon_hadTowOverEM);
+   fChain->SetBranchAddress("hadW_e_gen", &hadW_e_gen, &b_hadW_e_gen);
 
-   fChain->SetBranchAddress("photon_hasPixelSeed", &photon_hasPixelSeed, &b_photon_hasPixelSeed);
+   fChain->SetBranchAddress("hadW_m_gen", &hadW_m_gen, &b_hadW_m_gen);
 
-   fChain->SetBranchAddress("photon_passElectronVeto", &photon_passElectronVeto, &b_photon_passElectronVeto);
+   fChain->SetBranchAddress("lepW_pt_gen", &lepW_pt_gen, &b_lepW_pt_gen);
 
-   fChain->SetBranchAddress("photon_pfChargedIso", &photon_pfChargedIso, &b_photon_pfChargedIso);
+   fChain->SetBranchAddress("lepW_eta_gen", &lepW_eta_gen, &b_lepW_eta_gen);
 
-   fChain->SetBranchAddress("photon_pfChargedIsoRhoCorr", &photon_pfChargedIsoRhoCorr, &b_photon_pfChargedIsoRhoCorr);
+   fChain->SetBranchAddress("lepW_phi_gen", &lepW_phi_gen, &b_lepW_phi_gen);
 
-   fChain->SetBranchAddress("photon_pfGammaIso", &photon_pfGammaIso, &b_photon_pfGammaIso);
+   fChain->SetBranchAddress("lepW_e_gen", &lepW_e_gen, &b_lepW_e_gen);
 
-   fChain->SetBranchAddress("photon_pfGammaIsoRhoCorr", &photon_pfGammaIsoRhoCorr, &b_photon_pfGammaIsoRhoCorr);
+   fChain->SetBranchAddress("lepW_m_gen", &lepW_m_gen, &b_lepW_m_gen);
 
-   fChain->SetBranchAddress("photon_pfNeutralIso", &photon_pfNeutralIso, &b_photon_pfNeutralIso);
+   fChain->SetBranchAddress("AK8_pt_gen", &AK8_pt_gen, &b_AK8_pt_gen);
 
-   fChain->SetBranchAddress("photon_pfNeutralIsoRhoCorr", &photon_pfNeutralIsoRhoCorr, &b_photon_pfNeutralIsoRhoCorr);
+   fChain->SetBranchAddress("AK8_eta_gen", &AK8_eta_gen, &b_AK8_eta_gen);
 
-   fChain->SetBranchAddress("photon_sigmaIetaIeta", &photon_sigmaIetaIeta, &b_photon_sigmaIetaIeta);
+   fChain->SetBranchAddress("AK8_phi_gen", &AK8_phi_gen, &b_AK8_phi_gen);
 
-   fChain->SetBranchAddress("ak4Jets_CSVdisc", &ak4Jets_CSVdisc, &b_ak4Jets_CSVdisc);
+   fChain->SetBranchAddress("AK8_e_gen", &AK8_e_gen, &b_AK8_e_gen);
 
-   fChain->SetBranchAddress("ak4Jets_MVAdisc", &ak4Jets_MVAdisc, &b_ak4Jets_MVAdisc);
+   fChain->SetBranchAddress("AK8_pruned_mass_gen", &AK8_pruned_mass_gen, &b_AK8_pruned_mass_gen);
 
-   fChain->SetBranchAddress("ak4Jets_chargeHadEfrac", &ak4Jets_chargeHadEfrac, &b_ak4Jets_chargeHadEfrac);
+   fChain->SetBranchAddress("AK8_softdrop_mass_gen", &AK8_softdrop_mass_gen, &b_AK8_softdrop_mass_gen);
 
-   fChain->SetBranchAddress("ak4Jets_neutralHadEfrac", &ak4Jets_neutralHadEfrac, &b_ak4Jets_neutralHadEfrac);
+   fChain->SetBranchAddress("deltaR_lak8jet", &deltaR_lak8jet, &b_deltaR_lak8jet);
 
-   fChain->SetBranchAddress("ak4Jets_photonEfrac", &ak4Jets_photonEfrac, &b_ak4Jets_photonEfrac);
+   fChain->SetBranchAddress("deltaphi_METak8jet", &deltaphi_METak8jet, &b_deltaphi_METak8jet);
 
-   fChain->SetBranchAddress("TriggerNames", &TriggerNames, &b_TriggerNames);
+   fChain->SetBranchAddress("deltaphi_Vak8jet", &deltaphi_Vak8jet, &b_deltaphi_Vak8jet);
 
-   fChain->SetBranchAddress("genParticles", &genParticles, &b_genParticles);
+   fChain->SetBranchAddress("v_pt", &v_pt, &b_v_pt);
 
-   fChain->SetBranchAddress("bestPhoton", &bestPhoton, &b_bestPhoton);
+   fChain->SetBranchAddress("v_eta", &v_eta, &b_v_eta);
 
-   fChain->SetBranchAddress("photonCands", &photonCands, &b_photonCands);
+   fChain->SetBranchAddress("v_phi", &v_phi, &b_v_phi);
 
-   fChain->SetBranchAddress("Zp4", &Zp4, &b_Zp4);
+   fChain->SetBranchAddress("v_mt", &v_mt, &b_v_mt);
 
-   fChain->SetBranchAddress("Muons", &Muons, &b_Muons);
+   fChain->SetBranchAddress("mass_lvj_type0", &mass_lvj_type0, &b_mass_lvj_type0);
 
-   fChain->SetBranchAddress("Electrons", &Electrons, &b_Electrons);
+   fChain->SetBranchAddress("mass_lvj_type2", &mass_lvj_type2, &b_mass_lvj_type2);
 
-   fChain->SetBranchAddress("ak4Jets", &ak4Jets, &b_ak4Jets);
+   fChain->SetBranchAddress("mass_lvj_run2", &mass_lvj_run2, &b_mass_lvj_run2);
 
-   fChain->SetBranchAddress("ak4JetsRaw", &ak4JetsRaw, &b_ak4JetsRaw);
+   fChain->SetBranchAddress("nBTagJet_loose", &nBTagJet_loose, &b_nBTagJet_loose);
+
+   fChain->SetBranchAddress("nBTagJet_medium", &nBTagJet_medium, &b_nBTagJet_medium);
+
+   fChain->SetBranchAddress("nBTagJet_tight", &nBTagJet_tight, &b_nBTagJet_tight);
+
+   fChain->SetBranchAddress("mass_leptonic_closerjet", &mass_leptonic_closerjet, &b_mass_leptonic_closerjet);
+
+   fChain->SetBranchAddress("mass_ungroomedjet_closerjet", &mass_ungroomedjet_closerjet, &b_mass_ungroomedjet_closerjet);
+
+   fChain->SetBranchAddress("AK8_closerjet_pt", &AK8_closerjet_pt, &b_AK8_closerjet_pt);
+
+   fChain->SetBranchAddress("AK8_closerjet_eta", &AK8_closerjet_eta, &b_AK8_closerjet_eta);
+
+   fChain->SetBranchAddress("AK8_closerjet_phi", &AK8_closerjet_phi, &b_AK8_closerjet_phi);
+
+   fChain->SetBranchAddress("AK8_closerjet_e", &AK8_closerjet_e, &b_AK8_closerjet_e);
+
+   fChain->SetBranchAddress("vbf_maxpt_j1_pt", &vbf_maxpt_j1_pt, &b_vbf_maxpt_j1_pt);
+
+   fChain->SetBranchAddress("vbf_maxpt_j1_eta", &vbf_maxpt_j1_eta, &b_vbf_maxpt_j1_eta);
+
+   fChain->SetBranchAddress("vbf_maxpt_j1_phi", &vbf_maxpt_j1_phi, &b_vbf_maxpt_j1_phi);
+
+   fChain->SetBranchAddress("vbf_maxpt_j1_e", &vbf_maxpt_j1_e, &b_vbf_maxpt_j1_e);
+
+   fChain->SetBranchAddress("vbf_maxpt_j1_bDiscriminatorCSV", &vbf_maxpt_j1_bDiscriminatorCSV, &b_vbf_maxpt_j1_bDiscriminatorCSV);
+
+   fChain->SetBranchAddress("vbf_maxpt_j2_pt", &vbf_maxpt_j2_pt, &b_vbf_maxpt_j2_pt);
+
+   fChain->SetBranchAddress("vbf_maxpt_j2_eta", &vbf_maxpt_j2_eta, &b_vbf_maxpt_j2_eta);
+
+   fChain->SetBranchAddress("vbf_maxpt_j2_phi", &vbf_maxpt_j2_phi, &b_vbf_maxpt_j2_phi);
+
+   fChain->SetBranchAddress("vbf_maxpt_j2_e", &vbf_maxpt_j2_e, &b_vbf_maxpt_j2_e);
+
+   fChain->SetBranchAddress("vbf_maxpt_j2_bDiscriminatorCSV", &vbf_maxpt_j2_bDiscriminatorCSV, &b_vbf_maxpt_j2_bDiscriminatorCSV);
+
+   fChain->SetBranchAddress("vbf_maxpt_jj_pt", &vbf_maxpt_jj_pt, &b_vbf_maxpt_jj_pt);
+
+   fChain->SetBranchAddress("vbf_maxpt_jj_eta", &vbf_maxpt_jj_eta, &b_vbf_maxpt_jj_eta);
+
+   fChain->SetBranchAddress("vbf_maxpt_jj_phi", &vbf_maxpt_jj_phi, &b_vbf_maxpt_jj_phi);
+
+   fChain->SetBranchAddress("vbf_maxpt_jj_m", &vbf_maxpt_jj_m, &b_vbf_maxpt_jj_m);
 
    
 

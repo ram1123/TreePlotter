@@ -1,5 +1,5 @@
 echo "root -l -b -q CreatMakeClass.C++\(\"${1}\"\)"
-root -l -b -q CreatMakeClass.C\(\"${1}\"\)
+root -l -b -q CreatMakeClass.C\(\"${1}\",\"${2}\"\)
 
 python HeaderExtracter.py 
 python AppendInHeader.py

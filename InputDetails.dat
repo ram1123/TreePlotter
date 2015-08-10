@@ -1,0 +1,37 @@
+####    Name of tree    #####
+treeName="otree"
+
+
+
+
+####    path of samples #####
+path1="/eos/uscms/store/user/bmahakud/LeptoQuarkSpring15/"
+path2="/eos/uscms/store/user/awhitbe1/PHYS14productionV15/" 
+
+#store_mc_sig="/uscms_data/d3/bmahakud/DevelopingMakeClassCode/TreePlotter/"                
+#store_mc_bkg="/uscms_data/d3/bmahakud/DevelopingMakeClassCode/TreePlotter/"                
+#store_data="/uscms_data/d3/bmahakud/DevelopingMakeClassCode/TreePlotter/"                  
+
+
+store_mc_sig = "/home/ramkrishna/TEMP/AnalysisWWTrees/WWTree_el/"                           
+store_mc_bkg = "/home/ramkrishna/TEMP/AnalysisWWTrees/WWTree_el/"                           
+store_data = "/home/ramkrishna/TEMP/AnalysisWWTrees/WWTree_el/" 
+
+
+####    Name of samples #####
+#list_mc_sig = ["PHYS14.GJets_HT-400to600_Tune4C_13TeV-madgraph-tauola_*_RA2AnalysisTree.root"]
+#list_mc_bkg = ["PHYS14.GJets_HT-400to600_Tune4C_13TeV-madgraph-tauola_*_RA2AnalysisTree.root"]
+#list_data = ["PHYS14.GJets_HT-400to600_Tune4C_13TeV-madgraph-tauola_*_RA2AnalysisTree.root"]
+
+list_mc_sig = ["WWTree_WW.root"]
+list_mc_bkg = ["WWTree_WJets.root"]
+list_data = ["WWTree_data.root"] 
+
+
+####	Name of Branches     ####
+#
+#   Pattern of this arrary is like this:
+#   first put variable and then its bin, min-x and max-x
+#   Then next variable its bin, min-x and max-x, and so on...
+#
+varList = ["nPV","40","0","40","eff_and_pu_Weight","20","0","20","pfMET","30","50","500"]
