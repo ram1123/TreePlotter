@@ -29,7 +29,12 @@ for a in range(0,len(list_mc_sig)):
     print 'TChain* t%i_mc_sig = new TChain("TreeMaker2/PreSelection");'%a
     print ('t%i_mc_sig->Add("%s%s");'%(a, store_mc_sig, list_mc_sig[a]))
     print 'ClassReadTree mc_sig_%i(t%i_mc_sig);'%(a, a)
+    print 'for(int iEv_%i_mc_sig=0;iEv_%i_mc_sig < t%i_mc_sig->GetEntries();iEv_%i_mc_sig++){'%(a, a, a, a)
+    print 't%i_mc_sig->GetEntry(iEv_%i_mc_sig);'%(a, a)    
 
+
+    print '\n'
+    print ' }'
 
     print '\n'
 
@@ -41,6 +46,14 @@ for a in range(0,len(list_mc_bkg)):
     print 'TChain* t%i_mc_bkg = new TChain("TreeMaker2/PreSelection");'%a
     print ('t%i_mc_bkg->Add("%s%s");'%(a, store_mc_bkg, list_mc_bkg[a]))
     print 'ClassReadTree mc_bkg_%i(t%i_mc_bkg);'%(a, a)
+    print 'for(int iEv_%i_mc_bkg=0;iEv_%i_mc_bkg < t%i_mc_bkg->GetEntries();iEv_%i_mc_bkg++){'%(a, a, a, a)
+    print 't%i_mc_bkg->GetEntry(iEv_%i_mc_bkg);'%(a, a)   
+
+
+    print '\n'
+    print ' }'
+
+
     print '\n'
 
 print '\n\n'
@@ -49,8 +62,15 @@ for a in range(0,len(list_data)):
     print 'TChain* t%i_data = new TChain("TreeMaker2/PreSelection");'%a
     print ('t%i_data->Add("%s%s");'%(a, store_data, list_data[a]))
     print 'ClassReadTree mc_data_%i(t%i_mc_data);'%(a, a)
-    print '\n'
+    print 'for(int iEv_%i_data=0;iEv_%i_data < t%i_data->GetEntries();iEv_%i_data++){'%(a, a, a, a)
+    print 't%i_data->GetEntry(iEv_%i_data);'%(a, a)  
 
+
+    print '\n'
+    print ' }'
+
+    print '\n'
+   
 
 print '\n\n'
 
