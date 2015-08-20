@@ -112,23 +112,29 @@ for a in range(0,len(data.list_data)):
     print '\n'
 
 print '\tTCanvas * c1 = new TCanvas("c1","",1);\n'
+print '\tTLegend *leg = new TLegend(0.70,0.80,0.85,0.90,NULL,"brNDC");\n'
 print 'double yMax=0.;\ndouble HistMax;'
 for a in range(0,len(data.list_mc_sig)*len(data.varList)/4):
     print '\tSigHist[%i]->Scale(1/SigHist[%i]->Integral());'%(a, a)
     print '\tHistMax = SigHist[%i]->GetMaximum()*1.15;'%a
     print '\tSigHist[%i]->SetMaximum(TMath::Max(HistMax,yMax));'%a
+    print '\tleg->AddEntry(SigHist[%i],"Signal","l");'%a
     print '\tyMax=HistMax;'
     print '\tSigHist[%i]->Draw();'%a
     print '\tBkgHist[%i]->Scale(1/BkgHist[%i]->Integral());'%(a, a)
     print '\tHistMax = BkgHist[%i]->GetMaximum()*1.15;'%a
     print '\tSigHist[%i]->SetMaximum(TMath::Max(HistMax,yMax));'%a
+    print '\tleg->AddEntry(BkgHist[%i],"Bkg","l");'%a
     print '\tyMax=HistMax;'
     print '\tBkgHist[%i]->Draw("same");'%a
     print '\tDataHist[%i]->Scale(1/DataHist[%i]->Integral());'%(a, a)
+    print '\tDataHist[%i]->Sumw2();'%a
     print '\tHistMax = DataHist[%i]->GetMaximum()*1.15;'%a
     print '\tSigHist[%i]->SetMaximum(TMath::Max(HistMax,yMax));'%a
+    print '\tleg->AddEntry(DataHist[%i],"Data","l");'%a
     print '\tyMax=HistMax;'
     print '\tDataHist[%i]->Draw("same");'%a
+    print '\tleg->Draw("same");'
     print '\tc1->SaveAs("%s.pdf");'%data.varList[a*4]
     print '\tc1->Clear();'
 print '\n\n}'
