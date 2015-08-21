@@ -1,0 +1,19 @@
+VarName = ["NVtx","pt"]
+
+Title = ["Nvtx","pt"]
+
+Range = ["40","0","40"]
+
+FileName = ["plot_TnP1"]
+
+OutPutFileName = ["NVtx"]
+
+treeName = "otree"
+
+Path = "/home/ramkrishna/TEMP/AnalysisWWTrees/output_el/"
+
+DataFile = "WWTree_data_el_17jul.root"
+
+SignalFile = ""
+
+BkgFile = ["WWTree_WJets_50ns.root","WWTree_TTbar_madgraph_50ns.root"]
