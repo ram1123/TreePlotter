@@ -43,8 +43,8 @@ print ''
 
 print 'TFile fData("%s%s");'%(data.Path, data.DataFile)
 print 'TTree *TData = (TTree*)fData.Get("%s");'%data.treeName
-for a in range(0,len(data.BkgFile)):
-    print 'TFile f%i("%s%s");'%(a, data.Path, data.BkgFile[a])
+for a in range(1,len(data.BkgFile)+1):
+    print 'TFile f%i("%s%s");'%(a, data.Path, data.BkgFile[a-1])
     print 'TTree *T%i = (TTree*)f%i.Get("%s");'%(a, a, data.treeName)
 
 print 'TFile * file = new TFile("plot_TnP.root","RECREATE"); '
@@ -57,7 +57,7 @@ print ''
 print 'TCut cut = cutMu && cutJet;'
 print '//========================= Cut Detail Ends =========================================================='
 
-for a in range(0, len(data.VarName)):
+for a in range(1, len(data.VarName)+1):
     print '//========================================================================== canvas %i starts ========='%a
     print ' '
     print 'TCanvas *c%i = new TCanvas("c%i", "c%i",201,27,989,682);'%(a,a,a)
@@ -72,9 +72,9 @@ for a in range(0, len(data.VarName)):
     print 'THStack *hs = new THStack("hs","Number of Vertex");	// Defined Stacked histogram'
     print 'TLegend *tleg%i_8 = new TLegend(0.70,0.80,0.85,0.90,NULL,"brNDC");   // Defined legend'%a
     print ''
-    for b in range(0, len(data.BkgFile)):
-        print 'TH1F *j%i_1 = new TH1F("j%i_1","%s",40,0,40);'%(b, b, data.Title[a])
-        print '\tT%i->Draw("%s>>j%i_1",cut,"goff");'%(b, data.VarName[a], b)
+    for b in range(1, len(data.BkgFile)+1):
+        print 'TH1F *j%i_1 = new TH1F("j%i_1","%s",40,0,40);'%(b, b, data.Title[a-1])
+        print '\tT%i->Draw("%s>>j%i_1",cut,"goff");'%(b, data.VarName[a-1], b)
         print '\tj%i_1->SetLineColor(kBlack);'%b
         print '\tj%i_1->SetLineWidth(2);'%b
         print '\tj%i_1->SetStats(0);'%b
@@ -90,12 +90,13 @@ for a in range(0, len(data.VarName)):
     print 'TH1F *h%i_1 = new TH1F("h%i_1","Ratio",40,0,40);'%(a, a)
     print '//TH1F *h2 = new TH1F("h2","",40,76.,106.);'
     print '//TF1* dedxpf = (TF1*)dedxf->Clone();'
-    print 'TH1F *h%i = (TH1F*)j1_1->Clone();'
-    print 'h1_1->Add(j2_1);'
+    print 'TH1F *h%i = (TH1F*)j%i_1->Clone();'%(a,a)
+    for b in range(1, len(data.BkgFile)+1):
+        print 'h%i_1->Add(j%i_1);'%(a,b)
     print ''
     print 'hs->SetMaximum(1600.);'
     print 'hs->Draw();'
-    print ' pad1->Update();'
+    print 'pad%i->Update();'%a
     print 'j1_1->Draw("sames");'
     print ' pad1->Update();'
     print ''
