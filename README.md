@@ -20,31 +20,29 @@ Lxplus setting for root 6.04:
 
 **How To Run:**
 
-Inputs taken by Macro CompareAdvanced.C:
+1. Modify **InputDetails.dat**[1] according to its format.
 
-compareQuantities(bool NormUnity, bool NormLumi, bool ShowEvents, string treeName, string var1, string var2, string xtitle, int nbins, float min, float max, string cut, int n , ... )
+2. Run python file **CreateGetPlot.py** like
+
+    python CreateGetPlot.py
+
+3. Above step will create a macro named **GetPlots.C**
+
+4. Now, just run it, like:
+
+    root -l -b -q GetPlots.C
+
+===========================================================
+[1] Detail of InputDetails.dat file:
+
+1. array **variable** contains name of variable then its number of bins, minx and maxx. And this format repeats for all the variable that you will add. For example if you want to add 2 variable named pt (with bin 50, minx = 0, and maxx = 500) and eta (with bin= 20, minx = -3.5, maxx = 3.5) then variable should look like this.
+
+    variable = ["pt","50","0","500","eta","20","-3.5","3.5"]
+
+2. Format of array InputRootFiles: It contains name of root file and its Legend that you want to give. If you have two root files named abc.root adn xyz.root then it will look like:
+
+    InputRootFiles = ["abc.root","ab","xyz.root","xy"]
 
 
-var1: Name of branch( variable) to plot
-
-var2: not in use now
-
-xtitle: x-axis title. If it is blank then it will set x-axis title as the var1.
-
-cut: define your cut
-
-n: number of root files
 
 
-Note: after enter n, enter n number of root file name but enter like this : first write root file name then its legend, then enter 2nd file name and then its legend, ...., nth root file name and then its legend.
-
-
-
-Method:1: 
-    
-    $root -l
-    $.L CompareAdvanced.C
-    $compareQuantities(1, 0, 0, otree, Lep_pt, "", "", 40, 0, 300, "", 2 , "abc.root", "abc", "xyz.root", "xyz" )
-
-Method:2
-Edit the GetPlot.C macro, and enter approx same things there as in method:1 and just run it.
