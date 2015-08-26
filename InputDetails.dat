@@ -1,0 +1,16 @@
+variable = ["nPV","40","0","40","l_pt","50","0","300"]
+
+cut = "nPV>20"
+
+isNormUnity = 1	    
+isNormLumi = 0
+isShowEvents = 1
+
+TreeName = "otree"
+
+NumberOfRootFiles = 3 
+
+PathOfRootFiles = "/home/ramkrishna/TEMP/AnalysisWWTrees/output_el/"
+
+InputRootFiles = ["WWTree_WJets.root","WJets", "WWTree_TTbar_madgraph.root", "TTbar","WWTree_ZZ.root","ZZ"]
+
