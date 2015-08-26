@@ -4,7 +4,10 @@ cut = "nPV>20"
 
 isNormUnity = 1	    
 isNormLumi = 0
-isShowEvents = 1
+isShowEventsLegend = 0
+isLegendDraw = 0
+
+isGetStatBox = 1
 
 TreeName = "otree"
 

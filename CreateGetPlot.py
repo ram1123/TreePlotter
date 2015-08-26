@@ -45,7 +45,7 @@ print ''
 print ''
 for a in range(0,len(data.variable)/4):
     #print 'gROOT->ProcessLine(Form("compareQuantities(%i,%i,%i,\\"%s\\",\\"%s\\",\\"\\",\\"\\",%s,%s,%s,\\"%%s\\",%i,\"%s%s\",\"%s\",\"%s%s\",\"%s\")",Cut.c_str()));'%(data.isNormUnity, data.isNormLumi, data.isShowEvents, data.TreeName, data.variable[a*4], data.variable[a*4+1], data.variable[a*4+2], data.variable[a*4+3], data.NumberOfRootFiles, data.PathOfRootFiles, data.InputRootFiles[0], data.InputRootFiles[1], data.PathOfRootFiles, data.InputRootFiles[2], data.InputRootFiles[3])
-    print 'gROOT->ProcessLine(Form("compareQuantities(%i,%i,%i,\\"%s\\",\\"%s\\",\\"\\",\\"\\",%s,%s,%s,\\"%%s\\",%i%s)",Cut.c_str()));'%(data.isNormUnity, data.isNormLumi, data.isShowEvents, data.TreeName, data.variable[a*4], data.variable[a*4+1], data.variable[a*4+2], data.variable[a*4+3], data.NumberOfRootFiles, stringD)
+    print 'gROOT->ProcessLine(Form("compareQuantities(%i,%i,%i,%i, %i, \\"%s\\",\\"%s\\",\\"\\",\\"\\",%s,%s,%s,\\"%%s\\",%i%s)",Cut.c_str()));'%(data.isNormUnity, data.isNormLumi, data.isShowEventsLegend, data.isLegendDraw, data.isGetStatBox, data.TreeName, data.variable[a*4], data.variable[a*4+1], data.variable[a*4+2], data.variable[a*4+3], data.NumberOfRootFiles, stringD)
     print 'Canvas1->SaveAs("%s.pdf");'%data.variable[4*a]
     print 'Canvas1->Clear();'
     print ''
