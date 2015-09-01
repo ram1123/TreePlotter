@@ -54,7 +54,7 @@ print 'TCut cutMu = "MuonsPt>20 && MuonsEta <2.5";'
 print 'TCut cutJet = "JetsPt[0] > 30 && JetsPt[1] > 30 && JetsPt[2] > 30 && JetsPt[3] > 30";'
 print 'TCut cutVBF = "abs(JetsEta[0]-JetsEta[1])>3.0";'
 print ''
-print 'TCut cut = "totalEventWeight";'
+print 'TCut cut = "%s";'%data.cut
 print '//========================= Cut Detail Ends =========================================================='
 
 for a in range(1, len(data.VarName)+1):
@@ -76,6 +76,7 @@ for a in range(1, len(data.VarName)+1):
         print 'TH1F *j%i_%i = new TH1F("j%i_%i","%s",%s,%s,%s);'%(a, b, a, b, data.Title[a-1], data.Range[(a-1)*3], data.Range[(a-1)*3+1], data.Range[(a-1)*3+2])
         print '\tT%i->Draw("%s>>j%i_%i",cut,"goff");'%(b, data.VarName[a-1], a, b)
         print '\tj%i_%i->SetLineColor(%i);'%(a, b, b)
+        print '\tj%i_%i->SetFillColor(%i);'%(a, b, b)
         print '\tj%i_%i->SetLineWidth(2);'%(a, b)
         print '\tj%i_%i->SetStats(0);'%(a, b)
         if b == 1:

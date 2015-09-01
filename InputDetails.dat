@@ -1,5 +1,7 @@
 VarName = ["nPV","l_pt"]
 
+cut = "totalEventWeight*wSampleWeight"
+
 Title = ["Nvtx","pt"]
 
 Range = ["40","0","40","40","0","300"]
