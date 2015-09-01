@@ -1,19 +1,19 @@
-VarName = ["NVtx","pt"]
+VarName = ["nPV","l_pt"]
 
 Title = ["Nvtx","pt"]
 
-Range = ["40","0","40"]
+Range = ["40","0","40","40","0","300"]
 
-FileName = ["plot_TnP1"]
+FileName = ["plot_TnP1","pt"]
 
-OutPutFileName = ["NVtx"]
+OutPutFileName = ["NVtx","pt"]
 
 treeName = "otree"
 
-Path = "/home/ramkrishna/TEMP/AnalysisWWTrees/output_el/"
+Path = "/home/ramkrishna/TEMP/DataMCComparision/"
 
 DataFile = "WWTree_data_el_17jul.root"
 
 SignalFile = ""
 
-BkgFile = ["WWTree_WJets_50ns.root","WWTree_TTbar_madgraph_50ns.root"]
+BkgFile = ["WWTree_data_el_prompt.root", "WWTree_WJets_50ns.root","WWTree_TTbar_madgraph_50ns.root"]

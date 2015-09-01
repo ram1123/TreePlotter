@@ -62,7 +62,6 @@ TLegend *tleg1_8 = new TLegend(0.70,0.80,0.85,0.90,NULL,"brNDC");   // Defined l
 
 TH1F *j1_1 = new TH1F("j1_1","Number of Vertex",40,0,40);
   T1->Draw("NVtx>>j1_1",cut,"goff");
-//  T1->Draw("JetsPt[3]>>j1_1","");
   j1_1->SetLineColor(kBlack);
   j1_1->SetLineWidth(2);
   j1_1->SetStats(0);
