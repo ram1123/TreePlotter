@@ -163,7 +163,7 @@ void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEventsLeg, bool l
 
 		int entries = th[i]->GetEntries();
 		char c[20];
-		sprintf(c,"%d",entries);
+		sprintf(c,"%d Events",entries);
 
 		leg[i]->AddEntry(th[i],TString(c),"l");
 		}
