@@ -37,7 +37,7 @@
 #include "TStyle.h"
 //#include "CrossSection.h"
 
-void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEvents, const char* treeName, string var1, string var2, string xtitle, int nbins, float min, float max, TString cut, int n , ... ){
+void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEventsLeg, bool legDraw, int GetStatBox, const char* treeName, string var1, string var2, string xtitle, int nbins, float min, float max, TString cut, int n , ... ){
 	
     //============= START:: This sets the legend position ============================
 	float a1=0.29;
@@ -68,7 +68,7 @@ void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEvents, const cha
 	if (xtitle == "") xtitle = var1;
 	
 
-	gStyle->SetOptStat(0);
+	gStyle->SetOptStat(GetStatBox);
 	gROOT->ForceStyle(kTRUE);
 	TGaxis::SetMaxDigits(3);
 
@@ -98,7 +98,7 @@ void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEvents, const cha
 		tt[i]->Draw(Form("%s>>th%i",var1.c_str(),i), cut1, "goff");
 		cut1 = "";
 		
-		th[i]->SetStats(0);
+		th[i]->SetStats(GetStatBox);
 		th[i]->SetLineWidth(2);
 		th[i]->SetLineStyle(style[i]);
 		th[i]->SetLineColor(color[i]);
@@ -155,7 +155,7 @@ void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEvents, const cha
 		
 		if (i==0) th[i]->Draw(); else th[i]->Draw("sames");
 
-		if (ShowEvents)
+		if (ShowEventsLeg)
 		{
 		if (n==2) leg[i] = new TLegend(a1,0.89,a2,0.99);
 		else leg[i] = new TLegend(a1,0.82,a2,0.99);
@@ -176,7 +176,8 @@ void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEvents, const cha
 		//leg[i]->AddEntry(th[i],va_arg(list, char*),"l");
 		if (n==2) leg[i]->SetTextSize(0.05);
 
-		leg[i]->Draw("sames");
+		if (legDraw)
+		    leg[i]->Draw("sames");
 		//cmsprem->Draw();
 
 		a1 = a2;
