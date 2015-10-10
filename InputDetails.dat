@@ -1,19 +1,44 @@
-variable = ["nPV","40","0","40","l_pt","50","0","300"]
+#	For plotting one branch from many trees on one canvas
+#	Format of variable = ["branchName", nbins, minx, maxx,... ]
 
-cut = "nPV>20"
+variable = ["Wjets_AK4_jj_e","100","0","4000","Wjets_AK4_jj_m","100","0","180","Wjets_AK4_jj_phi",100,-4,4,"Wjets_AK4_jj_eta",100,-4,4,"Wjets_AK4_jj_pt",100,0,2000,"vbf_AK4_jj_DeltaEta",100,3,6,"vbf_AK4_jj_m",100,0,4000,"vbf_AK4_jj_phi",100,-4,4,"vbf_AK4_jj_eta",100,-5,5,"vbf_AK4_jj_pt",100,0,600]
 
-isNormUnity = 1	    
+#	For plotting many branchs from one tree on one canvas
+# 	structure of variable => tuple of tuples
+#	tuple = ( [a, b, c], [d, e, f] )
+#	length of tuple will form one output file and all the subtuple will be plotted on one canvas
+
+#	Format of variable = ( [ "branchName","Legend of brnach",... , "xtitle", "pdf file output name", nbin, minx, maxx], [similar to previous] )
+
+#variable = (["vbf_AK4_j2_eta","vbfj2","vbf_AK4_j1_eta","vbfj1","Wjets_AK4_j1_eta","Wjet1","Wjets_AK4_j2_eta","Wjet2", "#eta of all 4 jets",\
+#	    "AllJetEta", 25,-3.5,3.5],\
+#	    ["vbf_AK4_j2_phi","vbfj2","vbf_AK4_j1_phi","vbfj1","Wjets_AK4_j1_phi","Wjet1","Wjets_AK4_j2_phi","Wjet2", "#phi of all 4 jets",\
+#	    "AllJetPhi", 25, -3.5, 3.5], \
+#	    ["vbf_AK4_j1_pt","VBF-j1","vbf_AK4_j2_pt","VBF-j2","Wjets_AK4_j1_pt","Wjet-1","Wjets_AK4_j2_pt","Wjet-2", "p_{T} of all 4 jets",\
+#	    "AllJetPt", 50,0, 400], \
+#	    ["vbf_AK4_j1_e","VBF-j1","vbf_AK4_j2_e","VBF-j2","Wjets_AK4_j1_e","Wjet-1","Wjets_AK4_j2_e","Wjet-2", "Energy of all 4 jets",\
+#	    "AllJetEnergy", 50, 0, 1500], \
+#	    ["vbf_AK4_jj_pt","VBF-jj","Wjets_AK4_jj_pt","W-jj", "Combined W & VBF jet p_{T}", "Combined_wVBF_jet_pT", 50,0,600],\
+#	    ["vbf_AK4_jj_eta","VBF-jj","Wjets_AK4_jj_eta","W-jj", "Combined W & VBF jet #eta", "Combined_wVBF_jet_eta", 25,-4.5,4.5]
+#	    )
+
+cut = ""
+
+isNormUnity = 0	    
 isNormLumi = 0
 isShowEventsLegend = 0
-isLegendDraw = 0
+isLegendDraw = 1
 
-isGetStatBox = 1
+isGetStatBox = 0
 
 TreeName = "otree"
 
-NumberOfRootFiles = 3 
+NumberOfRootFiles = 1
 
-PathOfRootFiles = "/home/ramkrishna/TEMP/AnalysisWWTrees/output_el/"
+PathOfRootFiles = "/tmp/"
 
-InputRootFiles = ["WWTree_WJets.root","WJets", "WWTree_TTbar_madgraph.root", "TTbar","WWTree_ZZ.root","ZZ"]
+InputRootFiles = ["WLWL_ele.root","Singal"]
 
+# For plotting one branch from many trees on one canvas put CompareAdvanced_1RootFileNBranch = 0 
+# For plotting many branchs from one tree on one canvas put CompareAdvanced_1RootFileNBranch = 1
+CompareAdvanced_1RootFileNBranch = 0

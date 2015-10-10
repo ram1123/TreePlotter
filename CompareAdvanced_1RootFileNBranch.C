@@ -37,7 +37,7 @@
 #include "TStyle.h"
 //#include "CrossSection.h"
 
-void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEventsLeg, bool legDraw, int GetStatBox, const char* treeName, string var1, string var2, string xtitle, int nbins, float min, float max, TString cut, int n , ... ){
+void compareQuantities(bool NBranch1Same, char* InputRootFile, bool NormUnity, bool NormLumi, bool ShowEventsLeg, bool legDraw, int GetStatBox, const char* treeName, string var1, string var2, string xtitle, int nbins, float min, float max, TString cut, int n , ... ){
 	
     //============= START:: This sets the legend position ============================
 	float a1=0.29;
@@ -74,9 +74,9 @@ void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEventsLeg, bool l
 
 	va_list list;
 	va_start(list, n);
-	char** fname=new char*[n];
-	TFile** tf = new TFile*[n];
-	TTree** tt = new TTree*[n];
+	string fname;
+	TFile* tf = new TFile(InputRootFile);
+	TTree* tt = (TTree*)tf->Get(treeName);
 	TH1F** th = new TH1F*[n];
 	TPaveStats** tp = new TPaveStats*[n];
 	TLegend** leg = new TLegend*[n];
@@ -86,22 +86,18 @@ void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEventsLeg, bool l
 	{
 
 
-		fname[i]=va_arg(list, char*);
-		tf[i] = new TFile(fname[i]);
-		//tt[i] = (TTree*) tf[i]->Get("demo/tree");
-		tt[i] = (TTree*) tf[i]->Get(treeName);
-		//tt[i] = (TTree*) tf[i]->Get("TreeMaker2/PreSelection");
+		fname=va_arg(list, string);
 		th[i] = new TH1F(Form("th%i",i),"",nbins,min,max);
-		//if (i==1) 
-		//cut1 = "eff_and_pu_Weight"+TString(cut);
 		cut1=cut;
-		tt[i]->Draw(Form("%s>>th%i",var1.c_str(),i), cut1, "goff");
+		tt->Draw(Form("%s>>th%i",fname.c_str(),i), cut1, "goff");
 		cut1 = "";
 		
 		th[i]->SetStats(GetStatBox);
 		th[i]->SetLineWidth(2);
-		th[i]->SetLineStyle(style[i]);
+		//th[i]->SetLineStyle(style[i]);
+		th[i]->SetLineStyle(1);
 		th[i]->SetLineColor(color[i]);
+		th[i]->SetLineWidth(4);
 		
 		th[i]->GetYaxis()->CenterTitle();
 		th[i]->GetYaxis()->SetTitleOffset(1.30);
@@ -110,6 +106,10 @@ void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEventsLeg, bool l
 
 		string tmp_str=va_arg(list,char*);
 
+		histMax = th[i]->GetMaximum()*1.15;
+		th[0]->SetMaximum(TMath::Max(histMax,yMax));
+		yMax = TMath::Max(histMax,yMax);
+		th[i]->GetYaxis()->SetTitle("Number of Events");
 		if (NormLumi)
 		{
 		if (tmp_str.find("TT")==0) xSec= 0.0653247402978 ;
