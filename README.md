@@ -18,7 +18,7 @@ Lxplus setting for root 6.04:
 
 1. Step.1 : **Header File Creater**
 
-    source Main.sh NameOfRootFile.root
+    source Main.sh NameOfRootFile.root TreeName
 
 Then this will create a general header file with all your existing variable in tree defined. then we can use it as per our uses by modifying Master_test.C
 
