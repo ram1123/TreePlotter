@@ -5,17 +5,17 @@ treeName="otree"
 
 
 ####    path of samples #####
-path1="/eos/uscms/store/user/bmahakud/LeptoQuarkSpring15/"
-path2="/eos/uscms/store/user/awhitbe1/PHYS14productionV15/" 
+path1="/home/rksharma/TEMP/AnalysisWWTrees/output_mu/"
+path2="/home/rksharma/TEMP/AnalysisWWTrees/output_mu/" 
 
 #store_mc_sig="/uscms_data/d3/bmahakud/DevelopingMakeClassCode/TreePlotter/"                
 #store_mc_bkg="/uscms_data/d3/bmahakud/DevelopingMakeClassCode/TreePlotter/"                
 #store_data="/uscms_data/d3/bmahakud/DevelopingMakeClassCode/TreePlotter/"                  
 
 
-store_mc_sig = "/home/ramkrishna/TEMP/AnalysisWWTrees/WWTree_el/"                           
-store_mc_bkg = "/home/ramkrishna/TEMP/AnalysisWWTrees/WWTree_el/"                           
-store_data = "/home/ramkrishna/TEMP/AnalysisWWTrees/WWTree_el/" 
+store_mc_sig = "/home/rksharma/TEMP/AnalysisWWTrees/output_mu/"                           
+store_mc_bkg = "/home/rksharma/TEMP/AnalysisWWTrees/output_mu/"
+store_data   = "/home/rksharma/TEMP/AnalysisWWTrees/output_mu/"
 
 
 ####    Name of samples #####
@@ -23,9 +23,12 @@ store_data = "/home/ramkrishna/TEMP/AnalysisWWTrees/WWTree_el/"
 #list_mc_bkg = ["PHYS14.GJets_HT-400to600_Tune4C_13TeV-madgraph-tauola_*_RA2AnalysisTree.root"]
 #list_data = ["PHYS14.GJets_HT-400to600_Tune4C_13TeV-madgraph-tauola_*_RA2AnalysisTree.root"]
 
-list_mc_sig = ["WWTree_WW.root"]
-list_mc_bkg = ["WWTree_WJets.root"]
-list_data = ["WWTree_data.root"] 
+list_mc_sig = ["WLWL_ele_FullData.root"]
+list_mc_bkg = ["WJets_FullData.root","TTbar_powheg_FullData.root"]
+NameBkg = ["WJets","TTbar"]
+scale = [1.129558,0.018485] 	# scale factor for respective background
+#scale = ["(61526.7*442.264)/24089991.","(831.76*442.264)/19899500."] 
+list_data = ["data_mu_prompt_25ns_runD_v3_FullData.root"] 
 
 
 ####	Name of Branches     ####
