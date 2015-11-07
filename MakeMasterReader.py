@@ -47,6 +47,8 @@ for a in range(0,len(data.varList)/4):
     else:
         print ',',
 
+print 'float PUWeight[40] = {0, 0, 0, 2.21325, 1.62305, 4.42651, 5.07037, 3.05832, 3.29775, 3.67892, 2.80104, 2.8437, 2.11017, 1.84711, 1.28861, 0.895968, 0.784445, 0.868598, 0.442651, 0.376724, 0.311052, 0.286421, 0.210786, 0, 0.0491834, 0.17706, 0.14755, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};'
+print 'int NumPV;'
 print 'int j=0;\t//for bins\nint k=2;\t//reseting the color of backgrounds'
 ############ END:: Setting Bin, Min and Max       ###########################
 #for a in range(0,3):
@@ -124,8 +126,9 @@ for a in range(0,len(data.list_mc_bkg)):
     print '\t\tClassReadTree mc_bkg_%i(t%i_mc_bkg);'%(a, a)
     print '\t\tfor(int iEv_%i_mc_bkg=0;iEv_%i_mc_bkg < t%i_mc_bkg->GetEntries();iEv_%i_mc_bkg++){'%(a, a, a, a)
     print '\t\t\tt%i_mc_bkg->GetEntry(iEv_%i_mc_bkg);'%(a, a)   
+    print '\t\t\tNumPV=mc_bkg_%i.nPV;'%a
     for b in range(0, len(data.varList)/4):
-        print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4])
+        print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s * PUWeight[NumPV]);'%(a,b,a, data.varList[b*4])
         #print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s);'%(a,a+b+a*((len(data.varList)/4)-1),a, data.varList[b*4])
     print '\t\t}'
     print '\n'
