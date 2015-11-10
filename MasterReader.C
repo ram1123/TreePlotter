@@ -12,7 +12,7 @@ using namespace std;
 
 
 void MasterReader(){
- setTDRStyle();
+// setTDRStyle();
 
 
 int Bin[1] = { 50 };
@@ -26,7 +26,7 @@ float PUWeight[50] = {1, 1, 1, 1.43939, 1.05556, 2.87879, 3.29752, 1.98898, 2.14
 int NumPV;
 int j=0;	//for bins
 int k=2;	//reseting the color of backgrounds
-	TCanvas * c1 = new TCanvas("c1","",500,500);
+	TCanvas * c1 = new TCanvas("c1","",500,600);
 
 	THStack** hs = new THStack*[1];
 	TPad** pad = new TPad*[1];
@@ -37,7 +37,7 @@ int k=2;	//reseting the color of backgrounds
 		hs[i] = new THStack(Form("hs%i",i),"");
 		
 		pad[i] = new TPad(Form("pad%i",i),"",0.0,0.5,1.0,1.0,0);pad[i]->Draw();
-		padB[i] = new TPad(Form("padB%i",i),"",0.0,0.0,1.0,0.05,0);//padB[i]->Draw();
+		padB[i] = new TPad(Form("padB%i",i),"",0.0,0.0,1.0,0.45,0);//padB[i]->Draw();
 		hRatio[i] = new TH1F(Form("hRatio%i",i),"Ratio",Bin[i],Min[i],Max[i]);
 	}
 
@@ -62,6 +62,7 @@ int k=2;	//reseting the color of backgrounds
 	for(int i=0; i<1;i++){
 		DataHist[i] = new TH1F(Form("DataHist%i",i),"",Bin[i],Min[i],Max[i]);
 		DataHist[i]->SetLineColor(2);
+//		DataHist[i]->Sumw2();
 	}
 
 	TChain* t0_mc_sig = new TChain("otree");
@@ -80,9 +81,9 @@ int k=2;	//reseting the color of backgrounds
 			t0_mc_bkg->GetEntry(iEv_0_mc_bkg);
 			NumPV=mc_bkg_0.nPV;
 			#if 1
-				//t0_BkgHist[0]->Fill(mc_bkg_0.nPV);
+				t0_BkgHist[0]->Fill(mc_bkg_0.nPV);
 				cout<<"NumPV = "<<NumPV<<"\t weight = "<<PUWeight[NumPV-1]<<endl;
-				t0_BkgHist[0]->Fill(mc_bkg_0.nPV * PUWeight[NumPV-1]);
+				//t0_BkgHist[0]->Fill(mc_bkg_0.nPV * PUWeight[NumPV-1]);
 			#else
 				t0_BkgHist[0]->Fill(mc_bkg_0.nPV * PUWeight[NumPV]);
 			#endif
@@ -98,7 +99,7 @@ int k=2;	//reseting the color of backgrounds
 		}
 
 
-	TLegend *leg = new TLegend(0.70,0.80,0.85,0.90,NULL,"brNDC");
+	TLegend *leg = new TLegend(0.70,0.70,0.85,0.90,NULL,"brNDC");
 
 double yMax=0.;
 double HistMax=0.0;
@@ -137,6 +138,8 @@ pad[0]->cd();
 	SigHist[0]->SetMaximum(TMath::Max(HistMax,yMax));
 	leg->AddEntry(DataHist[0],"Data","l");
 	yMax=HistMax;
+	for (int i=1;i<=50;i++)
+		t0_BkgHist[0]->SetBinContent(i,t0_BkgHist[0]->GetBinContent(i)*PUWeight[i-1]);
 
 	hs[0]->Add(t0_BkgHist[0]);
 	#if 1
@@ -157,9 +160,9 @@ hRatio[0]->Add(t0_BkgHist[0]);
 
 padB[0]->SetGridy(1);
 padB[0]->SetTopMargin(0.1);
-padB[0]->SetBottomMargin(0.30);
-//padB[0]->Draw();
-//padB[0]->cd();
+padB[0]->SetBottomMargin(0.00);
+padB[0]->Draw();
+padB[0]->cd();
 
 float yscale = (1.0-0.2)/(0.18-0);
 h2->Divide(hRatio[0]);
@@ -183,7 +186,7 @@ h2->GetYaxis()->SetTitleOffset(0.3);
 h2->GetYaxis()->SetNdivisions(5);
 h2->GetYaxis()->SetLabelSize(0.033*yscale);
 h2->GetYaxis()->SetTitleSize(0.036*yscale);
-//h2->Draw("");
+h2->Draw("");
 	c1->SaveAs("nPV.pdf");
 	leg->Clear();
 	c1->Clear();
