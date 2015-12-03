@@ -13,9 +13,9 @@ path2="/home/rksharma/TEMP/AnalysisWWTrees/output_mu/"
 #store_data="/uscms_data/d3/bmahakud/DevelopingMakeClassCode/TreePlotter/"                  
 
 
-store_mc_sig = "/home/rksharma/TEMP/AnalysisWWTrees/output_mu/"                           
-store_mc_bkg = "/home/rksharma/TEMP/AnalysisWWTrees/output_mu/"
-store_data   = "/home/rksharma/TEMP/AnalysisWWTrees/output_mu/"
+store_mc_sig = "/home/rksharma/TEMP/WWScattering/OutputData/"                           
+store_mc_bkg = "/home/rksharma/TEMP/WWScattering/OutputData/"
+store_data   = "/home/rksharma/TEMP/WWScattering/OutputData/"
 
 
 ####    Name of samples #####
@@ -23,12 +23,14 @@ store_data   = "/home/rksharma/TEMP/AnalysisWWTrees/output_mu/"
 #list_mc_bkg = ["PHYS14.GJets_HT-400to600_Tune4C_13TeV-madgraph-tauola_*_RA2AnalysisTree.root"]
 #list_data = ["PHYS14.GJets_HT-400to600_Tune4C_13TeV-madgraph-tauola_*_RA2AnalysisTree.root"]
 
-list_mc_sig = ["WLWL_ele_FullData.root"]
-list_mc_bkg = ["WJets_FullData.root"]
-NameBkg = ["WJets"]
-scale = [1.129558] 	# scale factor for respective background
+list_mc_sig = ["WLWL_mu_FullData_1Dec.root","WTWT_Mu_FullData_1Dec.root"]
+NameSig = ["Signal*10","WTWT*10"]
+SigScale = [0.000173*10,0.000187*10]
+list_mc_bkg = ["WJets_FullData_1Dec.root","TTbar_powheg_FullData_mu_1Dec.root"]
+NameBkg = ["WJets","TTbar"]
+scale = [5.34,0.0876] 	# scale factor for respective background
 #scale = ["(61526.7*442.264)/24089991.","(831.76*442.264)/19899500."] 
-list_data = ["data_mu_prompt_25ns_runD_v3_FullData.root"] 
+list_data = ["data_mu_prompt_25ns_runD.root"] 
 
 
 ####	Name of Branches     ####
@@ -37,6 +39,12 @@ list_data = ["data_mu_prompt_25ns_runD_v3_FullData.root"]
 #   first put variable and then its bin, min-x and max-x
 #   Then next variable its bin, min-x and max-x, and so on...
 #
-varList = ["nPV","40","0","40"]
+#varList = ["nPV","50","0","50","l_pt","40","0","300"]
+varList = ["nPV","50","0","50","l_pt","40","0","300","l_eta","40","-2.6","3.7","l_phi","40","-3.4","4.1","l_e","40","0","1500",
+	   "pfMET","40","0","300","pfMET_Phi","40","-3.5","4.1","Met_pt","40","0","400",
+	   "vbf_AK4_j1_pt","40","0","1500","vbf_AK4_j1_eta","40","-5.5","5.5","vbf_AK4_j1_phi","40","-3.5","3.5","vbf_AK4_j1_e","40","0","2500",
+	   "vbf_AK4_j2_pt","40","0","500","vbf_AK4_j2_eta","40","-5.5","5.5","vbf_AK4_j2_phi","40","-3.5","3.5","vbf_AK4_j2_e","40","0","2500",		  "vbf_AK4_jj_pt","40","0","600","vbf_AK4_jj_eta","40","-5.5","5.5","vbf_AK4_jj_phi","40","-3.5","3.5","vbf_AK4_jj_m","40","400","2500",
+	   "Wjets_AK4_j1_pt","40","0","300","Wjets_AK4_j1_eta","40","-5.5","5.0","Wjets_AK4_j1_phi","40","-3.5","3.5","Wjets_AK4_j1_e","40","0","2000",
+	   "Wjets_AK4_j2_pt","40","0","250","Wjets_AK4_j2_eta","40","-5.5","5.5","Wjets_AK4_j2_phi","40","-3.5","3.5","Wjets_AK4_j2_e","40","0","1500",
+	   "Wjets_AK4_jj_pt","40","0","400","Wjets_AK4_jj_eta","40","-6.0","6.0","Wjets_AK4_jj_phi","40","-3.5","3.5","Wjets_AK4_jj_e","40","0","3000","Wjets_AK4_jj_m","40","0","1500"]
 
-PUWeight = [0, 0, 0, 2.21325, 1.62305, 4.42651, 5.07037, 3.05832, 3.29775, 3.67892, 2.80104, 2.8437, 2.11017, 1.84711, 1.28861, 0.895968, 0.784445, 0.868598, 0.442651, 0.376724, 0.311052, 0.286421, 0.210786, 0, 0.0491834, 0.17706, 0.14755, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
