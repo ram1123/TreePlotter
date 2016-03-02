@@ -194,7 +194,8 @@ for a in range(0,len(data.varList)/4):
     for sig in range(0,len(data.list_mc_sig)):
 	print '\tt%i_SigHist[%i]->Scale(%f);'%(sig,a,float(data.SigScale[sig]))
     	print '\tHistMax = t%i_SigHist[%i]->GetMaximum()*1.15;'%(sig,a)
-    	print '\tt0_SigHist[%i]->SetMaximum(TMath::Max(HistMax,yMax));'%(sig)
+    	print '\tt0_SigHist[0]->SetMaximum(TMath::Max(HistMax,yMax));'
+    	print '\tt0_SigHist[0]->SetMinimum(0.0);'
     	print '\tleg->AddEntry(t%i_SigHist[%i],"%s","l");'%(sig,a,data.NameSig[sig])
     	print '\tyMax=HistMax;\n'
 	print '\tcout<<"=====> \tHistMax = "<<yMax<<endl;'
@@ -204,7 +205,9 @@ for a in range(0,len(data.varList)/4):
     	print '\tt%i_BkgHist[%i]->Scale(%f);'%(bkg,a,float(data.scale[bkg]))
     	#print '\tBkgHist[%i]->Scale(1/BkgHist[%i]->Integral());'%(a, a)
     	print '\tHistMax = t%i_BkgHist[%i]->GetMaximum()*1.15;'%(bkg, a)
-    	print '\tt0_SigHist[%i]->SetMaximum(TMath::Max(HistMax,yMax));'%(bkg)
+    	print '\tt0_SigHist[0]->SetMaximum(TMath::Max(HistMax,yMax));'
+    	print '\tt0_SigHist[0]->SetMinimum(0.0);'
+    	#print '\tt0_SigHist[%i]->SetMaximum(TMath::Max(HistMax,yMax));'%(bkg)
     	print '\tleg->AddEntry(t%i_BkgHist[%i],"%s","f");'%(bkg, a, str(data.NameBkg[bkg]))
     	print '\tyMax=HistMax;\n'
 	print '\tcout<<"=====> \tHistMax = "<<yMax<<endl;'
@@ -214,11 +217,11 @@ for a in range(0,len(data.varList)/4):
     #print '\tDataHist[%i]->Scale(1/DataHist[%i]->Integral());'%(a, a)
     print '\tDataHist[%i]->Sumw2();'%a
     print '\tHistMax = DataHist[%i]->GetMaximum()*1.15;'%a
-#    print '\tt0_SigHist[%i]->SetMaximum(TMath::Max(HistMax,yMax));'%(a)
+    #print '\tt0_SigHist[%i]->SetMaximum(TMath::Max(HistMax,yMax));'%(a)
     print '\tleg->AddEntry(DataHist[%i],"Data","pe");'%(a)
     print '\tyMax=HistMax;\n'
-    #    for sig in range(0,len(data.list_mc_sig)):
-    #    	print '\ths[%i]->Add(t%i_SigHist[%i],"hist");'%(a, sig, a)
+    #for sig in range(0,len(data.list_mc_sig)):
+    #	print '\ths[%i]->Add(t%i_SigHist[%i],"hist");'%(a, sig, a)
 
     for bkg in range(0,len(data.list_mc_bkg)):
     	print '\ths[%i]->Add(t%i_BkgHist[%i],"hist");'%(a, bkg, a)
@@ -257,6 +260,14 @@ for a in range(0,len(data.varList)/4):
     #print a
     print 'cout<<"Total Number of Events in Data = "<<DataHist[%i]->Integral()<<endl;'%a
     print 'cout<<"Total Number of Events in MC   = "<<hRatio[%i]->Integral()<<endl;'%a
+    for sig in range(0,len(data.list_mc_sig)):
+    	print 'cout<<"Number of event in %s  = "<<t%i_BkgHist[%i]->Integral()<<endl;'%(data.NameSig[sig],sig,a)
+    for bkg in range(0,len(data.list_mc_bkg)):
+    	print 'cout<<"Number of event in %s  = "<<t%i_BkgHist[%i]->Integral()<<endl;'%(data.NameBkg[bkg],bkg,a)
+    	#print 'cout<<"Number of event in t%i_BkgHist[%i]  %s  = "<<t%i_BkgHist[%i]->Integral()<<endl;'%(bkg,a,data.list_mc_bkg[bkg],bkg,a)
+
+    #for a in range(0,len(data.list_mc_sig)):
+    #print '\t\tt%i_mc_sig->Add("%s%s");'%(a, data.store_mc_sig, data.list_mc_sig[a])
     print 'h2->SetMarkerStyle(21);'
     print 'h2->SetStats(0);'
     print 'h2->GetYaxis()->SetTitle("Data/#Sigma MC");'

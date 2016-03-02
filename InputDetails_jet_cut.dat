@@ -1,12 +1,17 @@
 ####    Name of tree    #####
-treeName="otree"
+treeName="Jet"
 
 
-###	Some Additional Input	####
-ifPUCorr = 1
+
+
 ####    path of samples #####
-#path1="/home/ramkrishna/cernbox/LaptopBackup/AllAnalysis/WWScattering/2ndStep/OutPut_of_2nd_Step/Understanding_Cuts/ele/"
-#path2="/home/ramkrishna/cernbox/LaptopBackup/AllAnalysis/WWScattering/2ndStep/OutPut_of_2nd_Step/Understanding_Cuts/ele/" 
+path1="/home/ramkrishna/cernbox/LaptopBackup/AllAnalysis/WWScattering/2ndStep/OutPut_of_2nd_Step/Understanding_Cuts/ele/"
+path2="/home/ramkrishna/cernbox/LaptopBackup/AllAnalysis/WWScattering/2ndStep/OutPut_of_2nd_Step/Understanding_Cuts/ele/" 
+
+#store_mc_sig="/uscms_data/d3/bmahakud/DevelopingMakeClassCode/TreePlotter/"                
+#store_mc_bkg="/uscms_data/d3/bmahakud/DevelopingMakeClassCode/TreePlotter/"                
+#store_data="/uscms_data/d3/bmahakud/DevelopingMakeClassCode/TreePlotter/"                  
+
 
 store_mc_sig = "/home/ramkrishna/cernbox/LaptopBackup/AllAnalysis/WWScattering/2ndStep/OutPut_of_2nd_Step/Understanding_Cuts/ele/"
 store_mc_bkg = "/home/ramkrishna/cernbox/LaptopBackup/AllAnalysis/WWScattering/2ndStep/OutPut_of_2nd_Step/Understanding_Cuts/ele/"
@@ -14,13 +19,17 @@ store_data   = "/home/ramkrishna/cernbox/LaptopBackup/AllAnalysis/WWScattering/2
 
 
 ####    Name of samples #####
+#list_mc_sig = ["PHYS14.GJets_HT-400to600_Tune4C_13TeV-madgraph-tauola_*_RA2AnalysisTree.root"]
+#list_mc_bkg = ["PHYS14.GJets_HT-400to600_Tune4C_13TeV-madgraph-tauola_*_RA2AnalysisTree.root"]
+#list_data = ["PHYS14.GJets_HT-400to600_Tune4C_13TeV-madgraph-tauola_*_RA2AnalysisTree.root"]
+
 list_mc_sig = ["WWJJToLNuQQ_LL_13TeV-madgraph-pythia8.root","WWJJToLNuQQ_LT_13TeV-madgraph-pythia8.root","WWJJToLNuQQ_TT_13TeV-madgraph-pythia8.root"]
-NameSig = ["Signal*100","WLWT*100","WTWT*100"]
-SigScale = [0.00017*100,0.00022*100,0.00019*100]
-list_mc_bkg = ["WW.root","ZZ.root","ST_t-channel_top_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1.root","ST_t-channel_antitop_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1.root","WJets.root","TTbar_powheg.root"]
-NameBkg = ["WW","ZZ","ST-Sch","SaT-tch","WJets","TTbar"]
-#scale = [0.10598,0.08138,0.00783,0.03268,0.0136,0.08867] 	# scale factor for respective background (NLO for WJet)
-scale = [0.10598,0.08138,0.00783,0.03268,5.37958,0.08867] 	# scale factor for respective background
+NameSig = ["Signal*10","WLWT*10","WTWT*10"]
+SigScale = [0.00017*10,0.00022*10,0.00019*10]
+list_mc_bkg = ["WJets.root","TTbar_powheg.root","WW.root","ZZ.root","ST_t-channel_top_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1.root","ST_t-channel_antitop_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1.root"]
+NameBkg = ["WJets","TTbar","WW","ZZ","ST-Sch","SaT-tch"]
+scale = [5.34815,0.08816,0.10536,0.0809,0.00778,0.03249] 	# scale factor for respective background
+#scale = ["(61526.7*442.264)/24089991.","(831.76*442.264)/19899500."] 
 list_data = ["data_el_25ns_runD.root"] 
 
 
@@ -33,14 +42,8 @@ list_data = ["data_el_25ns_runD.root"]
 #varList = ["nPV","50","0","50","l_pt","40","0","300"]
 #
 
-varList = [	"nPV","50","0","50","l_pt","10","0","500","l_eta","10","-3.7","3.7","l_phi","10","-4.1","4.1",
-		"Wjets_AK4_jj_m","10","40","120","v_mt","10","0","500",	"vbf_AK4_jj_m","10","400","3500",
-		"vbf_AK4_j1_pt","10","0","800","vbf_AK4_j1_eta","10","-4.0","4.0","vbf_AK4_j1_phi","10","-3.5","3.5",
-		"vbf_AK4_jj_DeltaEta","10","3","7","vbf_AK4_jj_AssymPt","10","0","0.9",
-		"pfMET","10","0","500","pfMET_Phi","10","-4.0","4.0",
-		"WW_mass","10","0","4000",
-		"costheta1","10","-1","1", "costheta2","10","-1","1", "costhetastar","10","-1","1",
-		"Phi","10","-3.2","3.2","Phi1","10","-3.2","3.2"
+varList = [	"Jet_num_1","20","0","20", "Jet_num_2","20","0","20",
+		"Jet0_pt","40","0","500","Jet0_eta","40","-2.6","3.7","Jet0_phi","40","-3.4","4.1"
 	]
 
 #varList = ["nPV","50","0","50","l_pt","40","0","300","l_eta","40","-2.6","3.7","l_phi","40","-3.4","4.1","l_e","40","0","1500",
