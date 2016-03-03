@@ -53,8 +53,8 @@ for a in range(0,len(data.varList)/4):
     else:
         print ',',
 
-#print 'float PUWeight[40] = {0, 0, 0, 2.21325, 1.62305, 4.42651, 5.07037, 3.05832, 3.29775, 3.67892, 2.80104, 2.8437, 2.11017, 1.84711, 1.28861, 0.895968, 0.784445, 0.868598, 0.442651, 0.376724, 0.311052, 0.286421, 0.210786, 0, 0.0491834, 0.17706, 0.14755, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};'
 print 'int NumPV;'
+
 print 'int j=0;\t//for bins\nint k=1;\t//reseting the color of backgrounds'
 ############ END:: Setting Bin, Min and Max       ###########################
 #for a in range(0,3):
@@ -68,7 +68,7 @@ print '\tTH1F *h = (TH1F*)f.Get("j1_1");'
 print '\tint binidx;'
 print '\tfloat Nvtx_weight;'
 print ''
-print '\tTH1F *hPUWeight = new TH1F("hPUWeight","",40,0,5);'
+#print '\tTH1F *hPUWeight = new TH1F("hPUWeight","",40,0,5);'
 print "\tTHStack** hs = new THStack*[%i];"%(len(data.varList)/4)
 print "\tTPad** pad = new TPad*[%i];"%(len(data.varList)/4)
 print "\tTPad** padB = new TPad*[%i];"%(len(data.varList)/4)
@@ -136,12 +136,16 @@ for a in range(0,len(data.list_mc_sig)):
     print '\t\tClassReadTree mc_sig_%i(t%i_mc_sig);'%(a, a)
     print '\t\tfor(int iEv_%i_mc_sig=0;iEv_%i_mc_sig < t%i_mc_sig->GetEntries();iEv_%i_mc_sig++){'%(a, a, a, a)
     print '\t\t\tt%i_mc_sig->GetEntry(iEv_%i_mc_sig);'%(a, a)    
-    print '\t\t\tNumPV=mc_sig_%i.nPV;'%a
-    print '\t\t\tbinidx = h->FindBin(NumPV);'
-    print '\t\t\tNvtx_weight = h->GetBinContent(binidx);'
-    print '\t\t\tif(Nvtx_weight ==0) Nvtx_weight = 1 ;'
+    if data.ifPUCorr == 1:
+    	print '\t\t\tNumPV=mc_sig_%i.nPV;'%a
+    	print '\t\t\tbinidx = h->FindBin(NumPV);'
+    	print '\t\t\tNvtx_weight = h->GetBinContent(binidx);'
+    	print '\t\t\tif(Nvtx_weight ==0) Nvtx_weight = 1 ;'
     for b in range(0, len(data.varList)/4):
-        print '\t\t\tt%i_SigHist[%i]->Fill(mc_sig_%s.%s);'%(a, b, a, data.varList[b*4])
+	if data.ifPUCorr == 1:
+        	print '\t\t\tt%i_SigHist[%i]->Fill(mc_sig_%s.%s,Nvtx_weight);'%(a, b, a, data.varList[b*4])
+	else:
+        	print '\t\t\tt%i_SigHist[%i]->Fill(mc_sig_%s.%s);'%(a, b, a, data.varList[b*4])
         #print '\t\t\tt%i_SigHist[%i]->Fill(mc_sig_%s.%s);'%(a, a+b+a*((len(data.varList)/4)-1), a, data.varList[b*4])
         #print '\t\t\tSigHist[%i]->Fill(mc_sig_0.%s,Nvtx_weight*100);'%(a+b+a*((len(data.varList)/4)-1), data.varList[b*4])
     print '\t\t}'
@@ -159,7 +163,10 @@ for a in range(0,len(data.list_mc_bkg)):
     print '\t\t\tif(Nvtx_weight ==0) Nvtx_weight = 1 ;'
     for b in range(0, len(data.varList)/4):
         #print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4])
-        print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s,Nvtx_weight);'%(a,b,a, data.varList[b*4])
+	if data.ifPUCorr == 1:
+        	print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s,Nvtx_weight);'%(a,b,a, data.varList[b*4])
+	else:
+        	print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4])
         #print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s);'%(a,a+b+a*((len(data.varList)/4)-1),a, data.varList[b*4])
     print '\t\t}'
     print '\n'

@@ -3,7 +3,7 @@ treeName="otree"
 
 
 ###	Some Additional Input	####
-ifPUCorr = 1
+ifPUCorr = 0
 ####    path of samples #####
 #path1="/home/ramkrishna/cernbox/LaptopBackup/AllAnalysis/WWScattering/2ndStep/OutPut_of_2nd_Step/Understanding_Cuts/ele/"
 #path2="/home/ramkrishna/cernbox/LaptopBackup/AllAnalysis/WWScattering/2ndStep/OutPut_of_2nd_Step/Understanding_Cuts/ele/" 
@@ -33,14 +33,14 @@ list_data = ["data_el_25ns_runD.root"]
 #varList = ["nPV","50","0","50","l_pt","40","0","300"]
 #
 
-varList = [	"nPV","50","0","50","l_pt","10","0","500","l_eta","10","-3.7","3.7","l_phi","10","-4.1","4.1",
-		"Wjets_AK4_jj_m","10","40","120","v_mt","10","0","500",	"vbf_AK4_jj_m","10","400","3500",
-		"vbf_AK4_j1_pt","10","0","800","vbf_AK4_j1_eta","10","-4.0","4.0","vbf_AK4_j1_phi","10","-3.5","3.5",
-		"vbf_AK4_jj_DeltaEta","10","3","7","vbf_AK4_jj_AssymPt","10","0","0.9",
-		"pfMET","10","0","500","pfMET_Phi","10","-4.0","4.0",
-		"WW_mass","10","0","4000",
-		"costheta1","10","-1","1", "costheta2","10","-1","1", "costhetastar","10","-1","1",
-		"Phi","10","-3.2","3.2","Phi1","10","-3.2","3.2"
+varList = [	"nPV","50","0","50","l_pt","10","0","500","l_eta","10","-3.7","3.7","l_phi","10","-4.1","4.1"
+#		"Wjets_AK4_jj_m","10","40","120","v_mt","10","0","500",	"vbf_AK4_jj_m","10","400","3500",
+#		"vbf_AK4_j1_pt","10","0","800","vbf_AK4_j1_eta","10","-4.0","4.0","vbf_AK4_j1_phi","10","-3.5","3.5",
+#		"vbf_AK4_jj_DeltaEta","10","3","7","vbf_AK4_jj_AssymPt","10","0","0.9",
+#		"pfMET","10","0","500","pfMET_Phi","10","-4.0","4.0",
+#		"WW_mass","10","0","4000",
+#		"costheta1","10","-1","1", "costheta2","10","-1","1", "costhetastar","10","-1","1",
+#		"Phi","10","-3.2","3.2","Phi1","10","-3.2","3.2"
 	]
 
 #varList = ["nPV","50","0","50","l_pt","40","0","300","l_eta","40","-2.6","3.7","l_phi","40","-3.4","4.1","l_e","40","0","1500",
