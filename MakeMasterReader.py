@@ -56,7 +56,7 @@ for a in range(0,len(data.varList)/4):
 
 print 'int NumPV;'
 
-print 'int j=0;\t//for bins\nint k=2;\t//reseting the color of backgrounds'
+print 'int j=0;\t//for bins\nint k=3;\t//reseting the color of backgrounds'
 ############ END:: Setting Bin, Min and Max       ###########################
 
 
@@ -100,8 +100,9 @@ for a in range(0,len(data.list_mc_bkg)):
 
 for a in range(0,len(data.list_mc_bkg)):
 	print "\tfor(int i=0; i<%i;i++){"%(len(data.varList)/4)
-        if a < 7:
-	    print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\t}\t// for line & Fill color'%(len(data.varList)/4)
+        if (data.list_mc_bkg[a]).find("WJet") != -1:
+            print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\tk=2;}\t// for line & Fill color'%(len(data.varList)/4)
+            #print '\t\tk=2;\t// for line & Fill color'
         else:
 	    print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\tk++;}\t// for line & Fill color'%(len(data.varList)/4)
 	print '\t\telse j++;'
@@ -157,9 +158,9 @@ for a in range(0,len(data.list_mc_bkg)):
 	if data.ifPUCorr == 1:
         	print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s,Nvtx_weight);'%(a,b,a, data.varList[b*4])
 	else:
-        	#print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4])
                 print '\t\t\tif (mc_bkg_%i.%s)'%(a,data.cuts[0])
-        	print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s,mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4],a,data.weights[0])
+        	print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4])
+        	#print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s,mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4],a,data.weights[0])
     print '\t\t}'
     print '\n'
 
@@ -199,6 +200,7 @@ for a in range(0,len(data.varList)/4):
 		print '\tcout<<"=====> \tHistMax = "<<yMax<<endl;'
 		print '\tcout<<"============================>>> \t MaxValue Y-axis = "<< t%i_SigHist[%i]->GetMaximum() << endl;'%(sig,a)
 
+    CountWjet = 0
     for bkg in range(0,len(data.list_mc_bkg)):
     	print '\tt%i_BkgHist[%i]->Scale(%f);'%(bkg,a,float(data.scale[bkg]))
     	print '\tHistMax = t%i_BkgHist[%i]->GetMaximum()*1.15;'%(bkg, a)
@@ -208,8 +210,12 @@ for a in range(0,len(data.varList)/4):
 	else:
     		print '\tt0_BkgHist[0]->SetMaximum(TMath::Max(HistMax,yMax));'
     		print '\tt0_BkgHist[0]->SetMinimum(0.0);'
-        if bkg > 5:
-    	    print '\tleg->AddEntry(t%i_BkgHist[%i],"%s","f");'%(bkg, a, str(data.NameBkg[bkg]))
+        if (data.list_mc_bkg[bkg]).find("WJet" or "TTBar") == -1:
+            print '\tleg->AddEntry(t%i_BkgHist[%i],"%s","f");'%(bkg, a, str(data.NameBkg[bkg]))
+        else:
+            if CountWjet == 0:
+                print '\tleg->AddEntry(t%i_BkgHist[%i],"WJets","f");'%(bkg, a)            
+            CountWjet=CountWjet+1
     	print '\tyMax=HistMax;\n'
 	print '\tcout<<"=====> \tHistMax = "<<yMax<<endl;'
 	#if len(data.list_mc_sig) != 0:
