@@ -2,6 +2,7 @@
 ##	Things to do
 ##
 ##	1. For every TFile include a error exceptional msg about file not found
+##      2. Set Minimum range for stack plots
 ##
 #############################
 import sys
@@ -55,14 +56,15 @@ for a in range(0,len(data.varList)/4):
 
 print 'int NumPV;'
 
-print 'int j=0;\t//for bins\nint k=1;\t//reseting the color of backgrounds'
+print 'int j=0;\t//for bins\nint k=2;\t//reseting the color of backgrounds'
 ############ END:: Setting Bin, Min and Max       ###########################
 
 
 ########## Define STACKED histogram  ########################
 print '\tTCanvas * c1 = new TCanvas("c1","",500,500);\n'
-print '\tTFile f("/tmp/PileUpHisto.root");'
-print '\tTH1F *h = (TH1F*)f.Get("j1_1");'
+if data.ifPUCorr == 1:
+	print '\tTFile f("/tmp/PileUpHisto.root");'
+	print '\tTH1F *h = (TH1F*)f.Get("j1_1");'
 print '\tint binidx;'
 print '\tfloat Nvtx_weight;'
 print ''
@@ -80,16 +82,17 @@ print '\t}\n'
 
 
 ########## Define histogram for sig mc  ########################
-for a in range(0,len(data.list_mc_sig)):
-	print "\tTH1F** t%i_SigHist = new TH1F*[%i];"%(a, len(data.varList)/4)
-
-for a in range(0,len(data.list_mc_sig)):
-	print "\tfor(int i=0; i<%i;i++){"%(len(data.varList)/4)
-	print '\t\tif (i%%%i==0)     {k++;}\t// for line & Fill color'%(len(data.varList)/4)
-	print '\t\tt%i_SigHist[i] = new TH1F(Form("t%i_SigHist%%i",i),"",Bin[i],Min[i],Max[i]);'%(a,a)
-	print '\t\tt%i_SigHist[i]->SetMarkerColor(k);'%a
-	print '\t\tt%i_SigHist[i]->SetLineWidth(k);'%a
-	print '\t\tt%i_SigHist[i]->SetLineColor(k);\n\t}\n'%a
+if len(data.list_mc_sig) != 0:
+	for a in range(0,len(data.list_mc_sig)):
+		print "\tTH1F** t%i_SigHist = new TH1F*[%i];"%(a, len(data.varList)/4)
+	
+	for a in range(0,len(data.list_mc_sig)):
+		print "\tfor(int i=0; i<%i;i++){"%(len(data.varList)/4)
+		print '\t\tif (i%%%i==0)     {k++;}\t// for line & Fill color'%(len(data.varList)/4)
+		print '\t\tt%i_SigHist[i] = new TH1F(Form("t%i_SigHist%%i",i),"",Bin[i],Min[i],Max[i]);'%(a,a)
+		print '\t\tt%i_SigHist[i]->SetMarkerColor(k);'%a
+		print '\t\tt%i_SigHist[i]->SetLineWidth(k);'%a
+		print '\t\tt%i_SigHist[i]->SetLineColor(k);\n\t}\n'%a
 
 ########## Define histogram for bkg mc  ########################
 for a in range(0,len(data.list_mc_bkg)):
@@ -97,7 +100,10 @@ for a in range(0,len(data.list_mc_bkg)):
 
 for a in range(0,len(data.list_mc_bkg)):
 	print "\tfor(int i=0; i<%i;i++){"%(len(data.varList)/4)
-	print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\tk++;}\t// for line & Fill color'%(len(data.varList)/4)
+        if a < 7:
+	    print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\t}\t// for line & Fill color'%(len(data.varList)/4)
+        else:
+	    print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\tk++;}\t// for line & Fill color'%(len(data.varList)/4)
 	print '\t\telse j++;'
 	print '\t\tif (k==8) k++;'
 	print '\t\tif (k==10) k++;'
@@ -116,24 +122,25 @@ print '\t\tDataHist[i]->SetMarkerColor(1);'
 print '\t\t//DataHist[i]->Sumw2();\n\t}\n'
 
 ################################################################
-for a in range(0,len(data.list_mc_sig)):
-    print '\tTChain* t%i_mc_sig = new TChain("%s");'% (a, data.treeName)
-    print '\t\tt%i_mc_sig->Add("%s%s");'%(a, data.store_mc_sig, data.list_mc_sig[a])
-    print '\t\tClassReadTree mc_sig_%i(t%i_mc_sig);'%(a, a)
-    print '\t\tfor(int iEv_%i_mc_sig=0;iEv_%i_mc_sig < t%i_mc_sig->GetEntries();iEv_%i_mc_sig++){'%(a, a, a, a)
-    print '\t\t\tt%i_mc_sig->GetEntry(iEv_%i_mc_sig);'%(a, a)    
-    if data.ifPUCorr == 1:
-    	print '\t\t\tNumPV=mc_sig_%i.nPV;'%a
-    	print '\t\t\tbinidx = h->FindBin(NumPV);'
-    	print '\t\t\tNvtx_weight = h->GetBinContent(binidx);'
-    	print '\t\t\tif(Nvtx_weight ==0) Nvtx_weight = 1 ;'
-    for b in range(0, len(data.varList)/4):
-	if data.ifPUCorr == 1:
-        	print '\t\t\tt%i_SigHist[%i]->Fill(mc_sig_%s.%s,Nvtx_weight);'%(a, b, a, data.varList[b*4])
-	else:
-        	print '\t\t\tt%i_SigHist[%i]->Fill(mc_sig_%s.%s);'%(a, b, a, data.varList[b*4])
-    print '\t\t}'
-    print '\n'
+if len(data.list_mc_sig) != 0:
+	for a in range(0,len(data.list_mc_sig)):
+	    print '\tTChain* t%i_mc_sig = new TChain("%s");'% (a, data.treeName)
+	    print '\t\tt%i_mc_sig->Add("%s%s");'%(a, data.store_mc_sig, data.list_mc_sig[a])
+	    print '\t\tClassReadTree mc_sig_%i(t%i_mc_sig);'%(a, a)
+	    print '\t\tfor(int iEv_%i_mc_sig=0;iEv_%i_mc_sig < t%i_mc_sig->GetEntries();iEv_%i_mc_sig++){'%(a, a, a, a)
+	    print '\t\t\tt%i_mc_sig->GetEntry(iEv_%i_mc_sig);'%(a, a)    
+	    if data.ifPUCorr == 1:
+	    	print '\t\t\tNumPV=mc_sig_%i.nPV;'%a
+	    	print '\t\t\tbinidx = h->FindBin(NumPV);'
+	    	print '\t\t\tNvtx_weight = h->GetBinContent(binidx);'
+	    	print '\t\t\tif(Nvtx_weight ==0) Nvtx_weight = 1 ;'
+	    for b in range(0, len(data.varList)/4):
+		if data.ifPUCorr == 1:
+	        	print '\t\t\tt%i_SigHist[%i]->Fill(mc_sig_%s.%s,Nvtx_weight);'%(a, b, a, data.varList[b*4])
+		else:
+	        	print '\t\t\tt%i_SigHist[%i]->Fill(mc_sig_%s.%s);'%(a, b, a, data.varList[b*4])
+	    print '\t\t}'
+	    print '\n'
 
 for a in range(0,len(data.list_mc_bkg)):
     print '\tTChain* t%i_mc_bkg = new TChain("%s");'%(a, data.treeName)
@@ -141,15 +148,18 @@ for a in range(0,len(data.list_mc_bkg)):
     print '\t\tClassReadTree mc_bkg_%i(t%i_mc_bkg);'%(a, a)
     print '\t\tfor(int iEv_%i_mc_bkg=0;iEv_%i_mc_bkg < t%i_mc_bkg->GetEntries();iEv_%i_mc_bkg++){'%(a, a, a, a)
     print '\t\t\tt%i_mc_bkg->GetEntry(iEv_%i_mc_bkg);'%(a, a)   
-    print '\t\t\tNumPV=mc_bkg_%i.nPV;'%a
-    print '\t\t\tbinidx = h->FindBin(NumPV);'
-    print '\t\t\tNvtx_weight = h->GetBinContent(binidx);'
-    print '\t\t\tif(Nvtx_weight ==0) Nvtx_weight = 1 ;'
+    if data.ifPUCorr == 1:
+    	print '\t\t\tNumPV=mc_bkg_%i.nPV;'%a
+    	print '\t\t\tbinidx = h->FindBin(NumPV);'
+    	print '\t\t\tNvtx_weight = h->GetBinContent(binidx);'
+    	print '\t\t\tif(Nvtx_weight ==0) Nvtx_weight = 1 ;'
     for b in range(0, len(data.varList)/4):
 	if data.ifPUCorr == 1:
         	print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s,Nvtx_weight);'%(a,b,a, data.varList[b*4])
 	else:
-        	print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4])
+        	#print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4])
+                print '\t\t\tif (mc_bkg_%i.%s)'%(a,data.cuts[0])
+        	print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s,mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4],a,data.weights[0])
     print '\t\t}'
     print '\n'
 
@@ -160,6 +170,8 @@ for a in range(0,len(data.list_data)):
     print '\t\tfor(int iEv_%i_data=0;iEv_%i_data < t%i_data->GetEntries();iEv_%i_data++){'%(a, a, a, a)
     print '\t\t\tt%i_data->GetEntry(iEv_%i_data);'%(a, a)  
     for b in range(0, len(data.varList)/4):
+        #print '\t\t\tif (mc_data_0.%s && mc_data_0.mass_lvjj_type0_AK4 < 200)'%(data.cuts[0])
+        print '\t\t\tif (mc_data_0.%s)'%(data.cuts[0])
         print '\t\t\tDataHist[%i]->Fill(mc_data_0.%s);'%(a+b+a*((len(data.varList)/4)-1), data.varList[b*4])
     print '\t\t}'
     print '\n'
@@ -176,25 +188,34 @@ for a in range(0,len(data.varList)/4):
     print 'pad[%i]->Draw();'%a
     print 'pad[%i]->cd();\n'%a
 
-    for sig in range(0,len(data.list_mc_sig)):
-	print '\tt%i_SigHist[%i]->Scale(%f);'%(sig,a,float(data.SigScale[sig]))
-    	print '\tHistMax = t%i_SigHist[%i]->GetMaximum()*1.15;'%(sig,a)
-    	print '\tt0_SigHist[0]->SetMaximum(TMath::Max(HistMax,yMax));'
-    	print '\tt0_SigHist[0]->SetMinimum(0.0);'
-    	print '\tleg->AddEntry(t%i_SigHist[%i],"%s","l");'%(sig,a,data.NameSig[sig])
-    	print '\tyMax=HistMax;\n'
-	print '\tcout<<"=====> \tHistMax = "<<yMax<<endl;'
-	print '\tcout<<"============================>>> \t MaxValue Y-axis = "<< t%i_SigHist[%i]->GetMaximum() << endl;'%(sig,a)
+    if len(data.list_mc_sig) != 0:
+    	for sig in range(0,len(data.list_mc_sig)):
+		print '\tt%i_SigHist[%i]->Scale(%f);'%(sig,a,float(data.SigScale[sig]))
+    		print '\tHistMax = t%i_SigHist[%i]->GetMaximum()*1.15;'%(sig,a)
+    		print '\tt0_SigHist[0]->SetMaximum(TMath::Max(HistMax,yMax));'
+    		print '\tt0_SigHist[0]->SetMinimum(0.0);'
+    		print '\tleg->AddEntry(t%i_SigHist[%i],"%s","l");'%(sig,a,data.NameSig[sig])
+    		print '\tyMax=HistMax;\n'
+		print '\tcout<<"=====> \tHistMax = "<<yMax<<endl;'
+		print '\tcout<<"============================>>> \t MaxValue Y-axis = "<< t%i_SigHist[%i]->GetMaximum() << endl;'%(sig,a)
 
     for bkg in range(0,len(data.list_mc_bkg)):
     	print '\tt%i_BkgHist[%i]->Scale(%f);'%(bkg,a,float(data.scale[bkg]))
     	print '\tHistMax = t%i_BkgHist[%i]->GetMaximum()*1.15;'%(bkg, a)
-    	print '\tt0_SigHist[0]->SetMaximum(TMath::Max(HistMax,yMax));'
-    	print '\tt0_SigHist[0]->SetMinimum(0.0);'
-    	print '\tleg->AddEntry(t%i_BkgHist[%i],"%s","f");'%(bkg, a, str(data.NameBkg[bkg]))
+	if len(data.list_mc_sig) != 0:
+    		print '\tt0_SigHist[0]->SetMaximum(TMath::Max(HistMax,yMax));'
+    		print '\tt0_SigHist[0]->SetMinimum(0.0);'
+	else:
+    		print '\tt0_BkgHist[0]->SetMaximum(TMath::Max(HistMax,yMax));'
+    		print '\tt0_BkgHist[0]->SetMinimum(0.0);'
+        if bkg > 5:
+    	    print '\tleg->AddEntry(t%i_BkgHist[%i],"%s","f");'%(bkg, a, str(data.NameBkg[bkg]))
     	print '\tyMax=HistMax;\n'
 	print '\tcout<<"=====> \tHistMax = "<<yMax<<endl;'
-	print '\tcout<<"============================>>> \t MaxValue Y-axis = "<< t%i_SigHist[%i]->GetMaximum() << endl;'%(sig,a)
+	#if len(data.list_mc_sig) != 0:
+	#	print '\tcout<<"============================>>> \t MaxValue Y-axis = "<< t%i_SigHist[%i]->GetMaximum() << endl;'%(sig,a)
+	#else:
+	#	print '\tcout<<"============================>>> \t MaxValue Y-axis = "<< t%i_BkgHist[%i]->GetMaximum() << endl;'%(bkg,a)
 
 
     print '\tDataHist[%i]->Sumw2();'%a
@@ -204,10 +225,13 @@ for a in range(0,len(data.varList)/4):
 
     for bkg in range(0,len(data.list_mc_bkg)):
     	print '\ths[%i]->Add(t%i_BkgHist[%i],"hist");'%(a, bkg, a)
+    #print '\ths[%i]->SetMinimum(0.0);'%a       // By adding this I am getting error saying "Error in <THistPainter::PaintInit>: Cannot set Y axis to log scale"
+    print '\ths[%i]->SetMaximum(yMax);'%a
     print '\ths[%i]->Draw();'%a
     print '\tDataHist[%i]->Draw("same");'%a
-    for sig in range(0,len(data.list_mc_sig)):
-    	print '\tt%i_SigHist[%i]->Draw("same");'%(sig,a)
+    if len(data.list_mc_sig) != 0:
+    	for sig in range(0,len(data.list_mc_sig)):
+    		print '\tt%i_SigHist[%i]->Draw("same");'%(sig,a)
     print '\tleg->Draw("same");'
 
     if a==0:
@@ -233,8 +257,10 @@ for a in range(0,len(data.varList)/4):
     #print a
     print 'cout<<"Total Number of Events in Data = "<<DataHist[%i]->Integral()<<endl;'%a
     print 'cout<<"Total Number of Events in MC   = "<<hRatio[%i]->Integral()<<endl;'%a
-    for sig in range(0,len(data.list_mc_sig)):
-    	print 'cout<<"Number of event in %s  = "<<t%i_BkgHist[%i]->Integral()<<endl;'%(data.NameSig[sig],sig,a)
+    print 'cout<<"Ratio of Data/MC = "<<(DataHist[%i]->Integral())/(hRatio[%i]->Integral())<<endl;'%(a,a)
+    if len(data.list_mc_sig) != 0:
+    	for sig in range(0,len(data.list_mc_sig)):
+    		print 'cout<<"Number of event in %s  = "<<t%i_BkgHist[%i]->Integral()<<endl;'%(data.NameSig[sig],sig,a)
     for bkg in range(0,len(data.list_mc_bkg)):
     	print 'cout<<"Number of event in %s  = "<<t%i_BkgHist[%i]->Integral()<<endl;'%(data.NameBkg[bkg],bkg,a)
 
