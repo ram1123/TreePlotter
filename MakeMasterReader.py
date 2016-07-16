@@ -56,6 +56,7 @@ for a in range(0,len(data.varList)/4):
 
 print 'int NumPV;'
 
+## Color Adjustment For Merging Sample
 print 'int j=0;\t//for bins\nint k=3;\t//reseting the color of backgrounds'
 ############ END:: Setting Bin, Min and Max       ###########################
 
@@ -98,13 +99,22 @@ if len(data.list_mc_sig) != 0:
 for a in range(0,len(data.list_mc_bkg)):
 	print "\tTH1F** t%i_BkgHist = new TH1F*[%i];"%(a, len(data.list_mc_bkg)*len(data.varList)/4)
 
+tW = ["tWch", "tch", "sch"]
+WW = ["WW_excl", "WZ_excl", "ZZ_excl"]
 for a in range(0,len(data.list_mc_bkg)):
 	print "\tfor(int i=0; i<%i;i++){"%(len(data.varList)/4)
+        ## Color Adjustment For Merging Sample
         if (data.list_mc_bkg[a]).find("WJet") != -1:
             print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\tk=2;}\t// for line & Fill color'%(len(data.varList)/4)
             #print '\t\tk=2;\t// for line & Fill color'
         else:
-	    print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\tk++;}\t// for line & Fill color'%(len(data.varList)/4)
+            if any(x in data.list_mc_bkg[a] for x in tW):
+                print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\tk=3;}\t// for line & Fill color'%(len(data.varList)/4)
+            else:
+                if any(x in data.list_mc_bkg[a] for x in WW):
+                    print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\tk=4;}\t// for line & Fill color'%(len(data.varList)/4)
+                else:
+	            print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\tk=5;}\t// for line & Fill color'%(len(data.varList)/4)
 	print '\t\telse j++;'
 	print '\t\tif (k==8) k++;'
 	print '\t\tif (k==10) k++;'
@@ -159,8 +169,8 @@ for a in range(0,len(data.list_mc_bkg)):
         	print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s,Nvtx_weight);'%(a,b,a, data.varList[b*4])
 	else:
                 print '\t\t\tif (mc_bkg_%i.%s)'%(a,data.cuts[0])
-        	print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4])
-        	#print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s,mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4],a,data.weights[0])
+        	#print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4])
+        	print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s,mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4],a,data.weights[0])
     print '\t\t}'
     print '\n'
 
@@ -177,7 +187,12 @@ for a in range(0,len(data.list_data)):
     print '\t\t}'
     print '\n'
 
-print '\tTLegend *leg = new TLegend(0.79,0.40,1.09,0.89,NULL,"brNDC");\n'
+print '\tTLegend *leg = new TLegend(0.77,0.40,1.15,0.90,NULL,"brNDC");\n'
+print '\tleg->SetNColumns(1);\n'
+print '\tleg->SetTextSize(0.07);\n'
+print '\tleg->SetFillColor(0);\n'
+print '\tleg->SetFillStyle(0);\n'
+print '\tleg->SetBorderSize(0);\n'
 print 'double yMax=0.;\ndouble HistMax=0.0;\nc1->cd();\n'
 for a in range(0,len(data.varList)/4):
     #print '\n\n\n\n===========================================================\n\n'
@@ -192,7 +207,7 @@ for a in range(0,len(data.varList)/4):
     if len(data.list_mc_sig) != 0:
     	for sig in range(0,len(data.list_mc_sig)):
 		print '\tt%i_SigHist[%i]->Scale(%f);'%(sig,a,float(data.SigScale[sig]))
-    		print '\tHistMax = t%i_SigHist[%i]->GetMaximum()*1.15;'%(sig,a)
+    		print '\tHistMax = t%i_SigHist[%i]->GetMaximum()*1.80;'%(sig,a)
     		print '\tt0_SigHist[0]->SetMaximum(TMath::Max(HistMax,yMax));'
     		print '\tt0_SigHist[0]->SetMinimum(0.0);'
     		print '\tleg->AddEntry(t%i_SigHist[%i],"%s","l");'%(sig,a,data.NameSig[sig])
@@ -201,17 +216,30 @@ for a in range(0,len(data.varList)/4):
 		print '\tcout<<"============================>>> \t MaxValue Y-axis = "<< t%i_SigHist[%i]->GetMaximum() << endl;'%(sig,a)
 
     CountWjet = 0
+    CountST = 0
+    CountWW = 0
     for bkg in range(0,len(data.list_mc_bkg)):
     	print '\tt%i_BkgHist[%i]->Scale(%f);'%(bkg,a,float(data.scale[bkg]))
-    	print '\tHistMax = t%i_BkgHist[%i]->GetMaximum()*1.15;'%(bkg, a)
+    	print '\tHistMax = t%i_BkgHist[%i]->GetMaximum()*1.80;'%(bkg, a)
 	if len(data.list_mc_sig) != 0:
     		print '\tt0_SigHist[0]->SetMaximum(TMath::Max(HistMax,yMax));'
     		print '\tt0_SigHist[0]->SetMinimum(0.0);'
 	else:
     		print '\tt0_BkgHist[0]->SetMaximum(TMath::Max(HistMax,yMax));'
     		print '\tt0_BkgHist[0]->SetMinimum(0.0);'
-        if (data.list_mc_bkg[bkg]).find("WJet" or "TTBar") == -1:
-            print '\tleg->AddEntry(t%i_BkgHist[%i],"%s","f");'%(bkg, a, str(data.NameBkg[bkg]))
+        ## Color Adjustment For Merging Sample
+        if (data.list_mc_bkg[bkg]).find("WJet") == -1:
+            if any(x in data.list_mc_bkg[bkg] for x in tW):
+                if CountST == 0:
+                    print '\tleg->AddEntry(t%i_BkgHist[%i],"S Top","f");'%(bkg, a)            
+                CountST=CountST+1
+            else:
+                if any(x in data.list_mc_bkg[bkg] for x in WW):
+                    if CountWW == 0:
+                        print '\tleg->AddEntry(t%i_BkgHist[%i],"VV","f");'%(bkg, a)            
+                    CountWW=CountWW+1
+                else:
+                    print '\tleg->AddEntry(t%i_BkgHist[%i],"%s","f");'%(bkg, a, str(data.NameBkg[bkg]))
         else:
             if CountWjet == 0:
                 print '\tleg->AddEntry(t%i_BkgHist[%i],"WJets","f");'%(bkg, a)            
@@ -225,7 +253,7 @@ for a in range(0,len(data.varList)/4):
 
 
     print '\tDataHist[%i]->Sumw2();'%a
-    print '\tHistMax = DataHist[%i]->GetMaximum()*1.15;'%a
+    print '\tHistMax = DataHist[%i]->GetMaximum()*1.80;'%a
     print '\tleg->AddEntry(DataHist[%i],"Data","pe");'%(a)
     print '\tyMax=HistMax;\n'
 
@@ -233,6 +261,7 @@ for a in range(0,len(data.varList)/4):
     	print '\ths[%i]->Add(t%i_BkgHist[%i],"hist");'%(a, bkg, a)
     #print '\ths[%i]->SetMinimum(0.0);'%a       // By adding this I am getting error saying "Error in <THistPainter::PaintInit>: Cannot set Y axis to log scale"
     print '\ths[%i]->SetMaximum(yMax);'%a
+    print '\ths[%i]->SetMinimum(0.1);'%a
     print '\ths[%i]->Draw();'%a
     print '\tDataHist[%i]->Draw("same");'%a
     if len(data.list_mc_sig) != 0:
@@ -274,6 +303,7 @@ for a in range(0,len(data.varList)/4):
     print 'h2->SetStats(0);'
     print 'h2->GetYaxis()->SetTitle("Data/#Sigma MC");'
     print 'h2->GetXaxis()->SetTitle("%s");'%(str(data.varList[4*a]))
+    print 'h2->GetXaxis()->CenterTitle(1);'
     print 'h2->SetMinimum(0.5);'
     print 'h2->SetMaximum(1.5);'
     print 'h2->GetXaxis()->SetTitleOffset(0.8);'
