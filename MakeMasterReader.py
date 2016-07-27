@@ -14,6 +14,7 @@ print '#include<iostream>\n#include <TROOT.h>\n#include <TChain.h>\n#include <TF
 
 
 print 'void MasterReader(){\n setTDRStyle();\n\n'
+print '\tint t0 = time(NULL);\n\n'
 
 ############    Start:: Reading the input file where variables stored    ##########################
 
@@ -57,7 +58,7 @@ for a in range(0,len(data.varList)/4):
 print 'int NumPV;'
 
 ## Color Adjustment For Merging Sample
-print 'int j=0;\t//for bins\nint k=3;\t//reseting the color of backgrounds'
+print 'int j=0;\t//for bins\nint k=6;\t//reseting the color of backgrounds'
 ############ END:: Setting Bin, Min and Max       ###########################
 
 
@@ -108,13 +109,16 @@ for a in range(0,len(data.list_mc_bkg)):
             print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\tk=2;}\t// for line & Fill color'%(len(data.varList)/4)
             #print '\t\tk=2;\t// for line & Fill color'
         else:
-            if any(x in data.list_mc_bkg[a] for x in tW):
-                print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\tk=3;}\t// for line & Fill color'%(len(data.varList)/4)
+            if (data.list_mc_bkg[a]).find("DYJets") != -1:
+                print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\tk=5;}\t// for line & Fill color'%(len(data.varList)/4)
             else:
-                if any(x in data.list_mc_bkg[a] for x in WW):
-                    print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\tk=4;}\t// for line & Fill color'%(len(data.varList)/4)
+                if any(x in data.list_mc_bkg[a] for x in tW):
+                    print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\tk=3;}\t// for line & Fill color'%(len(data.varList)/4)
                 else:
-	            print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\tk=5;}\t// for line & Fill color'%(len(data.varList)/4)
+                    if any(x in data.list_mc_bkg[a] for x in WW):
+                        print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\tk=4;}\t// for line & Fill color'%(len(data.varList)/4)
+                    else:
+	                print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\tk=6;}\t// for line & Fill color'%(len(data.varList)/4)
 	print '\t\telse j++;'
 	print '\t\tif (k==8) k++;'
 	print '\t\tif (k==10) k++;'
@@ -164,13 +168,33 @@ for a in range(0,len(data.list_mc_bkg)):
     	print '\t\t\tbinidx = h->FindBin(NumPV);'
     	print '\t\t\tNvtx_weight = h->GetBinContent(binidx);'
     	print '\t\t\tif(Nvtx_weight ==0) Nvtx_weight = 1 ;'
+    if data.ifCut == 1:
+        print '\t\t\tif (mc_bkg_%i.%s)'%(a,data.cuts[0])
+    if data.ifCut == 2:
+        print '\t\t\tif (mc_bkg_%i.%s && mc_bkg_%i.%s )'%(a,data.cuts[0],a,data.cuts[1])
+    if data.ifCut == 3:
+        print '\t\t\tif (mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s)'%(a,data.cuts[0],a,data.cuts[1],a,data.cuts[2])
+    if data.ifCut == 4:
+        print '\t\t\tif (mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s )'%(a,data.cuts[0],a,data.cuts[1],a,data.cuts[2],a,data.cuts[3])
+    if data.ifCut == 5:
+        print '\t\t\tif (mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s)'%(a,data.cuts[0],a,data.cuts[1],a,data.cuts[2],a,data.cuts[3], a, data.cuts[4])
+    if data.ifCut == 6:
+        print '\t\t\tif (mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s)'%(a,data.cuts[0],a,data.cuts[1],a,data.cuts[2],a,data.cuts[3], a, data.cuts[4], a ,data.cuts[5])
+    print '\t\t\t{'
+    for b in range(0, len(data.varList)/4):
+	if data.ifPUCorr == 1:
+        	print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s,Nvtx_weight);'%(a,b,a, data.varList[b*4])
     for b in range(0, len(data.varList)/4):
 	if data.ifPUCorr == 1:
         	print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s,Nvtx_weight);'%(a,b,a, data.varList[b*4])
 	else:
-                print '\t\t\tif (mc_bkg_%i.%s)'%(a,data.cuts[0])
-        	#print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4])
-        	print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s,mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4],a,data.weights[0])
+                if data.ifWeight == 1:
+        	    print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s,mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4],a,data.weights[0])
+                if data.ifWeight == 2:
+        	    print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s,mc_bkg_%i.%s * mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4],a,data.weights[0],a, data.weights[1])
+                if data.ifWeight == 0:
+                    print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4])
+    print '\t\t\t}'
     print '\t\t}'
     print '\n'
 
@@ -180,10 +204,23 @@ for a in range(0,len(data.list_data)):
     print '\t\tClassReadTree mc_data_%i(t%i_data);'%(a, a)
     print '\t\tfor(int iEv_%i_data=0;iEv_%i_data < t%i_data->GetEntries();iEv_%i_data++){'%(a, a, a, a)
     print '\t\t\tt%i_data->GetEntry(iEv_%i_data);'%(a, a)  
+    if data.ifCut == 1:
+        print '\t\t\tif (mc_data_0.%s)'%(data.cuts[0])
+    if data.ifCut == 2:
+        print '\t\t\tif (mc_data_0.%s && mc_data_0.%s )'%(data.cuts[0],data.cuts[1])
+    if data.ifCut == 3:
+        print '\t\t\tif (mc_data_0.%s && mc_data_0.%s && mc_data_0.%s)'%(data.cuts[0],data.cuts[1],data.cuts[2])
+    if data.ifCut == 4:
+        print '\t\t\tif (mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s )'%(a,data.cuts[0],a,data.cuts[1],a,data.cuts[2],a,data.cuts[3])
+    if data.ifCut == 5:
+        print '\t\t\tif (mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s)'%(a,data.cuts[0],a,data.cuts[1],a,data.cuts[2],a,data.cuts[3], a, data.cuts[4])
+    if data.ifCut == 6:
+        print '\t\t\tif (mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s)'%(a,data.cuts[0],a,data.cuts[1],a,data.cuts[2],a,data.cuts[3], a, data.cuts[4], a, data.cuts[5])
+    print '\t\t\t{'
     for b in range(0, len(data.varList)/4):
         #print '\t\t\tif (mc_data_0.%s && mc_data_0.mass_lvjj_type0_AK4 < 200)'%(data.cuts[0])
-        print '\t\t\tif (mc_data_0.%s)'%(data.cuts[0])
         print '\t\t\tDataHist[%i]->Fill(mc_data_0.%s);'%(a+b+a*((len(data.varList)/4)-1), data.varList[b*4])
+    print '\t\t\t}'
     print '\t\t}'
     print '\n'
 
@@ -193,6 +230,8 @@ print '\tleg->SetTextSize(0.07);\n'
 print '\tleg->SetFillColor(0);\n'
 print '\tleg->SetFillStyle(0);\n'
 print '\tleg->SetBorderSize(0);\n'
+#print '\tTPaveText* pt ;\n'
+#print '\tpt = new TPaveText(.20,0.69,.34,.91,"NDC");
 print 'double yMax=0.;\ndouble HistMax=0.0;\nc1->cd();\n'
 for a in range(0,len(data.varList)/4):
     #print '\n\n\n\n===========================================================\n\n'
@@ -209,7 +248,7 @@ for a in range(0,len(data.varList)/4):
 		print '\tt%i_SigHist[%i]->Scale(%f);'%(sig,a,float(data.SigScale[sig]))
     		print '\tHistMax = t%i_SigHist[%i]->GetMaximum()*1.80;'%(sig,a)
     		print '\tt0_SigHist[0]->SetMaximum(TMath::Max(HistMax,yMax));'
-    		print '\tt0_SigHist[0]->SetMinimum(0.0);'
+    		print '\tt0_SigHist[0]->SetMinimum(0.1);'
     		print '\tleg->AddEntry(t%i_SigHist[%i],"%s","l");'%(sig,a,data.NameSig[sig])
     		print '\tyMax=HistMax;\n'
 		print '\tcout<<"=====> \tHistMax = "<<yMax<<endl;'
@@ -223,10 +262,10 @@ for a in range(0,len(data.varList)/4):
     	print '\tHistMax = t%i_BkgHist[%i]->GetMaximum()*1.80;'%(bkg, a)
 	if len(data.list_mc_sig) != 0:
     		print '\tt0_SigHist[0]->SetMaximum(TMath::Max(HistMax,yMax));'
-    		print '\tt0_SigHist[0]->SetMinimum(0.0);'
+    		print '\tt0_SigHist[0]->SetMinimum(0.1);'
 	else:
     		print '\tt0_BkgHist[0]->SetMaximum(TMath::Max(HistMax,yMax));'
-    		print '\tt0_BkgHist[0]->SetMinimum(0.0);'
+    		print '\tt0_BkgHist[0]->SetMinimum(0.1);'
         ## Color Adjustment For Merging Sample
         if (data.list_mc_bkg[bkg]).find("WJet") == -1:
             if any(x in data.list_mc_bkg[bkg] for x in tW):
@@ -317,7 +356,11 @@ for a in range(0,len(data.varList)/4):
     print 'h2->Draw("");'
     print '\tc1->SaveAs("%s.pdf");'%data.varList[a*4]
     print '\tc1->SaveAs("%s.png");'%data.varList[a*4]
+    print '\tc1->SaveAs("%s.C");'%data.varList[a*4]
+    print '\tc1->SaveAs("%s.root");'%data.varList[a*4]
     print '\tleg->Clear();'
     print '\tc1->Clear();\n\t//###########################################################\n\n'
 
+print '\tint t1 = time(NULL);\n'
+print '\tprintf ("time to run this code = %d secs", t1 - t0);'
 print '\n\n}'
