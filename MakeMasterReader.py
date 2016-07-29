@@ -192,6 +192,12 @@ for a in range(0,len(data.list_mc_bkg)):
         	    print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s,mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4],a,data.weights[0])
                 if data.ifWeight == 2:
         	    print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s,mc_bkg_%i.%s * mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4],a,data.weights[0],a, data.weights[1])
+                if data.ifWeight == 3:
+        	    print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s,mc_bkg_%i.%s * mc_bkg_%i.%s * mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4],a,data.weights[0],a, data.weights[1], a, data.weights[2])
+                if data.ifWeight == 4:
+        	    print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s,mc_bkg_%i.%s * mc_bkg_%i.%s * mc_bkg_%i.%s * mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4],a,data.weights[0],a, data.weights[1], a, data.weights[2], a, data.weights[3] )
+                if data.ifWeight == 5:
+        	    print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s,mc_bkg_%i.%s * mc_bkg_%i.%s * mc_bkg_%i.%s * mc_bkg_%i.%s * mc_bkg_%i.%s );'%(a,b,a, data.varList[b*4],a,data.weights[0],a, data.weights[1], a, data.weights[2], a, data.weights[3], a, data.weights[4])
                 if data.ifWeight == 0:
                     print '\t\t\tt%i_BkgHist[%i]->Fill(mc_bkg_%i.%s);'%(a,b,a, data.varList[b*4])
     print '\t\t\t}'
