@@ -40,6 +40,8 @@ Then this will create a general header file with all your existing variable in t
 1. Set Option for Stack Plot.
 2. Normalize to cross-section.
 3. Normalize of a particular data.
+4. Fix the code to automatically plot for Endcap; presently it is not working because for endcap we need to do code using fabs.
+
 
     
 ##Find our webpage [here](http://ram1123.github.io/TreePlotter/)

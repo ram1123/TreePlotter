@@ -15,6 +15,7 @@ print '#include<iostream>\n#include <TROOT.h>\n#include <TChain.h>\n#include <TF
 
 print 'void MasterReader(){\n setTDRStyle();\n\n'
 print '\tint t0 = time(NULL);\n\n'
+print '\tTGaxis::SetMaxDigits(3);\n\n'
 
 ############    Start:: Reading the input file where variables stored    ##########################
 
@@ -217,11 +218,11 @@ for a in range(0,len(data.list_data)):
     if data.ifCut == 3:
         print '\t\t\tif (mc_data_0.%s && mc_data_0.%s && mc_data_0.%s)'%(data.cuts[0],data.cuts[1],data.cuts[2])
     if data.ifCut == 4:
-        print '\t\t\tif (mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s )'%(a,data.cuts[0],a,data.cuts[1],a,data.cuts[2],a,data.cuts[3])
+        print '\t\t\tif (mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s )'%(data.cuts[0],data.cuts[1],data.cuts[2],data.cuts[3])
     if data.ifCut == 5:
-        print '\t\t\tif (mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s)'%(a,data.cuts[0],a,data.cuts[1],a,data.cuts[2],a,data.cuts[3], a, data.cuts[4])
+        print '\t\t\tif (mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s)'%(data.cuts[0],data.cuts[1],data.cuts[2],data.cuts[3], data.cuts[4])
     if data.ifCut == 6:
-        print '\t\t\tif (mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s)'%(a,data.cuts[0],a,data.cuts[1],a,data.cuts[2],a,data.cuts[3], a, data.cuts[4], a, data.cuts[5])
+        print '\t\t\tif (mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s)'%(data.cuts[0],data.cuts[1],data.cuts[2],data.cuts[3],  data.cuts[4],  data.cuts[5])
     print '\t\t\t{'
     for b in range(0, len(data.varList)/4):
         #print '\t\t\tif (mc_data_0.%s && mc_data_0.mass_lvjj_type0_AK4 < 200)'%(data.cuts[0])
