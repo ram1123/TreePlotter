@@ -1,0 +1,10 @@
+rm	*.png
+rm	delta*.C
+rm	l*.C
+rm	mass*.C
+rm	n*.C
+rm	pfMET.C
+rm	v*.C
+rm	AK*.C
+rm	*.pdf
+rm	*.root
