@@ -1,6 +1,12 @@
 # TreePlotter
 Trying to make an intelligent tree plotting code, where we just need to tell name of root file and variables to plot and it should do everything else automatically.
 
+# What this framework can do
+
+1. You just need to set a InputDetails.dat file as per its format. Here you just need to give name of input file, variables to plot, cut (upto max 6; one can increase this).
+
+2. Then it will give you plots for all the variables with stack plot.
+
 ##Environment Setting
 This code is check for only root version 6.04. So, its recommended that one should run this on root 6.04.
 
