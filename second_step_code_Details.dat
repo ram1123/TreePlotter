@@ -1,0 +1,42 @@
+======================================================================
+=======	Electron Selection	==========================================
+Trigger:	HLT_Ele27_eta2p1_WPLoose_Gsf_v
+=> Choose highest pT electrons that passes the following cuts:
+	=>	Cut based Tight ID
+	=>	pT > 30 GeV
+	=>	|𝜂| < 2.1
+
+======================================================================
+=======	Muon Selection		==========================================
+Trigger:	HLT_IsoMu22_v
+=> Choose highest pT muon that passes following cuts:
+	=>	Tight ID
+	=>	trkIso/pT < 0.1
+	=>	pT > 25 GeV
+	=>	|𝜂| < 2.4
+
+======================================================================
+=======	MET Selection		==========================================
+=>	pfMET with Type 1 Corrections.
+
+
+======================================================================
+=======	General Jet Selection	======================================
+=>	JEC applied: L1, L2, L3, and L2L3
+=>	pT > 30 GeV
+=>	|𝜂| < 2.4
+=>	Jets cleaned from lepton: ΔR > 0.3
+=>	B-discriminator CSV M < 0.800
+=>	Should have atleast 4 jets
+
+======================================================================
+======	VBF Jet Selection	==========================================
+=>	VBF Tagging
+	=>	Delta eta > 3.5
+	=>	M(jj) > 500
+	=>	Eta1 * Eta2 < 0
+	=>	If more than one pair found, choose the one with maximum delta eta.
+
+======================================================================
+======	W-jet Selection		==========================================
+=>	Choose highest PT jets from remaining ones as W jets.

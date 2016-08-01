@@ -1,0 +1,12 @@
+Plots*/
+output/
+l_*.C
+v*.C
+d*.C
+ClassReadTree.cc
+vbf*.C
+AK*.C
+*.pdf
+*.root
+*.swp
+*.png

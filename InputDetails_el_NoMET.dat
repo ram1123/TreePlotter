@@ -1,0 +1,105 @@
+####    Name of tree    #####
+treeName="otree"
+
+###	Some Additional Input	####
+ifPUCorr=0
+
+## If you need to apply more than 1 cut or weight then please add it in MakeMasterReader.py code first
+ifCut = 1	# if 0 : no cut, 1: one cut, 2: two cut, 3: three cut, maximum 6 cuts can be applied presently
+#cuts = ["pfMET>40"]
+cuts = ["isVBFJet_NoB==1"]
+#cuts = [""]
+#cuts = ["isVBFJet==0"]
+#cuts = ["isVBFJet_NoB==0"]
+#leg=["w->el+#nu"]
+#leg=["w->mu+#nu"]
+#
+
+ifWeight = 2
+#weights = ["totalEventWeight"]
+#weights = ["eff_and_pu_Weight"]
+weights = ["eff_and_pu_Weight","id_eff_Weight"]
+
+####    path of samples #####
+store_mc_sig = "/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/SMP_VV_29June_LepFlavor_NoVBFCut_TwoHighestPtAsWjet_v2/output_el/"
+store_mc_bkg = "/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/SMP_VV_29June_LepFlavor_NoVBFCut_TwoHighestPtAsWjet_v2/output_el/"
+store_data   = "/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/SMP_VV_29June_LepFlavor_NoVBFCut_TwoHighestPtAsWjet_v2/output_el/"
+
+#store_mc_sig = "/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/output/output_el/"
+#store_mc_bkg = "/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/output/output_el/"
+#store_data   = "/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/output/output_el/"
+
+#store_mc_sig = "/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/Changed_VBF_Wjet_Selection/output/output_mu/"
+#store_mc_bkg = "/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/Changed_VBF_Wjet_Selection/output/output_mu/"
+#store_data   = "/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/Changed_VBF_Wjet_Selection/output/output_mu/"
+
+#store_mc_sig = "/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/AddedLepFlavor_NoCutIfNoVBFfound/output/output_mu/"
+#store_mc_bkg = "/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/AddedLepFlavor_NoCutIfNoVBFfound/output/output_mu/"
+#store_data   = "/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/AddedLepFlavor_NoCutIfNoVBFfound/output/output_mu/"
+
+#store_mc_sig = "/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/OnlyLep_WithoutIdIso_1/output/output_el/"
+#store_mc_bkg = "/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/OnlyLep_WithoutIdIso_1/output/output_el/"
+#store_data   = "/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/OnlyLep_WithoutIdIso_1/output/output_el/"
+
+#store_mc_sig = "/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/AddedLepFlavor_NoCutIfNoVBFfound_27Jul2016/output/output_el/"
+#store_mc_bkg = "/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/AddedLepFlavor_NoCutIfNoVBFfound_27Jul2016/output/output_el/"
+#store_data   = "/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/AddedLepFlavor_NoCutIfNoVBFfound_27Jul2016/output/output_el/"
+####    Name of samples #####
+list_mc_sig = []
+NameSig = []
+SigScale = []
+list_mc_bkg =[	
+				 "WWTree_WW_excl.root",	"WWTree_WZ_excl.root", "WWTree_ZZ_excl.root"
+				, "WWTree_tWch.root", "WWTree_tWch_bar.root", "WWTree_tch_bar.root", "WWTree_sch.root"
+				, "WWTree_DYJets.root"
+				, "WWTree_WJets100.root","WWTree_WJets200.root","WWTree_WJets1200.root"
+				,"WWTree_WJets2500.root","WWTree_WJets400.root","WWTree_WJets600bis.root"
+				,"WWTree_WJets800.root"
+				,"WWTree_TTbar_powheg.root"
+			]
+NameBkg =[	
+			"WW" ,"WZ", "ZZ"
+			, "tWch", "tWch_bar", "tch_bar", "sch"
+			, "DYJets"
+			, "WJets100","WJets200","WJets1200"
+			,"WJets2500","WJets400","WJets600"
+			,"WJets"
+			,"TTbar"
+		]
+scale = [	
+			 0.1486 , 0.0024 , 0.0007
+			, 0.2068 , 0.2096 , 0.0899 , 0.0212
+			, 1.2100
+			, 0.2836, 0.4207, 0.0313
+			, 0.0007, 0.1444, 0.0199
+			, 0.0048
+			, 0.0265 
+		] 	# scale factor for respective background
+list_data = ["WWTree_data_golden.root"] 
+
+####	Name of Branches     ####
+#
+#   Pattern of this arrary is like this:
+#   first put variable and then its bin, min-x and max-x
+#   Then next variable its bin, min-x and max-x, and so on...
+#
+varList	=	[
+			"nPV","40","0","40"
+			,"l_pt","35","0","500","l_eta","18","-2.1","2.1","l_phi","15","-3.5","3.5"
+			,"pfMET","50","0","500"
+			,"vbf_maxpt_j1_pt","60","0","900", "vbf_maxpt_j2_pt","40","0","600"
+			,"vbf_maxpt_j1_eta","30","-2.4","2.4", "vbf_maxpt_j2_eta","30","-2.4","2.4"
+			,"AK4_jet1_pt","40","0","600", "AK4_jet2_pt","25","40","500"
+			,"AK4_jet1_eta","30","-2.4","2.4", "AK4_jet2_eta","30","-2.4","2.4"
+			,"vbf_maxpt_jj_m","50","0","3000","vbf_maxpt_jj_pt","25","0","1000"
+			,"AK4_jetjet_mass","50","40","120"
+			,"AK4_jetjet_deltar","50","-0.5","0.5"
+			,"v_mt","20","0","300"
+			,"v_pt","20","0","300"
+			,"mass_lvjj_type0_AK4","50","0","1800"
+			,"deltaR_lak4jetjet","20","0.0","6.0"
+			,"deltaphi_METak4jetjet","20","0.0","3.3"
+			,"deltaphi_Vak4jetjet","20","0","3.3"
+			,"njets","12","3","15"
+			,"nVBFPairs","10","0","10"
+			]
