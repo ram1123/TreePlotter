@@ -2,6 +2,7 @@ import ROOT
 import re
 import os
 import sys
+import gRootColorPalette
 
 ROOT.gROOT.SetBatch(True)
 
@@ -17,12 +18,13 @@ RootFiles=["WWTree_DYJets.root","WWTree_data_golden.root","WWTree_TTbar_powheg.r
 
 #ROOT.gStyle.SetGridWidth(3)
 #ROOT.gStyle.SetGridStyle(1)
-ROOT.gStyle.SetPalette(1)
+#ROOT.gStyle.SetPalette(1)
 
 c=ROOT.TCanvas("c","c",800,600)
 c.SetRightMargin(0.15)      # right margin for canvas
 c.SetGridx()
 c.SetGridy()
+c.SetLogz()
 countf=0
 
 #outputfile = ROOT.TFile("test.root","RECREATE")
@@ -46,7 +48,7 @@ for files in RootFiles:
 
         h1=ROOT.TH2F("h1","",int(columns[1]),float(columns[2]),float(columns[3]),int(columns[4]),float(columns[5]),float(columns[6]))
         h1.SetTitle(filename)
-        #h1=ROOT.TH2F("h1",titles[0]+" vs "+titles[1],int(columns[1]),float(columns[2]),float(columns[3]),int(columns[4]),float(columns[5]),float(columns[6]))
+        h1.GetZaxis().SetRangeUser(0,1000);
         h1.GetXaxis().SetTitle(titles[1])
         h1.GetYaxis().SetTitle(titles[0])
         T.Draw(columns[0]+">>h1","","colz")
