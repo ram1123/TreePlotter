@@ -15,6 +15,8 @@ print '#include<iostream>\n#include <TROOT.h>\n#include <TChain.h>\n#include <TF
 
 print 'void MasterReader(){\n setTDRStyle();\n\n'
 print '\tint t0 = time(NULL);\n\n'
+print '\tofstream myfile;'
+print '\tmyfile.open ("Output.log");'
 print '\tTGaxis::SetMaxDigits(3);\n\n'
 
 ############    Start:: Reading the input file where variables stored    ##########################
@@ -117,9 +119,9 @@ for a in range(0,len(data.list_mc_bkg)):
                     print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\tk=3;}\t// for line & Fill color'%(len(data.varList)/4)
                 else:
                     if any(x in data.list_mc_bkg[a] for x in WW):
-                        print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\tk=4;}\t// for line & Fill color'%(len(data.varList)/4)
+                        print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\tk=41;}\t// for line & Fill color'%(len(data.varList)/4)
                     else:
-	                print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\tk=6;}\t// for line & Fill color'%(len(data.varList)/4)
+	                print '\t\tif (i%%%i==0)     {j=0;\t//for reset bins\n\t\t\t\tk=8;}\t// for line & Fill color'%(len(data.varList)/4)
 	print '\t\telse j++;'
 	print '\t\tif (k==8) k++;'
 	print '\t\tif (k==10) k++;'
@@ -181,6 +183,10 @@ for a in range(0,len(data.list_mc_bkg)):
         print '\t\t\tif (mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s)'%(a,data.cuts[0],a,data.cuts[1],a,data.cuts[2],a,data.cuts[3], a, data.cuts[4])
     if data.ifCut == 6:
         print '\t\t\tif (mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s)'%(a,data.cuts[0],a,data.cuts[1],a,data.cuts[2],a,data.cuts[3], a, data.cuts[4], a ,data.cuts[5])
+    if data.ifCut == 7:
+        print '\t\t\tif (mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s)'%(a,data.cuts[0],a,data.cuts[1],a,data.cuts[2],a,data.cuts[3], a, data.cuts[4], a ,data.cuts[5], a , data.cuts[6])
+    if data.ifCut == 8:
+        print '\t\t\tif (mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s && mc_bkg_%i.%s)'%(a,data.cuts[0],a,data.cuts[1],a,data.cuts[2],a,data.cuts[3], a, data.cuts[4], a ,data.cuts[5], a , data.cuts[6], a , data.cuts[7])
     print '\t\t\t{'
     for b in range(0, len(data.varList)/4):
 	if data.ifPUCorr == 1:
@@ -223,6 +229,10 @@ for a in range(0,len(data.list_data)):
         print '\t\t\tif (mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s)'%(data.cuts[0],data.cuts[1],data.cuts[2],data.cuts[3], data.cuts[4])
     if data.ifCut == 6:
         print '\t\t\tif (mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s)'%(data.cuts[0],data.cuts[1],data.cuts[2],data.cuts[3],  data.cuts[4],  data.cuts[5])
+    if data.ifCut == 7:
+        print '\t\t\tif (mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s)'%(data.cuts[0],data.cuts[1],data.cuts[2],data.cuts[3],  data.cuts[4],  data.cuts[5], data.cuts[6])
+    if data.ifCut == 8:
+        print '\t\t\tif (mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s && mc_data_0.%s &&  mc_data_0.%s)'%(data.cuts[0],data.cuts[1],data.cuts[2],data.cuts[3],  data.cuts[4],  data.cuts[5], data.cuts[6], data.cuts[7])
     print '\t\t\t{'
     for b in range(0, len(data.varList)/4):
         #print '\t\t\tif (mc_data_0.%s && mc_data_0.mass_lvjj_type0_AK4 < 200)'%(data.cuts[0])
@@ -258,8 +268,8 @@ for a in range(0,len(data.varList)/4):
     		print '\tt0_SigHist[0]->SetMinimum(0.1);'
     		print '\tleg->AddEntry(t%i_SigHist[%i],"%s","l");'%(sig,a,data.NameSig[sig])
     		print '\tyMax=HistMax;\n'
-		print '\tcout<<"=====> \tHistMax = "<<yMax<<endl;'
-		print '\tcout<<"============================>>> \t MaxValue Y-axis = "<< t%i_SigHist[%i]->GetMaximum() << endl;'%(sig,a)
+		#print '\tcout<<"=====> \tHistMax = "<<yMax<<endl;'
+		#print '\tcout<<"============================>>> \t MaxValue Y-axis = "<< t%i_SigHist[%i]->GetMaximum() << endl;'%(sig,a)
 
     CountWjet = 0
     CountST = 0
@@ -291,7 +301,7 @@ for a in range(0,len(data.varList)/4):
                 print '\tleg->AddEntry(t%i_BkgHist[%i],"WJets","f");'%(bkg, a)            
             CountWjet=CountWjet+1
     	print '\tyMax=HistMax;\n'
-	print '\tcout<<"=====> \tHistMax = "<<yMax<<endl;'
+	#print '\tcout<<"=====> \tHistMax = "<<yMax<<endl;'
 	#if len(data.list_mc_sig) != 0:
 	#	print '\tcout<<"============================>>> \t MaxValue Y-axis = "<< t%i_SigHist[%i]->GetMaximum() << endl;'%(sig,a)
 	#else:
@@ -336,14 +346,24 @@ for a in range(0,len(data.varList)/4):
     	print 'yscale = (1.0-0.2)/(0.18-0);'
     print 'h2->Divide(hRatio[%i]);'%a
     #print a
-    print 'cout<<"Total Number of Events in Data = "<<DataHist[%i]->Integral()<<endl;'%a
-    print 'cout<<"Total Number of Events in MC   = "<<hRatio[%i]->Integral()<<endl;'%a
-    print 'cout<<"Ratio of Data/MC = "<<(DataHist[%i]->Integral())/(hRatio[%i]->Integral())<<endl;'%(a,a)
+    print 'myfile<<"********************************* %s "<<endl;'%data.varList[a*4]
     if len(data.list_mc_sig) != 0:
     	for sig in range(0,len(data.list_mc_sig)):
     		print 'cout<<"Number of event in %s  = "<<t%i_BkgHist[%i]->Integral()<<endl;'%(data.NameSig[sig],sig,a)
+    		print 'myfile<<"Number of event in %s  = "<<t%i_BkgHist[%i]->Integral()<<endl;'%(data.NameSig[sig],sig,a)
     for bkg in range(0,len(data.list_mc_bkg)):
     	print 'cout<<"Number of event in %s  = "<<t%i_BkgHist[%i]->Integral()<<endl;'%(data.NameBkg[bkg],bkg,a)
+    	print 'myfile<<"Number of event in %s  = "<<t%i_BkgHist[%i]->Integral()<<endl;'%(data.NameBkg[bkg],bkg,a)
+    print 'cout<<"====================================================="<<endl;'
+    print 'cout<<"Total Number of Events in Data = "<<DataHist[%i]->Integral()<<endl;'%a
+    print 'cout<<"Total Number of Events in MC   = "<<hRatio[%i]->Integral()<<endl;'%a
+    print 'cout<<"Ratio of Data/MC = "<<(DataHist[%i]->Integral())/(hRatio[%i]->Integral())<<endl;'%(a,a)
+    print 'cout<<"====================================================="<<endl;'
+    print 'myfile<<"====================================================="<<endl;'
+    print 'myfile<<"Total Number of Events in Data = "<<DataHist[%i]->Integral()<<endl;'%a
+    print 'myfile<<"Total Number of Events in MC   = "<<hRatio[%i]->Integral()<<endl;'%a
+    print 'myfile<<"Ratio of Data/MC = "<<(DataHist[%i]->Integral())/(hRatio[%i]->Integral())<<endl;'%(a,a)
+    print 'myfile<<"====================================================="<<endl;'
 
     print 'h2->SetMarkerStyle(21);'
     print 'h2->SetStats(0);'
@@ -368,6 +388,7 @@ for a in range(0,len(data.varList)/4):
     print '\tleg->Clear();'
     print '\tc1->Clear();\n\t//###########################################################\n\n'
 
+print '\t myfile.close();'
 print '\tint t1 = time(NULL);\n'
 print '\tprintf ("time to run this code = %d secs", t1 - t0);'
 print '\n\n}'

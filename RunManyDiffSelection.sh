@@ -10,6 +10,8 @@
 #root -l -b -q MasterReader.C 
 #cp *.pdf ~/Temp_PPT_Script/
 #echo -e "\n\n======================================================\n\tAll PDF files are copied to ~/Temp_PPT_Script/ directory\n\n========================================================="
+#source Main.sh /home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/NoBtagInPreSelection_4August2016/output_el/WWTree_data_el_2016_runB_v2_30.root otree
+
 today=`date +%d%m%Y_%H%M%S`
 
 green='\033[0;32m'
@@ -46,9 +48,49 @@ fi
 
 
 echo -e "\n\n=====================================================================\n\n"
-echo -e     "==========	Plots for electrons: With Corr & MET Cut	=============="
-cp 	InputDetails_el.dat	InputDetails.dat
+echo -e     "==========	Plots for WJets Control Region: With Corr & MET Cut	=============="
+rm *.png *.pdf *.root
+cp 	InputDetails_Wjets_el.dat	InputDetails.dat
 echo "python MakeMasterReader.py "
+python MakeMasterReader.py 
+echo "Modifying MasterReader.C for w-mass window, Using script : ScriptToEditMasterReader.sh"
+source ScriptToEditMasterReader.sh
+echo "Modified macro MasterReader.C"
+echo "root -l -b -q MasterReader.C "
+root -l -b -q MasterReader.C 
+#mkdir Plots_El_Corr_MET40_${today}
+mkdir Plots_El_LepPt35_CorrPUIDISO_${today}
+cp  Output.log second_step_code_Details.dat InputDetails.dat  MasterReader.C *.png *.pdf *.root Plots_El_LepPt35_CorrPUIDISO_${today}
+source /home/ramkrishna/MyLocalWebsite/ImageHTMLcreateScript.sh  /home/ramkrishna/PhD_New_Dir_16July2016/PhysicsAnalysis/aQGC_Analysis/aQGC_Plotting_Code/TreePlotter/Plots_El_LepPt35_CorrPUIDISO_${today}/  HTMLFiles/Plots_El_LepPt35_CorrPUIDISO_${today}.htm
+
+echo -e "\n\n=====================================\n\t Interesting file: HTMLFiles/Plots_El_LepPt35_CorrPUIDISO_${today}.htm\n\n=====================================" 
+
+
+echo -e "\n\n=====================================================================\n\n"
+echo -e     "==========	Plots for WJets Control Region: With Corr & MET Cut	=============="
+rm *.png *.pdf *.root
+cp 	InputDetails_Wjets_mu.dat	InputDetails.dat
+echo "python MakeMasterReader.py "
+python MakeMasterReader.py 
+echo "Modifying MasterReader.C for w-mass window, Using script : ScriptToEditMasterReader.sh"
+source ScriptToEditMasterReader.sh
+echo "Modified macro MasterReader.C"
+echo "root -l -b -q MasterReader.C "
+root -l -b -q MasterReader.C 
+#mkdir Plots_Mu_Corr_MET40_${today}
+mkdir Plots_Mu_LepPt35_CorrPUIDISO_${today}
+cp Output.log second_step_code_Details.dat InputDetails.dat  MasterReader.C *.png *.pdf *.root Plots_Mu_LepPt35_CorrPUIDISO_${today}
+source /home/ramkrishna/MyLocalWebsite/ImageHTMLcreateScript.sh  /home/ramkrishna/PhD_New_Dir_16July2016/PhysicsAnalysis/aQGC_Analysis/aQGC_Plotting_Code/TreePlotter/Plots_Mu_LepPt35_CorrPUIDISO_${today}/  HTMLFiles/Plots_Mu_LepPt35_CorrPUIDISO_${today}.htm
+
+echo -e "\n\n=====================================\n\t Interesting file: HTMLFiles/Plots_Mu_LepPt35_CorrPUIDISO_${today}.htm\n\n=====================================" 
+
+
+
+#echo -e "\n\n=====================================================================\n\n"
+#echo -e     "==========	Plots for electrons: With Corr & MET Cut	=============="
+#rm *.png *.pdf *.root
+#cp 	InputDetails_el.dat	InputDetails.dat
+#echo "python MakeMasterReader.py "
 #python MakeMasterReader.py 
 #echo "root -l -b -q MasterReader.C "
 #root -l -b -q MasterReader.C 
@@ -56,6 +98,9 @@ echo "python MakeMasterReader.py "
 #cp second_step_code_Details.dat InputDetails.dat  MasterReader.C *.png *.pdf *.root Plots_El_Corr_MET40_${today}
 #source /home/ramkrishna/MyLocalWebsite/ImageHTMLcreateScript.sh  /home/ramkrishna/PhD_New_Dir_16July2016/PhysicsAnalysis/aQGC_Analysis/aQGC_Plotting_Code/TreePlotter/Plots_El_Corr_MET40_${today}/  HTMLFiles/Plots_El_Corr_MET40_${today}.htm
 #
+#echo -e "\n\n=====================================\n\t Interesting file: HTMLFiles/Plots_El_Corr_MET40_${today}.htm\n\n=====================================" 
+
+
 #echo -e "\n\n=====================================================================\n\n"
 #echo -e     "==========	Plots for electrons: Without Corr & MET Cut	=============="
 #cp 	InputDetails_el_NoCorr.dat	InputDetails.dat
@@ -136,7 +181,7 @@ echo "python MakeMasterReader.py "
 #mkdir Plots_El_Corr_MET40_Barrel_${today}
 #cp MasterReader.C second_step_code_Details.dat InputDetails.dat   *.png *.pdf *.root Plots_El_Corr_MET40_Barrel_${today}
 #source /home/ramkrishna/MyLocalWebsite/ImageHTMLcreateScript.sh /home/ramkrishna/PhD_New_Dir_16July2016/PhysicsAnalysis/aQGC_Analysis/aQGC_Plotting_Code/TreePlotter/Plots_El_Corr_MET40_Barrel_${today}/  HTMLFiles/Plots_El_Corr_MET40_Barrel_${today}.htm
-
+#
 #echo -e "\n\n=====================================================================\n\n"
 #echo -e     "==========	Plots for muons: With Corr & MET Cut in EndCap	=============="
 #cp 	InputDetails_mu_EndCap.dat	InputDetails.dat
@@ -147,7 +192,7 @@ echo "python MakeMasterReader.py "
 #mkdir Plots_Mu_Corr_MET40_EndCap_${today}
 #cp second_step_code_Details.dat InputDetails.dat  MasterReader.C *.png *.pdf *.root Plots_Mu_Corr_MET40_EndCap_${today}
 #source /home/ramkrishna/MyLocalWebsite/ImageHTMLcreateScript.sh /home/ramkrishna/PhD_New_Dir_16July2016/PhysicsAnalysis/aQGC_Analysis/aQGC_Plotting_Code/TreePlotter/Plots_Mu_Corr_MET40_EndCap_${today}/  HTMLFiles/Plots_Mu_Corr_MET40_EndCap_${today}.htm
-
+#
 #echo -e "\n\n=====================================================================\n\n"
 #echo -e     "==========	Plots for electrons: With Corr & MET Cut in EndCap	=============="
 ##cp 	InputDetails_el_EndCap.dat	InputDetails.dat

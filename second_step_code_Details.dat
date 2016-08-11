@@ -1,4 +1,11 @@
+Final SelectioN:
+
+l_pt>35
+PU, ID, ISO and Trigger corrections are applied. 
+
 ======================================================================
+
+Below part for Pre-Selection:
 =======	Electron Selection	==========================================
 Trigger:	HLT_Ele27_eta2p1_WPLoose_Gsf_v
 => Choose highest pT electrons that passes the following cuts:
@@ -26,9 +33,10 @@ Trigger:	HLT_IsoMu22_v
 =>	pT > 30 GeV
 =>	|𝜂| < 2.4
 =>	Jets cleaned from lepton: ΔR > 0.3
-=>	B-discriminator CSV M < 0.800
 =>	Should have atleast 4 jets
 
+**** Below VBF and Wjets selection was done and branches were saved but
+	no cut is applied at pre-selection level.
 ======================================================================
 ======	VBF Jet Selection	==========================================
 =>	VBF Tagging

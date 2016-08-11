@@ -5,20 +5,16 @@ treeName="otree"
 ifPUCorr=0
 
 ## If you need to apply more than 1 cut or weight then please add it in MakeMasterReader.py code first
-ifCut = 1	# if 0 : no cut, 1: one cut, 2: two cut, 3: three cut, maximum 6 cuts can be applied presently
-#cuts = ["pfMET>40"]
-cuts = ["isVBFJet_NoB==1"]
-#cuts = [""]
+ifCut = 4	# if 0 : no cut, 1: one cut, 2: two cut, 3: three cut, maximum 6 cuts can be applied presently
+ifWeight = 2
+#cuts = ["pfMET>40","isVBFJet_NoB==1"]
+cuts = ["pfMET>40","isVBFJet_NoB==1","l_eta<1.4","l_eta>-1.4"]
+weights = ["eff_and_pu_Weight","id_eff_Weight"]
 #cuts = ["isVBFJet==0"]
 #cuts = ["isVBFJet_NoB==0"]
-#leg=["w->el+#nu"]
-#leg=["w->mu+#nu"]
-#
 
-ifWeight = 2
-#weights = ["totalEventWeight"]
+#weights = ["totalEventWeight"]		# In Electrons presently only ID, ISO & GSF corr no trigger eff is added
 #weights = ["eff_and_pu_Weight"]
-weights = ["eff_and_pu_Weight","id_eff_Weight"]
 
 ####    path of samples #####
 store_mc_sig = "/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/SMP_VV_29June_LepFlavor_NoVBFCut_TwoHighestPtAsWjet_v3/output_el/"
@@ -44,6 +40,7 @@ store_data   = "/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/SMP_VV_
 #store_mc_sig = "/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/AddedLepFlavor_NoCutIfNoVBFfound_27Jul2016/output/output_el/"
 #store_mc_bkg = "/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/AddedLepFlavor_NoCutIfNoVBFfound_27Jul2016/output/output_el/"
 #store_data   = "/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/AddedLepFlavor_NoCutIfNoVBFfound_27Jul2016/output/output_el/"
+
 ####    Name of samples #####
 list_mc_sig = []
 NameSig = []
