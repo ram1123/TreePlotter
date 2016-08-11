@@ -1,5 +1,8 @@
 ##########################################################################
-#	VariableName			h1Bin	h1min	h1max	h2bin	h2min	h2max
+#	VariableName			h2Bin	h2min	h2max	h2bin	h2min	h2max
 ##########################################################################
 nVBFPairs:AK4_jetjet_mass	20		0		1500	5		0		5
 nVBFPairs:AK4_jetjet_pt		20		0		1500	5		0		5
+nVBFPairs:vbf_maxpt_j1_pt	20		0		1500	5		0		5
+l_pt:v_mt					20		0		350		20		0		500
+l_pt:pfMET					20		0		350		20		0		500
