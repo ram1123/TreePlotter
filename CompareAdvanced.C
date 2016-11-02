@@ -42,7 +42,7 @@ void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEventsLeg, bool l
     //============= START:: This sets the legend position ============================
 	float a1=0.29;
 	float a2;
-		if (n<=3) a2=0.59;
+		if (n<=3) a2=0.50;
 		else 
 		if (n==4) a2=0.42;
 		else
@@ -54,7 +54,7 @@ void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEventsLeg, bool l
 
     //============= Define few parameters   ========================================
 	int color[9] = {2,4,3,1,5,1,7,8,9};
-	int style[9] = {1,2,3,4,1,4};
+	int style[9] = {1,2,1,4,1,4};
 	double yMax = 0.0;	// Initialize Maximum value of y-axis
 	double histMax = 0.0;	
 
@@ -99,7 +99,7 @@ void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEventsLeg, bool l
 		cut1 = "";
 		
 		th[i]->SetStats(GetStatBox);
-		th[i]->SetLineWidth(2);
+		th[i]->SetLineWidth(3);
 		th[i]->SetLineStyle(style[i]);
 		th[i]->SetLineColor(color[i]);
 		
@@ -182,7 +182,7 @@ void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEventsLeg, bool l
 
 		a1 = a2;
 		if (n==2) a2=a2+0.30;
-		else a2 = a2+0.16;
+		else a2 = a2+0.20;
 //		cout<<"histogram  "<<Form("th%i",i)<<"  entries = "<<th[i]->GetEntries()<<endl;
 
 	}

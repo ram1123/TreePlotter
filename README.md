@@ -1,5 +1,5 @@
 # TreePlotter
-Trying to make an intelligent tree plotting code, where we just need to tell name of root file and variables to plot and it should do everything else automatically.
+This code (i.e. branch TreeDrawMethod) reads variables from two different trees and compare them on one canvas.
 
 ##How To Run:
 
@@ -19,9 +19,8 @@ Trying to make an intelligent tree plotting code, where we just need to tell nam
 ===========================================================
 [1] Detail of InputDetails.dat file:
 
-1. array **variable** contains name of variable then its number of bins, minx and maxx. And this format repeats for all the variable that you will add. For example if you want to add 2 variable named pt (with bin 50, minx = 0, and maxx = 500) and eta (with bin= 20, minx = -3.5, maxx = 3.5) then variable should look like this.
-
-    variable = ["pt","50","0","500","eta","20","-3.5","3.5"]
+1. In file InputDetails.dat there is a variable named **variable** which is list of tuples. This tuple should have size 4. First element of each tuple should be string that contains branch of the given tree, second, third and fourth element of tuple will be bin number, minx and maxx respectively.
+	variable = [ ("pt",50,0,500) , ("eta",20,-3.5,3.5) ]
 
 2. Format of array InputRootFiles: It contains name of root file and its Legend that you want to give. If you have two root files named abc.root adn xyz.root then it will look like:
 
@@ -48,4 +47,6 @@ Lxplus setting for root 6.04:
     source /afs/cern.ch/sw/lcg/external/gcc/4.8/x86_64-slc6/setup.sh
     source /afs/cern.ch/sw/lcg/app/releases/ROOT/6.04.02/x86_64-slc6-gcc48-opt/root/bin/thisroot.sh
 
+# To Do List
 
+1. Fix the code for compare different branches from same tree.
