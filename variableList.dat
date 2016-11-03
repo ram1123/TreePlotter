@@ -1,8 +1,17 @@
 ##########################################################################
-#	VariableName			h2Bin	h2min	h2max	h2bin	h2min	h2max
+#	VariableName			h2Bin	h2min	h2max	h1bin	h1min	h1max
 ##########################################################################
-nVBFPairs:AK4_jetjet_mass	20		0		1500	5		0		5
-nVBFPairs:AK4_jetjet_pt		20		0		1500	5		0		5
-nVBFPairs:vbf_maxpt_j1_pt	20		0		1500	5		0		5
-l_pt:v_mt					20		0		350		20		0		500
-l_pt:pfMET					20		0		350		20		0		500
+Iqrk0_eta:Iqrk0_pt		20		0		1400	20		-4.0		4.0
+Iqrk1_eta:Iqrk1_pt		20		0		1400	20		-4.0		4.0
+dEtajj:Iqrk0_pt			20		0		1400	20		4		8
+dEtajj:Iqrk1_pt			20		0		1400	20		4		8
+Wqrk0_eta:Wqrk0_pt		20		0		2800	20		-4.5		4.5
+Wqrk1_eta:Wqrk1_pt		20		0		2800	20		-4.5		4.5
+Iqrk0_phi:Wqrk0_phi		20		-3.5		3.5	20		-3.5		3.5
+Iqrk1_phi:Wqrk1_phi		20		-3.5		3.5	20		-3.5		3.5
+Iqrk0_eta:Wqrk0_eta		20		-4.0		4.0	20		-4.0		4.0
+Iqrk1_eta:Wqrk1_eta		20		-4.0		4.0	20		-4.0		4.0
+Iqrk0_eta:Wqrk0_phi		20		-4.0		4.0	20		-4.0		4.0
+Iqrk1_eta:Wqrk1_phi		20		-4.0		4.0	20		-4.0		4.0
+Iqrk0_pt:Wqrk0_eta		20		-4.0		4.0	20		30		1400
+Iqrk1_pt:Wqrk1_eta		20		-4.0		4.0	20		30		1000

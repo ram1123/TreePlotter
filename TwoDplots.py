@@ -11,10 +11,22 @@ ROOT.gStyle.SetOptStat('')  # Don't show the stat box
 
 os.system('mkdir -p plots/')
 
-path="/home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/NoBtagInPreSelection_4August2016/output_mu/"
+path="/home/ramkrishna/PhD_New_Dir_16July2016/PhysicsAnalysis/aQGC_Analysis/AnalyzeLHEFiles/"
 
-RootFiles=["WWTree_DYJets.root","WWTree_data_golden.root","WWTree_TTbar_powheg.root","WWTree_WZ_excl.root","WWTree_ZZ_excl.root","WWTree_WJets.root","WWTree_WW_excl.root","WWTree_sch.root","WWTree_tWch.root","WWTree_tWch_bar.root","WWTree_tch_bar.root"]
+RootFiles=["SM.root"]
+#RootFiles=["SM.root","FT0_minus2p5.root","FT0_plus2p5.root"]
 
+cutlist = open("CutList.dat", "r")
+
+cut=""
+count=0
+for columns in ( raw.strip().split() for raw in cutlist ):
+	if columns[0][:1] == "#": continue
+        if count == 0:
+                cut=str(columns[0])
+        else:
+                cut=" "+str(cut)+" && "+str(columns[0])
+        count=count+1
 
 #ROOT.gStyle.SetGridWidth(3)
 #ROOT.gStyle.SetGridStyle(1)
@@ -40,18 +52,18 @@ for files in RootFiles:
         #print columns[0],columns[1],columns[2],columns[3],columns[4],columns[5],columns[6]
         #print path+files
         f1=ROOT.TFile(path+files,"READ")
-        T=f1.Get("otree")
+        T=f1.Get("tree")
         #print T.GetEntries()
         #print columns[0],columns[1],columns[2],columns[3],columns[4],columns[5],columns[6]
 
         titles=columns[0].split(':',1)
 
         h1=ROOT.TH2F("h1","",int(columns[1]),float(columns[2]),float(columns[3]),int(columns[4]),float(columns[5]),float(columns[6]))
-        h1.SetTitle(filename)
-        h1.GetZaxis().SetRangeUser(0,1000);
+        #h1.SetTitle(filename)
+        h1.GetZaxis().SetRangeUser(0,100);
         h1.GetXaxis().SetTitle(titles[1])
         h1.GetYaxis().SetTitle(titles[0])
-        T.Draw(columns[0]+">>h1","","colz")
+        T.Draw(columns[0]+">>h1",cut,"colz")
         
 
 
