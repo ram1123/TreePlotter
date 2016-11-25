@@ -55,16 +55,22 @@ if data.CompareAdvanced_1RootFileNBranch == 0:
 	    file_Out.write( 'Canvas1->Clear();\n')
 	    file_Out.write( '\n')
 if data.CompareAdvanced_1RootFileNBranch == 1:
-	for a in range(0,len(data.variable)):
+	print "Test 1"
+	print data.variable_1RF
+	for a in range(0,len(data.variable_1RF)):
+		print "====\n\n"
 		stringD = ""
-		for b in range(0,(len(data.variable[a])-5)/2):
-	    		stringD += ',\\"%s\\",\\"%s\\"'%( data.variable[a][2*b], data.variable[a][2*b+1])
+		print data.variable_1RF[a][0]
+		for b in range(0,(len(data.variable_1RF[a][0]))):
+	    		#stringD += ',\\"%s\\",\\"%s\\"'%( data.variable[0][0], data.variable[0][0])
+			stringD += ',\\"%s\\"'%(data.variable_1RF[a][0][b])
+		print "stringD = ",stringD
 		file_Out.write( '\n')
-	    	file_Out.write( 'gROOT->ProcessLine(Form("compareQuantities(%i,\\"%s%s\\",%i,%i,%i,%i, %i, \\"%s\\",\\"\\",\\"\\",\\"%s\\",%s,%s,%s,\\"%%s\\",%i%s)",Cut.c_str()));\n'%(data.CompareAdvanced_1RootFileNBranch, data.PathOfRootFiles, data.InputRootFiles[0], data.isNormUnity, data.isNormLumi, data.isShowEventsLegend, data.isLegendDraw, data.isGetStatBox, data.TreeName, data.variable[a][-5], data.variable[a][-3], data.variable[a][-2], data.variable[a][-1], (len(data.variable[a])-5)/2, stringD))
-	    	file_Out.write( 'Canvas1->SaveAs("%s.pdf");\n'%data.variable[a][-4])
-	    	file_Out.write( 'Canvas1->SaveAs("%s.png");\n'%data.variable[a][-4])
+	    	file_Out.write( 'gROOT->ProcessLine(Form("compareQuantities(\\"%s%s\\",%i,%i,%i,%i, %i, \\"%s\\",\\"\\",\\"\\",\\"%s\\",%s,%s,%s,\\"%%s\\",%i%s)",Cut.c_str()));\n'%( data.PathOfRootFiles, data.InputRootFiles[0], data.isNormUnity, data.isNormLumi, data.isShowEventsLegend, data.isLegendDraw, data.isGetStatBox, data.TreeName, data.variable_1RF[a][2], data.variable_1RF[a][1][0], data.variable_1RF[a][1][1], data.variable_1RF[a][1][2],  (len(data.variable_1RF[a][0])/2), stringD))
+	    	file_Out.write( 'Canvas1->SaveAs("%s.pdf");\n'%data.variable_1RF[a][2])
+	    	file_Out.write( 'Canvas1->SaveAs("%s.png");\n'%data.variable_1RF[a][2])
 	    	file_Out.write( 'Canvas1->Clear();\n')
-	    	file_Out.write( '\n')
+	#    	file_Out.write( '\n')
 file_Out.write( '} \n')
 file_Out.close()
 print "Run the command:"

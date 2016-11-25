@@ -3,28 +3,43 @@
 
 # BUG: varialbe should have atleast two tuples, else it will give error.
 
-variable = [	("Lep0_theta",10,-3.5,3.5), ("Lep1_theta",10,-3.5,3.5), 
-		("Lep0_phi",10,-3.5,3.5), ("Lep1_phi",10,-3.5,3.5),
-		("Wqrk0_theta",10,-3.5,3.5), ("Wqrk1_theta",10,-3.5,3.5),
-		("Wqrk0_phi",10,-3.5,3.5), ("Wqrk1_phi",10,-3.5,3.5),
-		("Wqrk1_pt",20,0,400), ("Wqrk1_eta",10,-4.5,4.5), 
-		("Wqrk0_pt",10,0,400), ("Wqrk0_eta",10,-4.5,4.5),
-		("Iqrk0_theta",10,-3.5,3.5), ("Iqrk1_theta",10,-3.5,3.5), 
-		("Iqrk0_phi", 10,-3.5,3.5), ("Iqrk1_eta",10,-3.5,3.5),
-		("Iqrk1_pt", 20,0,400), ("Iqrk0_eta",10,-3.5,3.5), 
-		("Iqrk0_pt",20,0,400),  ("Iqrk1_eta",20,-8,8),
+variable = [	
+		("Lep0_theta",10,-3.5,3.5),	("Lep1_theta",10,-3.5,3.5) ,
+		("Lep0_phi",10,-3.5,3.5),	("Lep1_phi",10,-3.5,3.5),
+		("Lep0_eta",10,-4,4),		("Lep1_eta",10,-4,4),
+		("Lep0_pt",20,0,2000),		("Lep1_pt",20,0,2000),
+		("Wqrk0_theta",10,-3.5,3.5),	("Wqrk1_theta",10,-3.5,3.5),
+		("Wqrk0_phi",10,-3.5,3.5),	("Wqrk1_phi",10,-3.5,3.5),
+		("Wqrk1_pt",20,0,400),		("Wqrk1_eta",20,-4.5,4.5), 
+		("Wqrk0_pt",20,0,400),		("Wqrk0_eta",20,-4.5,4.5),
+		("Iqrk0_theta",10,-3.5,3.5),	("Iqrk1_theta",10,-3.5,3.5), 
+		("Iqrk0_phi", 10,-3.5,3.5),	("Iqrk1_phi", 10,-3.5,3.5),
+		("Iqrk0_eta",20,-4,4),	("Iqrk1_eta",20,-4,4),
+		("Iqrk1_pt", 20,30,400),		("Iqrk0_pt",20,30,1800),  
 		("initialQuarks",11,-5,6),
-		("mWLep",20,50, 110), ("mWHad",20,40,120),
-		("costheta1",20,-1,1), ("costheta2", 20, -1,1), ("costhetastar", 20,-1,1), 
-		("phi", 20,-4.5,4.5), ("phi1", 20,-4.5,4.5),
-		("mWW",20,0,5500), ("mjj",20,0,6000), ("dPhijj",20,0,3.5), ("dEtajj",20,0,14)
+		("mWLep",20,50, 110),		("mWHad",20,40,120),
+		("costheta1",20,-1,1),		("costheta2", 20, -1,1),	("costhetastar",20,-1,1), 
+		("phi", 20,-4.5,4.5),		("phi1", 20,-4.5,4.5),
+		("mWW",20,0,5500),		("mjj",30,0,6000),	("dPhijj",20,0,3.5),	("dEtajj",20,4,8),
+		("Iqrk0_eta+Iqrk1_eta",20,-8,8),
+		("(Wqrk0_eta+Wqrk1_eta)/2.0",20,-8,8)
 	]
 
-cut = ""
+variable_1RF = [
+		#[("Iqrk0_eta","Leading VBF-jet","Iqrk1_eta","Sub-leading VBF-jet"),(20,-4,4),"pseudo_rapidity_VBFjets"]
+		[("Iqrk0_eta","Leading VBF-jet","Iqrk1_eta","Sub-leading VBF-jet","Lep0_eta","Lepton","Lep1_eta","Neutrino","Wqrk0_eta","Leadin Wjet","Wqrk1_eta","Sub-leading Wjet"),(20,-4,4),"pseudo-rapidity_all"]
+		]
+
+#cut = ""
+#cut = "Iqrk1_pt > 30 && Iqrk0_pt > 30 "
+#cut = "Iqrk1_pt > 30 && Iqrk0_pt > 30 && Iqrk0_eta < 4.0 && Iqrk0_eta > -4.0 && Iqrk1_eta < 4.0 && Iqrk1_eta > -4.0"
+#cut = "Iqrk1_pt > 30 && Iqrk0_pt > 30 && Iqrk0_eta < 4.0 && Iqrk0_eta > -4.0 && Iqrk1_eta < 4.0 && Iqrk1_eta > -4.0 && dEtajj > 4 && mjj > 800 && mWW > 800 && Lep0_pt > 30 && Lep1_pt > 30 "
+cut = "Iqrk1_pt > 30 && Iqrk0_pt > 30 && Iqrk0_eta < 4.0 && Iqrk0_eta > -4.0 && Iqrk1_eta < 4.0 && Iqrk1_eta > -4.0 && dEtajj > 4 && mWW > 800 && mjj > 800"
+#cut = "Iqrk0_pt>30 && Iqrk1_pt>30 && Iqrk0_eta<4.0 && Iqrk0_eta>-4.0 && Iqrk1_eta<4.0 && Iqrk1_eta>-4.0 && dEtajj>4  && mWW > 800 && Wqrk0_eta<4.0 && Wqrk0_eta>-4.0 && Wqrk1_eta<4.0 && Wqrk1_eta>-4.0"
 
 isNormUnity = 1
 isNormLumi = 0
-isShowEventsLegend = 1
+isShowEventsLegend = 0
 isLegendDraw = 1
 
 isGetStatBox = 0
@@ -33,7 +48,13 @@ TreeName = "tree"
 
 PathOfRootFiles = "/home/ramkrishna/PhD_New_Dir_16July2016/PhysicsAnalysis/aQGC_Analysis/AnalyzeLHEFiles/"
 
-InputRootFiles = ["SM.root","SM","FT0_minus2p5.root","FT0=-2.5","FT0_plus2p5.root","FT0=2.5"]
+#InputRootFiles = ["SM.root","SM","SM_withVBFCuts.root","SM with VBF Cut"]
+#InputRootFiles = ["SM.root","SM"]
+InputRootFiles = ["SM_withVBFCuts.root","SM VBF","WPhadWMjj_SM_cteq6ll.root","VBFNLO"]
+#InputRootFiles = ["SM_withVBFCuts.root","SM VBF","WPhadWMjj_SM_cteq6ll.root","VBFNLO","SM.root","SM"]
+#InputRootFiles = ["SM.root","SM","WPhadWMjj_SM_cteq6ll.root","VBFNLO"]
+#InputRootFiles = ["SM_withVBFCuts.root","SM with VBF Cut"]
+InputRootFiles = ["wpwpjj_defCut.root", "W^{+}W^{+}","wmwmjj_defCut.root","W^{-}W^{-}","wmwpjj_defCut.root","W^{+}W^{-}","wmzjj_defCut.root","W^{-}Z","wpzjj_defCut.root","W^{+}Z"]
 
 # For plotting one branch from many trees on one canvas put CompareAdvanced_1RootFileNBranch = 0 
 # For plotting many branchs from one tree on one canvas put CompareAdvanced_1RootFileNBranch = 1	# This option is not working 

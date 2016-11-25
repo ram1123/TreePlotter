@@ -37,10 +37,28 @@
 #include "TStyle.h"
 //#include "CrossSection.h"
 
-void compareQuantities(bool NBranch1Same, char* InputRootFile, bool NormUnity, bool NormLumi, bool ShowEventsLeg, bool legDraw, int GetStatBox, const char* treeName, string var1, string var2, string xtitle, int nbins, float min, float max, TString cut, int n , ... ){
+void compareQuantities(string InputRootFile1, bool NormUnity, bool NormLumi, bool ShowEventsLeg, bool legDraw, int GetStatBox, const char* treeName, string var1, string var2, string xtitle, int nbins, float min, float max, TString cut, int n , ... ){
+
+    // ============
+    cout<<"=========== Print Input Parameters =========================="<<endl;
+    cout<<"Input Root file = "<<InputRootFile1<<endl;
+    cout<<"Normalized To unity = "<<NormUnity<<endl;
+    cout<<"Normalized to lumi = "<<NormLumi<<endl;
+    cout<<"Show Events on Legend = "<<ShowEventsLeg<<endl;
+    cout<<"Draw the legend = "<<legDraw<<endl;
+    cout<<"Get the stat box = "<<GetStatBox<<endl;
+    cout<<"Name of tree = "<<treeName<<endl;
+    cout<<"First Variable name = "<<var1<<endl;
+    cout<<"Second Variable name = "<<var2<<endl;
+    cout<<"X-axis title = "<<xtitle<<endl;
+    cout<<"Number of bins = "<<nbins<<endl;
+    cout<<"Min X = "<<min<<endl;
+    cout<<"Max X = "<<max<<endl;
+    cout<<"Applied Cut = "<<cut<<endl;
+    cout<<"\n==============================================================\n\n";
 	
     //============= START:: This sets the legend position ============================
-	float a1=0.29;
+	float a1=0.09;
 	float a2;
 		if (n<=3) a2=0.59;
 		else 
@@ -48,13 +66,13 @@ void compareQuantities(bool NBranch1Same, char* InputRootFile, bool NormUnity, b
 		else
 		{
 		cout<<"Please Enter the Correct value of size of legend"<<endl;
-		a2=0.42;
+		a2=0.22;
 		}
     //============= END:: This sets the legend position ============================
 
     //============= Define few parameters   ========================================
-	int color[9] = {2,4,3,1,5,1,7,8,9};
-	int style[9] = {1,2,3,4,1,4};
+	int color[9] = {1,1,2,2,3,3,8,9,10};
+	int style[9] = {1,2,1,2,1,2,6,7,8};
 	double yMax = 0.0;	// Initialize Maximum value of y-axis
 	double histMax = 0.0;	
 
@@ -74,30 +92,36 @@ void compareQuantities(bool NBranch1Same, char* InputRootFile, bool NormUnity, b
 
 	va_list list;
 	va_start(list, n);
-	string fname;
+	//string fname;
+	const char *InputRootFile = InputRootFile1.c_str();
+	char** fname=new char*[n];
 	TFile* tf = new TFile(InputRootFile);
 	TTree* tt = (TTree*)tf->Get(treeName);
 	TH1F** th = new TH1F*[n];
 	TPaveStats** tp = new TPaveStats*[n];
-	TLegend** leg = new TLegend*[n];
 	
+	TLegend * legi = new TLegend(0.1,0.8,0.90,0.9);
+	legi-> SetNColumns(3);
+
 	TString cut1;
 	for (int i=0;i<n;i++)
 	{
 
 
-		fname=va_arg(list, string);
+		//fname=va_arg(list, string);
+		fname[i]=va_arg(list, char*);
 		th[i] = new TH1F(Form("th%i",i),"",nbins,min,max);
 		cut1=cut;
-		tt->Draw(Form("%s>>th%i",fname.c_str(),i), cut1, "goff");
+		cout<<"fname = "<< fname[i]<<endl;
+		tt->Draw(Form("%s>>th%i",fname[i],i), cut, "goff");
 		cut1 = "";
 		
 		th[i]->SetStats(GetStatBox);
 		th[i]->SetLineWidth(2);
-		//th[i]->SetLineStyle(style[i]);
-		th[i]->SetLineStyle(1);
+		th[i]->SetLineStyle(style[i]);
+		//th[i]->SetLineStyle(1);
 		th[i]->SetLineColor(color[i]);
-		th[i]->SetLineWidth(4);
+		th[i]->SetLineWidth(3);
 		
 		th[i]->GetYaxis()->CenterTitle();
 		th[i]->GetYaxis()->SetTitleOffset(1.30);
@@ -106,9 +130,9 @@ void compareQuantities(bool NBranch1Same, char* InputRootFile, bool NormUnity, b
 
 		string tmp_str=va_arg(list,char*);
 
-		histMax = th[i]->GetMaximum()*1.15;
-		th[0]->SetMaximum(TMath::Max(histMax,yMax));
-		yMax = TMath::Max(histMax,yMax);
+		//histMax = th[i]->GetMaximum()*1.15;
+		//th[0]->SetMaximum(TMath::Max(histMax,yMax));
+		//yMax = TMath::Max(histMax,yMax);
 		th[i]->GetYaxis()->SetTitle("Number of Events");
 		if (NormLumi)
 		{
@@ -138,8 +162,8 @@ void compareQuantities(bool NBranch1Same, char* InputRootFile, bool NormUnity, b
 		if (i==0) th[i]->Scale(1./th[i]->Integral());
 		th[i]->Scale(1./th[i]->Integral());
 		th[i]->GetYaxis()->SetTitle("Fraction of Events");
-		th[0]->SetMaximum(TMath::Max(th[i]->GetMaximum()*1.10,yMax));
-		yMax = TMath::Max(th[i]->GetMaximum()*1.10,yMax);
+		th[0]->SetMaximum(TMath::Max(th[i]->GetMaximum()*1.20,yMax));
+		yMax = TMath::Max(th[i]->GetMaximum()*1.20,yMax);
 		 
 		/*
 		 * Normalized one histogram with another
@@ -157,27 +181,23 @@ void compareQuantities(bool NBranch1Same, char* InputRootFile, bool NormUnity, b
 
 		if (ShowEventsLeg)
 		{
-		if (n==2) leg[i] = new TLegend(a1,0.89,a2,0.99);
-		else leg[i] = new TLegend(a1,0.82,a2,0.99);
-		leg[i]->AddEntry(th[i],tmp_str.c_str(),"l");
+		legi->AddEntry(th[i],tmp_str.c_str(),"l");
 
 		int entries = th[i]->GetEntries();
 		char c[20];
 		sprintf(c,"%d Events",entries);
 
-		leg[i]->AddEntry(th[i],TString(c),"l");
+		legi->AddEntry(th[i],TString(c),"l");
 		}
 		else
 		{
-		if (n==2) leg[i] = new TLegend(a1,0.89,a2,0.95);
-		else leg[i] = new TLegend(a1,0.89,a2,0.95);
-		leg[i]->AddEntry(th[i],tmp_str.c_str(),"l");
+		legi->AddEntry(th[i],tmp_str.c_str(),"l");
 		}
 		//leg[i]->AddEntry(th[i],va_arg(list, char*),"l");
-		if (n==2) leg[i]->SetTextSize(0.05);
+		//if (n==2) leg[i]->SetTextSize(0.05);
 
 		if (legDraw)
-		    leg[i]->Draw("sames");
+		    legi->Draw("sames");
 		//cmsprem->Draw();
 
 		a1 = a2;
