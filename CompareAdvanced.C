@@ -53,8 +53,8 @@ void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEventsLeg, bool l
     //============= END:: This sets the legend position ============================
 
     //============= Define few parameters   ========================================
-	int color[9] = {2,4,3,1,5,1,7,8,9};
-	int style[9] = {1,2,1,4,1,4};
+	int color[9] = {2,2,3,4,4,1,7,8,9};
+	int style[9] = {1,2,1,1,2,4};
 	double yMax = 0.0;	// Initialize Maximum value of y-axis
 	double histMax = 0.0;	
 
@@ -79,7 +79,11 @@ void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEventsLeg, bool l
 	TTree** tt = new TTree*[n];
 	TH1F** th = new TH1F*[n];
 	TPaveStats** tp = new TPaveStats*[n];
-	TLegend** leg = new TLegend*[n];
+
+	TLegend * legi = new TLegend(0.1,0.8,0.90,0.9);
+	legi->SetTextSize(0.04);
+	legi-> SetNColumns(3);
+
 	
 	TString cut1;
 	for (int i=0;i<n;i++)
@@ -122,7 +126,7 @@ void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEventsLeg, bool l
 		if (i==0) th[i]->Scale((Lumi*xSec)/th[i]->Integral());
 		th[i]->Scale((Lumi*xSec)/th[i]->Integral());
 
-		histMax = th[i]->GetMaximum()*1.15;
+		histMax = th[i]->GetMaximum()*1.20;
 		th[0]->SetMaximum(TMath::Max(histMax,yMax));
 		yMax = TMath::Max(histMax,yMax);
 
@@ -138,8 +142,8 @@ void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEventsLeg, bool l
 		if (i==0) th[i]->Scale(1./th[i]->Integral());
 		th[i]->Scale(1./th[i]->Integral());
 		th[i]->GetYaxis()->SetTitle("Fraction of Events");
-		th[0]->SetMaximum(TMath::Max(th[i]->GetMaximum()*1.10,yMax));
-		yMax = TMath::Max(th[i]->GetMaximum()*1.10,yMax);
+		th[0]->SetMaximum(TMath::Max(th[i]->GetMaximum()*1.20,yMax));
+		yMax = TMath::Max(th[i]->GetMaximum()*1.20,yMax);
 		 
 		/*
 		 * Normalized one histogram with another
@@ -157,27 +161,21 @@ void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEventsLeg, bool l
 
 		if (ShowEventsLeg)
 		{
-		if (n==2) leg[i] = new TLegend(a1,0.89,a2,0.99);
-		else leg[i] = new TLegend(a1,0.82,a2,0.99);
-		leg[i]->AddEntry(th[i],tmp_str.c_str(),"l");
-
+		legi->AddEntry(th[i],tmp_str.c_str(),"l");
+		
 		int entries = th[i]->GetEntries();
 		char c[20];
 		sprintf(c,"%d Events",entries);
 
-		leg[i]->AddEntry(th[i],TString(c),"l");
+		legi->AddEntry(th[i],TString(c),"l");
 		}
 		else
 		{
-		if (n==2) leg[i] = new TLegend(a1,0.89,a2,0.95);
-		else leg[i] = new TLegend(a1,0.89,a2,0.95);
-		leg[i]->AddEntry(th[i],tmp_str.c_str(),"l");
+		legi->AddEntry(th[i],tmp_str.c_str(),"l");
 		}
-		//leg[i]->AddEntry(th[i],va_arg(list, char*),"l");
-		if (n==2) leg[i]->SetTextSize(0.05);
 
 		if (legDraw)
-		    leg[i]->Draw("sames");
+		    legi->Draw("sames");
 		//cmsprem->Draw();
 
 		a1 = a2;
