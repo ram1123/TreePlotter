@@ -39,22 +39,9 @@
 
 void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEventsLeg, bool legDraw, int GetStatBox, const char* treeName, string var1, string var2, string xtitle, int nbins, float min, float max, TString cut, int n , ... ){
 	
-    //============= START:: This sets the legend position ============================
-	float a1=0.29;
-	float a2;
-		if (n<=3) a2=0.50;
-		else 
-		if (n==4) a2=0.42;
-		else
-		{
-		cout<<"Please Enter the Correct value of size of legend"<<endl;
-		a2=0.42;
-		}
-    //============= END:: This sets the legend position ============================
-
     //============= Define few parameters   ========================================
 	int color[9] = {2,2,3,4,4,1,7,8,9};
-	int style[9] = {1,2,1,1,2,4};
+	int style[9] = {1,2,1,1,2,1};
 	double yMax = 0.0;	// Initialize Maximum value of y-axis
 	double histMax = 0.0;	
 
@@ -92,12 +79,8 @@ void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEventsLeg, bool l
 
 		fname[i]=va_arg(list, char*);
 		tf[i] = new TFile(fname[i]);
-		//tt[i] = (TTree*) tf[i]->Get("demo/tree");
 		tt[i] = (TTree*) tf[i]->Get(treeName);
-		//tt[i] = (TTree*) tf[i]->Get("TreeMaker2/PreSelection");
 		th[i] = new TH1F(Form("th%i",i),"",nbins,min,max);
-		//if (i==1) 
-		//cut1 = "eff_and_pu_Weight"+TString(cut);
 		cut1=cut;
 		tt[i]->Draw(Form("%s>>th%i",var1.c_str(),i), cut1, "goff");
 		cut1 = "";
@@ -161,13 +144,14 @@ void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEventsLeg, bool l
 
 		if (ShowEventsLeg)
 		{
-		legi->AddEntry(th[i],tmp_str.c_str(),"l");
-		
 		int entries = th[i]->GetEntries();
 		char c[20];
-		sprintf(c,"%d Events",entries);
+		sprintf(c," (%d)",(entries));
+		//sprintf(c,"%d Events",entries);
 
-		legi->AddEntry(th[i],TString(c),"l");
+		TString p = TString(tmp_str) + TString(c);
+
+		legi->AddEntry(th[i],TString(p),"l");
 		}
 		else
 		{
@@ -176,13 +160,6 @@ void compareQuantities(bool NormUnity, bool NormLumi, bool ShowEventsLeg, bool l
 
 		if (legDraw)
 		    legi->Draw("sames");
-		//cmsprem->Draw();
-
-		a1 = a2;
-		if (n==2) a2=a2+0.30;
-		else a2 = a2+0.20;
-//		cout<<"histogram  "<<Form("th%i",i)<<"  entries = "<<th[i]->GetEntries()<<endl;
-
 	}
 	va_end(list);
 

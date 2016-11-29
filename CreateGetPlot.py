@@ -50,8 +50,8 @@ file_Out.write( '\n')
 if data.CompareAdvanced_1RootFileNBranch == 0:
 	for a in range(0,len(data.variable)):
 	    file_Out.write( 'gROOT->ProcessLine(Form("compareQuantities(%i,%i,%i,%i, %i, \\"%s\\",\\"%s\\",\\"\\",\\"\\",%s,%s,%s,\\"%%s\\",%i%s)",Cut.c_str()));\n'%(data.isNormUnity, data.isNormLumi, data.isShowEventsLegend, data.isLegendDraw, data.isGetStatBox, data.TreeName, data.variable[a][0], data.variable[a][1], data.variable[a][2], data.variable[a][3], len(data.InputRootFiles)/2, stringD))
-	    file_Out.write( 'Canvas1->SaveAs("%s.pdf");\n'%data.variable[a][0])
-	    file_Out.write( 'Canvas1->SaveAs("%s.png");\n'%data.variable[a][0])
+	    file_Out.write( 'Canvas1->SaveAs("%s.pdf");\n'%(''.join(e for e in data.variable[a][0] if e.isalnum())))
+	    file_Out.write( 'Canvas1->SaveAs("%s.png");\n'%(''.join(e for e in data.variable[a][0] if e.isalnum())))
 	    file_Out.write( 'Canvas1->Clear();\n')
 	    file_Out.write( '\n')
 if data.CompareAdvanced_1RootFileNBranch == 1:
@@ -67,8 +67,8 @@ if data.CompareAdvanced_1RootFileNBranch == 1:
 		print "stringD = ",stringD
 		file_Out.write( '\n')
 	    	file_Out.write( 'gROOT->ProcessLine(Form("compareQuantities(\\"%s%s\\",%i,%i,%i,%i, %i, \\"%s\\",\\"\\",\\"\\",\\"%s\\",%s,%s,%s,\\"%%s\\",%i%s)",Cut.c_str()));\n'%( data.PathOfRootFiles, data.InputRootFiles[0], data.isNormUnity, data.isNormLumi, data.isShowEventsLegend, data.isLegendDraw, data.isGetStatBox, data.TreeName, data.variable_1RF[a][2], data.variable_1RF[a][1][0], data.variable_1RF[a][1][1], data.variable_1RF[a][1][2],  (len(data.variable_1RF[a][0])/2), stringD))
-	    	file_Out.write( 'Canvas1->SaveAs("%s.pdf");\n'%data.variable_1RF[a][2])
-	    	file_Out.write( 'Canvas1->SaveAs("%s.png");\n'%data.variable_1RF[a][2])
+	    	file_Out.write( 'Canvas1->SaveAs("%s.pdf");\n'%(''.join(e for e in data.variable_1RF[a][2] if e.isalnum())))
+	    	file_Out.write( 'Canvas1->SaveAs("%s.png");\n'%(''.join(e for e in data.variable_1RF[a][2] if e.isalnum())))
 	    	file_Out.write( 'Canvas1->Clear();\n')
 	#    	file_Out.write( '\n')
 file_Out.write( '} \n')
