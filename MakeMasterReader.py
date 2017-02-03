@@ -363,8 +363,8 @@ for a in range(0,len(data.varList)/4):
     print 'h2->Draw("");'
     print '\tc1->SaveAs("%s.pdf");'%data.varList[a*4]
     print '\tc1->SaveAs("%s.png");'%data.varList[a*4]
-    print '\tc1->SaveAs("%s.C");'%data.varList[a*4]
-    print '\tc1->SaveAs("%s.root");'%data.varList[a*4]
+    #print '\tc1->SaveAs("%s.C");'%data.varList[a*4]
+    #print '\tc1->SaveAs("%s.root");'%data.varList[a*4]
     print '\tleg->Clear();'
     print '\tc1->Clear();\n\t//###########################################################\n\n'
 
