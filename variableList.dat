@@ -1,0 +1,8 @@
+##########################################################################
+#	VariableName			h2Bin	h2min	h2max	h1bin	h1min	h1max
+##########################################################################
+vbf_maxpt_j1_pt:vbf_maxpt_j1_eta	20	-5.0	5.0	20	30	900
+vbf_maxpt_j2_pt:vbf_maxpt_j2_eta	20	-5.0	5.0	20	30	500
+PuppiAK8_jet_pt_so:vbf_maxpt_j1_pt	20	30	900	20	200	900
+PuppiAK8_jet_pt_so:vbf_maxpt_j2_pt	20	30	500	20	200	900
+PuppiAK8_jet_pt_so:vbf_maxpt_j1_pt*vbf_maxpt_j2_pt 20	1000	25000	20	200	900
