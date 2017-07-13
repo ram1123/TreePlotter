@@ -11,10 +11,10 @@ ROOT.gStyle.SetOptStat('')  # Don't show the stat box
 
 os.system('mkdir -p plots/')
 
-path="/home/ramkrishna/PhD_New_Dir_16July2016/PhysicsAnalysis/aQGC_Analysis/AnalyzeLHEFiles/"
+path="/afs/cern.ch/user/r/rasharma/work/aQGC_Studies/SecondStep_WWTrees/CMSSW_8_0_11/src/BaconAnalyzer/WWAnalysisRun2/"
 
-RootFiles=["SM.root"]
-#RootFiles=["SM.root","FT0_minus2p5.root","FT0_plus2p5.root"]
+RootFiles=["OutPutRootFile_el.root"]
+#RootFiles=["OutPutRootFile_el.root","OutPutRootFile_mu.root"]
 
 cutlist = open("CutList.dat", "r")
 
@@ -49,27 +49,42 @@ for files in RootFiles:
     crs = open("variableList.dat", "r")
     for columns in ( raw.strip().split() for raw in crs ):
         if columns[0][:1] == "#":   continue
-        #print columns[0],columns[1],columns[2],columns[3],columns[4],columns[5],columns[6]
+	print "=======		PLOT DETAILS	==================\n"
+	print len(columns)
+	for list1 in columns:
+		print list1,"\t",
+	print "\n==================================================="
+        #print columns[0],columns[1],columns[2],columns[3],columns[4],columns[5],columns[6],columns[7]
         #print path+files
         f1=ROOT.TFile(path+files,"READ")
-        T=f1.Get("tree")
+        T=f1.Get("otree")
         #print T.GetEntries()
         #print columns[0],columns[1],columns[2],columns[3],columns[4],columns[5],columns[6]
 
-        titles=columns[0].split(':',1)
+	if len(columns) == 8:
+		titles=columns[7].split(':',1)
+		print titles
+	else:
+        	titles=columns[0].split(':',1)
+	#titles=["assymetry jet #eta (leading)","assymetry jet #eta (sub-leading)"]
 
         h1=ROOT.TH2F("h1","",int(columns[1]),float(columns[2]),float(columns[3]),int(columns[4]),float(columns[5]),float(columns[6]))
         #h1.SetTitle(filename)
-        h1.GetZaxis().SetRangeUser(0,100);
-        h1.GetXaxis().SetTitle(titles[1])
-        h1.GetYaxis().SetTitle(titles[0])
+        h1.GetZaxis().SetRangeUser(0,10);
+	#re.sub('[!@#$]', '', line)
+        h1.GetXaxis().SetTitle(re.sub('["$]',' ',titles[1]))
+        h1.GetYaxis().SetTitle(re.sub('["$]',' ',titles[0]))
+        h1.GetYaxis().SetTitleOffset(1.2)
         T.Draw(columns[0]+">>h1",cut,"colz")
         
 
 
-        c.Print("plots/"+filename+"/Scatter_"+filename+"_"+titles[0]+"_vs_"+titles[1]+".png")
-        c.Print("plots/"+filename+"/Scatter_"+filename+"_"+titles[0]+"_vs_"+titles[1]+".pdf")
-        c.Print("plots/"+filename+"/Scatter_"+filename+"_"+titles[0]+"_vs_"+titles[1]+".C")
+	t1=''.join(e for e in titles[0] if e.isalnum())
+	t2=''.join(e for e in titles[1] if e.isalnum())
+
+        c.Print("plots/"+filename+"/Scatter_"+filename+"_"+t1+"_vs_"+t2+".png")
+        c.Print("plots/"+filename+"/Scatter_"+filename+"_"+t1+"_vs_"+t2+".pdf")
+        c.Print("plots/"+filename+"/Scatter_"+filename+"_"+t1+"_vs_"+t2+".C")
         #c.Write()
         c.Clear()
         countv=countv+1

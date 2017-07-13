@@ -1,17 +1,14 @@
 ##########################################################################
 #	VariableName			h2Bin	h2min	h2max	h1bin	h1min	h1max
+#	=> if you put $ in the last column then the script will place space at that position
+#	=> 
 ##########################################################################
-Iqrk0_eta:Iqrk0_pt		20		0		1400	20		-4.0		4.0
-Iqrk1_eta:Iqrk1_pt		20		0		1400	20		-4.0		4.0
-dEtajj:Iqrk0_pt			20		0		1400	20		4		8
-dEtajj:Iqrk1_pt			20		0		1400	20		4		8
-Wqrk0_eta:Wqrk0_pt		20		0		2800	20		-4.5		4.5
-Wqrk1_eta:Wqrk1_pt		20		0		2800	20		-4.5		4.5
-Iqrk0_phi:Wqrk0_phi		20		-3.5		3.5	20		-3.5		3.5
-Iqrk1_phi:Wqrk1_phi		20		-3.5		3.5	20		-3.5		3.5
-Iqrk0_eta:Wqrk0_eta		20		-4.0		4.0	20		-4.0		4.0
-Iqrk1_eta:Wqrk1_eta		20		-4.0		4.0	20		-4.0		4.0
-Iqrk0_eta:Wqrk0_phi		20		-4.0		4.0	20		-4.0		4.0
-Iqrk1_eta:Wqrk1_phi		20		-4.0		4.0	20		-4.0		4.0
-Iqrk0_pt:Wqrk0_eta		20		-4.0		4.0	20		30		1400
-Iqrk1_pt:Wqrk1_eta		20		-4.0		4.0	20		30		1000
+fabs((AK4_1_eta_gen-vbf_maxpt_j1_eta)/(AK4_1_eta_gen+vbf_maxpt_j1_eta)):fabs((AK4_2_eta_gen-vbf_maxpt_j2_eta)/(AK4_2_eta_gen+vbf_maxpt_j2_eta))	20	0	1	20	0	1	"assymmetry$leading$VBF$jet$#eta$(RECO)":"assymmetry$sub-leading$VBF$jet$#eta$(RECO)"
+ungroomed_PuppiAK8_jet_pt:PuppiAK8_jet_mass_so	12	50	110	16	200	1000	"W-boson$p_{T}$(RECO)":"W-boson$mass$(RECO)"
+ungroomed_PuppiAK8_jet_pt:ungroomed_PuppiAK8_jet_eta	12	-2.5	2.5	16	200	1000	"W-boson$p_{T}$(RECO)":"W-boson$#eta$(RECO)"
+vbf_maxpt_j1_pt:AK4_1_pt_gen 	30	30	1000	30	30	700	"Leading$VBF$Jet$p_{T}$$(RECO)":"Leading$VBF$Jet$p_{T}$$(GEN)"
+vbf_maxpt_j2_pt:AK4_2_pt_gen 	30	30	400	30	30	300	"Sub-Leading$VBF$Jet$p_{T}$$(RECO)":"Sub-Leading$VBF$Jet$p_{T}$$(GEN)"
+vbf_maxpt_j1_pt:vbf_maxpt_j1_eta 	20	-5	5	20	30	700	"Leading$VBF$Jet$p_{T}$$(RECO)":"Leading$VBF$Jet$#eta$$(RECO)"
+vbf_maxpt_j2_pt:vbf_maxpt_j2_eta 	20	-4.5	4.5	20	30	200	"Sub-Leading$VBF$Jet$p_{T}$$(RECO)":"Sub-Leading$VBF$Jet$#eta$$(RECO)"
+vbf_maxpt_j1_pt:ungroomed_PuppiAK8_jet_pt 	20	200	1000	20	30	700	"Leading$VBF$Jet$p_{T}$$(RECO)":"Hadronic$W-boson$$p_{T}$$(RECO)"
+AK4_1_pt_gen:hadW_pt_gen 	20	200	1000	20	30	700	"Leading$VBF$Jet$p_{T}$$(GEN)":"Hadronic$W-boson$$p_{T}$$(GEN)"

@@ -1,12 +1,3 @@
 # NOTE: If you put # as first character in line then that line will be commented.
 # Cut on VBF Jets
-Iqrk0_pt>30
-Iqrk1_pt>30
-Iqrk0_eta<4.0 
-Iqrk0_eta>-4.0 
-Iqrk1_eta<4.0 
-Iqrk1_eta>-4.0
-dEtajj>4
 # Cut on Dijet 
-mjj>800
-mWW>800
