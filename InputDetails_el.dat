@@ -5,15 +5,17 @@ treeName="otree"
 ifPUCorr=0
 
 ## If you need to apply more than 1 cut or weight then please add it in MakeMasterReader.py code first
-ifCut = 2	# if 0 : no cut, 1: one cut, 2: two cut, 3: three cut, maximum 6 cuts can be applied presently
-ifWeight = 2
-cuts = ["pfMET>40","isVBFJet_NoB==1"]
-weights = ["eff_and_pu_Weight","id_eff_Weight"]
+ifCut = 5	# if 0 : no cut, 1: one cut, 2: two cut, 3: three cut, maximum 6 cuts can be applied presently
+ifWeight = 1
+cuts = ["issignal==1","pfMET>80","v_pt>200","ungroomed_jet_pt>200","jet_pt_so>200"]
+#cuts = ["pfMET>40","isVBFJet_NoB==1"]
+#weights = ["eff_and_pu_Weight","id_eff_Weight"]
 #cuts = ["isVBFJet==0"]
 #cuts = ["isVBFJet_NoB==0"]
 
 #weights = ["totalEventWeight"]		# In Electrons presently only ID, ISO & GSF corr no trigger eff is added
-#weights = ["eff_and_pu_Weight"]
+#weights = ["totalEventWeight","wSampleWeight"]		# In Electrons presently only ID, ISO & GSF corr no trigger eff is added
+weights = ["eff_and_pu_Weight"]
 
 ####    path of samples #####
 store_mc_sig = "/afs/cern.ch/user/r/rasharma/work/aQGC_Studies/SecondStep_WWTrees/CMSSW_8_0_11/src/LepAJet_NoCutJet/copy_toRunDYEle/WWAnalysisRun2/output/output_el/"
@@ -42,36 +44,42 @@ store_data   = "/afs/cern.ch/user/r/rasharma/work/aQGC_Studies/SecondStep_WWTree
 
 ####    Name of samples #####
 list_mc_sig = []
+#		" WWTree_Signal_LLpLTpTT_el.root ",
+
 NameSig = []
 SigScale = []
 list_mc_bkg =[	
-				 "WWTree_WW_excl.root",	"WWTree_WZ_excl.root", "WWTree_ZZ_excl.root"
-				, "WWTree_tWch.root", "WWTree_tWch_bar.root", "WWTree_tch_bar.root", "WWTree_sch.root"
-#				, "WWTree_DYJets.root"
-				, "WWTree_WJets100.root","WWTree_WJets200.root","WWTree_WJets1200.root"
-				,"WWTree_WJets2500.root","WWTree_WJets400.root","WWTree_WJets600bis.root"
-				,"WWTree_WJets800.root"
-				,"WWTree_TTbar_powheg.root"
-			]
-NameBkg =[	
-			"WW" ,"WZ", "ZZ"
-			, "tWch", "tWch_bar", "tch_bar", "sch"
-#			, "DYJets"
-			, "WJets100","WJets200","WJets1200"
-			,"WJets2500","WJets400","WJets600"
-			,"WJets"
-			,"TTbar"
+		"WWTree_WW_excla_el.root ",		"WWTree_WZ_excl_amcatnlo_el.root ",		"WWTree_ZZ_excl_amcatnlo_el.root ",
+		"WWTree_sch_el.root ",
+		"WWTree_tWch_bara_el.root ",		"WWTree_tWcha_el.root ",
+		"WWTree_tch_bar_el.root ",		"WWTree_tch_el.root ",
+		"WWTree_DYJetsToLL_amcatnlo_ext1_el.root ",
+		"WWTree_TTbar_powheg_el.root ",
+		"WWTree_WJets100a_el.root ",		"WWTree_WJets1200a_el.root ",		"WWTree_WJets200a_el.root ",		"WWTree_WJets2500a_el.root ",		"WWTree_WJets400a_el.root ",		"WWTree_WJets600a_el.root ",		"WWTree_WJets800ext1_el.root "
+
 		]
+NameBkg =[	
+" WW_excla "," WZ_excl_amcatnlo "," ZZ_excl_amcatnlo ",
+" sch ",
+" tWch_bara "," tWcha ",
+" tch_bar "," tch ",
+" DYJetsToLL ",	" TTbar_powheg ",
+" WJets100a "," WJets1200a "," WJets200a "," WJets2500a "," WJets400a "," WJets600a "," WJets800ext1 "
+
+	]
+
 scale = [	
-			 0.1486 , 0.0024 , 0.0007
-			, 0.2068 , 0.2096 , 0.0899 , 0.0212
-#			, 1.2100
-			, 0.2836, 0.4207, 0.0313
-			, 0.0007, 0.1444, 0.0199
-			, 0.0048
-			, 0.0265 
+0.1486,	0.0118,	0.0056	,
+0.3038,	
+0.0599,	0.0603,
+0.0558,	0.0541,
+3.1373,	0.2880,
+0.5484,	0.0063,	0.2933,	0.0004,	0.2040,	0.0209,	0.0287
+
 		] 	# scale factor for respective background
-list_data = ["WWTree_data_golden.root"] 
+
+
+list_data = ["WWTree_data_golden_C1D1F1G1H23.root"] 
 
 ####	Name of Branches     ####
 #
@@ -80,23 +88,41 @@ list_data = ["WWTree_data_golden.root"]
 #   Then next variable its bin, min-x and max-x, and so on...
 #
 varList	=	[
-			"nPV","40","0","40"
+			"nPV","70","0","70"
+			,"pfMET","50","0","500", "pfMETpuppi","50","0","500"
 			,"l_pt","35","0","500","l_eta","18","-2.1","2.1","l_phi","15","-3.5","3.5"
-			,"pfMET","50","0","500"
+			,"ungroomed_jet_pt","50","0","1500"
+			,"jet_mass_pr","50","0","500", "jet_mass_so", "50","0","500", "jet_pt_so","25","0","1500"
+			#,"jet_mass","50","0","1000"
+			,"jet_tau2tau1","20","0","1"
+			,"AK4_jetjet_pt","50","0","2000"
+			,"AK4_jetjet_mass","50","0","1000"
+			,"AK4_jetjet_deltaeta","50","0","5.0"
+			,"AK4_jetjet_deltaphi","50","0","5.0"
+			,"AK4_jetjet_deltar","50","0","5.0"
 			,"vbf_maxpt_j1_pt","60","0","900", "vbf_maxpt_j2_pt","40","0","600"
 			,"vbf_maxpt_j1_eta","30","-2.4","2.4", "vbf_maxpt_j2_eta","30","-2.4","2.4"
+			,"vbf_maxpt_jj_pt","25","0","500"
+			,"vbf_maxpt_jj_eta","25","-4","4"
+			,"vbf_maxpt_jj_phi","25","-4","4"
+			,"vbf_maxpt_jj_m","25","0","1000"
 			,"AK4_jet1_pt","40","0","600", "AK4_jet2_pt","25","40","500"
 			,"AK4_jet1_eta","30","-2.4","2.4", "AK4_jet2_eta","30","-2.4","2.4"
 			,"vbf_maxpt_jj_m","50","0","3000","vbf_maxpt_jj_pt","25","0","1000"
-			,"AK4_jetjet_mass","50","0","200"
-			,"AK4_jetjet_pt","50","0","2000"
-			,"AK4_jetjet_deltaeta","50","-1.5","1.5"
 			,"v_mt","20","0","300"
 			,"v_pt","20","0","1400"
+			,"v_eta","20","-4","4"
+			,"mass_lvj_type0","20","0","1800"
 			,"mass_lvjj_type0_AK4","50","0","1800"
 			,"deltaR_lak4jetjet","20","0.0","6.0"
 			,"deltaphi_METak4jetjet","20","0.0","3.3"
-			,"deltaphi_Vak4jetjet","20","0","3.3"
+			,"deltaphi_Vak4jetjet","20","0","4.0"
 			,"njets","12","3","15"
-			,"nVBFPairs","10","0","10"
+			,"njets_unmerged","10","0","10"
+			,"nBTagJet_loose","5","0","5"
+			,"nBTagJet_loose_unmerged","5","0","5"	
+			,"deltaR_lak8jet","25","1","8"
+			,"deltaphi_METak8jet","25","1.5","3.5"
+			,"deltaphi_Vak8jet","25","2","3.5"
+	#		,"nVBFPairs","10","0","10"
 			]

@@ -265,7 +265,8 @@ for a in range(0,len(data.varList)/4):
     CountST = 0
     CountWW = 0
     for bkg in range(0,len(data.list_mc_bkg)):
-    	print '\tt%i_BkgHist[%i]->Scale(%f);'%(bkg,a,float(data.scale[bkg]))
+    	print '\tt%i_BkgHist[%i]->Scale((%f*35900.0)/(mc_bkg_%i.nEvents-mc_bkg_%i.nNegEvents));'%(bkg,a,float(data.scale[bkg]),bkg,bkg)
+	print '\tcout<<"Events = "<<mc_bkg_%i.nEvents<<",   NegEvents = "<<mc_bkg_%i.nNegEvents<<"     SF = "<<(%f*35900.0)/(mc_bkg_%i.nEvents-mc_bkg_%i.nNegEvents)<<endl;'%(bkg,bkg,float(data.scale[bkg]),bkg,bkg)
     	print '\tHistMax = t%i_BkgHist[%i]->GetMaximum()*1.80;'%(bkg, a)
 	if len(data.list_mc_sig) != 0:
     		print '\tt0_SigHist[0]->SetMaximum(TMath::Max(HistMax,yMax));'
@@ -363,8 +364,8 @@ for a in range(0,len(data.varList)/4):
     print 'h2->Draw("");'
     print '\tc1->SaveAs("%s.pdf");'%data.varList[a*4]
     print '\tc1->SaveAs("%s.png");'%data.varList[a*4]
-    print '\tc1->SaveAs("%s.C");'%data.varList[a*4]
-    print '\tc1->SaveAs("%s.root");'%data.varList[a*4]
+    #print '\tc1->SaveAs("%s.C");'%data.varList[a*4]
+    #print '\tc1->SaveAs("%s.root");'%data.varList[a*4]
     print '\tleg->Clear();'
     print '\tc1->Clear();\n\t//###########################################################\n\n'
 
