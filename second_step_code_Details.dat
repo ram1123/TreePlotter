@@ -26,7 +26,6 @@ Trigger:	HLT_IsoMu22_v
 =>	pT > 30 GeV
 =>	|𝜂| < 2.4
 =>	Jets cleaned from lepton: ΔR > 0.3
-=>	B-discriminator CSV M < 0.800
 =>	Should have atleast 4 jets
 
 ======================================================================
@@ -40,3 +39,8 @@ Trigger:	HLT_IsoMu22_v
 ======================================================================
 ======	W-jet Selection		==========================================
 =>	Choose highest PT jets from remaining ones as W jets.
+
+
+======================================================================
+
+=>	Saved b-discriminator value for each jets instead of applying it at pre-selection level

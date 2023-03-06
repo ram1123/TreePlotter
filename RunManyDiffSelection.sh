@@ -2,7 +2,7 @@
 #source Main.sh /home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/Changed_VBF_Wjet_Selection/output/output_mu/WWTree_tWch.root otree
 # V2
 #source Main.sh /home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/AddedLepFlavor_NoCutIfNoVBFfound/output/output_mu/WWTree_tWch.root otree
-#source Main.sh /home/ramkrishna/cernbox/aQGC_Studies/SecondStep_Ntuples/OnlyLep_WithoutIdIso/output/output_mu/WWTree_tWch.root otree
+#source Main.sh /afs/cern.ch/user/r/rasharma/work/aQGC_Studies/SecondStep_WWTrees/CMSSW_8_0_11/src/LepAJet_NoCutJet/copy_toRunDYEle/WWAnalysisRun2/output/output_el/WWTree_sch.root otree
 
 #echo "python MakeMasterReader.py "
 #python MakeMasterReader.py 
@@ -47,13 +47,14 @@ fi
 
 echo -e "\n\n=====================================================================\n\n"
 echo -e     "==========	Plots for electrons: With Corr & MET Cut	=============="
-cp 	InputDetails_el.dat	InputDetails.dat
+#cp 	InputDetails_el.dat	InputDetails.dat
+#cp 	InputDetails_TTbar.dat	InputDetails.dat
 echo "python MakeMasterReader.py "
 #python MakeMasterReader.py 
-#echo "root -l -b -q MasterReader.C "
-#root -l -b -q MasterReader.C 
-#mkdir Plots_El_Corr_MET40_${today}
-#cp second_step_code_Details.dat InputDetails.dat  MasterReader.C *.png *.pdf *.root Plots_El_Corr_MET40_${today}
+echo "root -l -b -q MasterReader.C "
+root -l -b -q MasterReader.C 
+mkdir Plots_El_TTBarControl_MET40_${today}
+cp second_step_code_Details.dat InputDetails.dat  MasterReader.C *.png *.pdf *.root Plots_El_Corr_MET40_${today}
 #source /home/ramkrishna/MyLocalWebsite/ImageHTMLcreateScript.sh  /home/ramkrishna/PhD_New_Dir_16July2016/PhysicsAnalysis/aQGC_Analysis/aQGC_Plotting_Code/TreePlotter/Plots_El_Corr_MET40_${today}/  HTMLFiles/Plots_El_Corr_MET40_${today}.htm
 #
 #echo -e "\n\n=====================================================================\n\n"
